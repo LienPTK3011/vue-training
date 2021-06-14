@@ -3,12 +3,19 @@
     <div class="staff-form">
       <h3>{{ staff.name }}' todos list</h3>
       <div class="add-todo">
-        <input type="text" @keyup.enter="addNewTodo()" id="new-todo" v-model="newTodo">
-        <button id="add-todo-btn" @click="addNewTodo()">Add</button>
+        <v-text-field
+          v-model="newTodo"
+          label="New todo"
+          required
+        ></v-text-field>
+        <v-btn 
+         @click="addNewTodo()"
+          elevation="2"
+        >Add</v-btn>
       </div>
     
       <div class="todos-list">
-        <div class="todo" :key="index" v-for="(todo, index) in staff.todos">
+        <!-- <div class="todo" :key="index" v-for="(todo, index) in staff.todos">
           <div class="todo-detail">
             <h4 @click="editTodo(todo)" v-if="!todo.edit">{{ todo.name }}</h4>
             <input @keyup.enter="doneEditTodo(todo)" v-else type="text" v-model="todo.name">
@@ -18,7 +25,42 @@
             &times;
           </div>
           
-        </div>
+        </div> -->
+        <v-simple-table>
+          <template v-slot:default>
+            <thead>
+              <tr>
+                <th class="text-left">
+                  Name
+                </th>
+                <th class="text-left">
+                  
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(todo, index) in staff.todos"
+                :key="index"
+              >
+                <td>
+                  <v-checkbox
+                    @click="doneEditTodo(todo)"
+                    v-model="todo.completed"
+                  ></v-checkbox>
+                </td>
+                <td @click="editTodo(todo)" :class="{completed: todo.completed}" v-if="!todo.edit">{{ todo.name }}</td>
+                <td @keyup.enter="doneEditTodo(todo)" v-else>
+                  <v-text-field
+                    v-model="todo.name"
+                    required
+                  ></v-text-field>
+                </td>
+                <td class="delete-todo" @click="deleteTodo(index)">&times;</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
       </div>
     </div>
   </div>
@@ -54,7 +96,9 @@
     }
 
     doneEditTodo(todo) {
-      todo.edit = false;
+      if (todo.edit) {
+        todo.edit = false;
+      }
     }
   }
 </script>
@@ -91,9 +135,6 @@
 
   .delete-todo {
     cursor: pointer;
-    padding-left: 4%;
-    position: absolute;
-    right: 0;
   }
 
   .delete-todo:hover {
@@ -105,6 +146,10 @@
     align-items: center;
     width: 80%;
     position: relative;
+  }
+
+  .completed {
+    text-decoration: line-through;
   }
 
 </style>
