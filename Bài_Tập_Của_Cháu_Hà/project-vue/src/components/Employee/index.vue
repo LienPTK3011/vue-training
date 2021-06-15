@@ -1,33 +1,21 @@
 <template>
   <div>
     <v-container>
-      <div class="wrapHeaderEmployee">
-        <div class="title">
-          <h1>The list of Employee</h1>
-        </div>
-        <div class="wrapButtonAdd">
-          <v-btn 
-            elevation="8" 
-            class="detail"
-            @click="$router.push({ name: 'Employee_Add' })"
-          > New member </v-btn>
-        </div>
-      </div>
+      <h1>The list of Employee</h1>
       <v-row>
         <v-col
           cols="12"
           md="3"
           v-for="(item, key) in employees"
           :key="key"
-          class="itemEmployee"
         >
-          <v-card elevation="13" class="cardEmployee">
+          <v-card elevation="13" :class="item.id">
             <v-progress-linear color="white" indeterminate></v-progress-linear>
+
             <div
               :class="{
                 wrapInforUser: item.status == 'Working',
-                wrapInforUserNotWorking: item.status == 'Not Working',
-                new_Staff: item.status == 'New staff',
+                wrapInforUserNotWorking: item.status == 'not_woking',
               }"
             >
               <v-avatar>
@@ -52,7 +40,7 @@
             <div class="wrapInforRole">
               <div class="namePart">
                 <div>Position:</div>
-                <h3>{{ item.position }}</h3>
+                <h3>{{ item.postion }}</h3>
               </div>
             </div>
             <div class="wrapInforRole">
@@ -74,7 +62,14 @@
                   > Detail 
                   </v-btn>
                 </router-link>
-                <Alert/>              
+                  <v-btn class="buttonRemove"
+                    :dialog="dialog"
+                    @input="updateDialog"
+                    
+                  >
+                    Delete
+                  </v-btn>
+                <ButtonRemove :getIdItem="item.id"/>
               </v-card-actions>
             </div>
           </v-card>
@@ -84,19 +79,66 @@
   </div>
 </template>
 <style lang="scss">
-  @import "../../assets/scss/listEmployee.scss";
+.wrapInforRole {
+  display: flex;
+  padding: 5px 25px 5px 25px;
+  justify-content: space-around;
+
+  .namePart {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    h3 {
+      padding: 0 0 0 15px;
+    }
+  }
+}
+.wrapInforUserNotWorking {
+  display: flex;
+  padding: 25px;
+  justify-content: space-around;
+  background: #b3b3b3;
+  color: #fff;
+  img {
+    object-fit: cover;
+  }
+}
+.wrapInforUser {
+  display: flex;
+  padding: 25px;
+  justify-content: space-around;
+  background: #00bcd4;
+  color: #fff;
+  img {
+    object-fit: cover;
+  }
+}
+.wrapButton {
+  display: flex;
+  padding: 40px 10px 10px 10px;
+  .button-item {
+    .detail {
+      color: #fff;
+      background: #00bcd4;
+    }
+    .delete {
+      background: red;
+      color: #fff;
+      margin: 0 0 0 10px;
+    }
+  }
+}
 </style>
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 import Employee from "../../types/Employee";
+import ButtonRemove from "../Employee/Alert.vue"
 import EmployeeDataService from "../../business/B_employee"
-import Alert from "../Employee/Alert.vue"
-
 
 @Component({
   components: {
-    Alert
+    ButtonRemove
   },
 })
 export default class App extends Vue {

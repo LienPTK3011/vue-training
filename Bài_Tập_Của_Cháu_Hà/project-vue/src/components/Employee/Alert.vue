@@ -1,12 +1,5 @@
 <template>
-<v-app>
-     <v-row >
-    <v-btn class="buttonRemove"
-      @click.stop="dialog = true"
-    >
-      Delete
-    </v-btn>
-
+  <div>
     <v-dialog
       v-model="dialog"
       max-width="290"
@@ -35,8 +28,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-row>
-</v-app>
+  </div>
 </template>
 
 <script>
@@ -47,6 +39,7 @@ import EmployeeDataService from "../../business/B_employee"
   components: {},
 })
   export default class Alert extends Vue{
+    dialog = false
     buttonRemove() {
         this.dialog = false
     }
