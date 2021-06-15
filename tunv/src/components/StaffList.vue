@@ -3,44 +3,61 @@
         <h1 id="title">Staffs list</h1>
         <div class="staffs-list">
             <div class="staff-overview" :key="index" v-for="(staff, index) in staffsList">
-                    <!-- <b-card
-                        header="Staff information"
-                        header-tag="header"
-                        footer-tag="footer"
-                        title=""
-                        class="background"
-                        v-bind:class="{out: !staff.stillWorking, exprience: staff.exprience >= 5 }"
-                    >
-                        <b-card-text>Name: {{ staff.name }}</b-card-text>
-                        <b-card-text>Age: {{ staff.age }}</b-card-text>
-                        <b-card-text v-if="staff.stillWorking">State: Still working</b-card-text>
-                        <b-card-text v-else>State: Not work anymore</b-card-text>
-                        <b-card-text>Exprience: {{ staff.exprience }}</b-card-text>
-                        <b-button href="" variant="primary"><router-link :to="{name: 'staff-detail', params: {name: staff.name, items: staff}}">Detail</router-link></b-button>
-                    </b-card> -->
+                <v-card
+                    class="mx-auto"
+                    max-width="344"
+                    outlined
+                    :color="!staff.stillWorking ? '#385F73' : staff.experience >= 5 ? 'yellow' : 'white'"
+                >
+                    <v-list-item three-line>
+                        <v-list-item-content>
+                            <div class="text-overline mb-4">
+                            OVERVIEW
+                            </div>
+                            <v-list-item-title class="text-h5 mb-1">
+                            {{ staff.name }}
+                            </v-list-item-title>
+                            <v-list-item-subtitle>Age: {{ staff.age }} years old</v-list-item-subtitle>
+                            <v-list-item-subtitle v-if="staff.stillWorking">Still working here!</v-list-item-subtitle>
+                            <v-list-item-subtitle v-else>No longer here!</v-list-item-subtitle>
+                            <v-list-item-subtitle>Exprience: have {{ staff.exprience }} years experience</v-list-item-subtitle>
+                        </v-list-item-content>
 
-                    <div class="header">
-                        <h3>Staff information</h3>
-                        <hr>
-                    </div>
-                    
-                    <div class="staff-content">
-                        <div class="staff-img">
-                            <img id="staff-avatar" :src="staff.avatar" alt="">
-                        </div>
-                        <div class="staff-information">
-                            <h4>Name: {{ staff.name }}</h4>
-                            <h4>Age: {{ staff.age }}</h4>
-                            <h4 v-if="staff.stillWorking">State: Still working.</h4>
-                            <h4 v-else>State: No longer working here!</h4>
-                            <h4>Exprience: {{ staff.exprience }} years</h4>
-                        </div>
-                        
-                    </div>
-                    <button id="staff-detail-btn"><router-link :to="{name: 'staff-detail', params: {name: staff.name, items: staff}}">Detail -></router-link></button>
-                    <button id="staff-delete-btn" @click="deleteStaff(index)"><a>Delete</a></button>
+                        <v-list-item-avatar
+                            tile
+                            size="80"
+                            color="grey"
+                        >
+                        <img
+                            :src="staff.avatar"
+                            alt="Avatar"
+                        >
+                        </v-list-item-avatar>
+                    </v-list-item>
+
+                    <v-card-actions>
+                    <v-btn
+                depressed
+                color="primary"
+                id="staff-detail-btn"
+                >
+                <router-link :to="{name: 'staff-detail', params: {name: staff.name, items: staff}}">Detail</router-link>
+                </v-btn>
+                <v-btn
+                depressed
+                color="error"
+                id="staff-delete-btn"
+                @click="deleteStaff(index)"
+                >
+                Delete
+                </v-btn>
+                    </v-card-actions>
+                </v-card>
             </div>
         </div>
+        <v-main>
+      <router-view/>
+    </v-main>
   </div>
 </template>
 
@@ -79,14 +96,16 @@
             age: '25',
             stillWorking: true,
             exprience: 5,
-            avatar: './avatar-2.jpg'
+            avatar: './avatar-2.jpg',
+            todos: []
         },
         {
             name: 'John Wane',
             age: '30',
             stillWorking: false,
             exprience: 4,
-            avatar: './avatar-3.jpg'
+            avatar: './avatar-3.jpg',
+            todos: []
         },
     ]
 
@@ -168,16 +187,15 @@
         text-align: center;
     }
 
-    #staff-detail-btn {
-        background: gray;
-        bottom: 11%;
-        right: 20%;
+    #staff-detail-btn a {
+        color: white;
     }
 
-    #staff-delete-btn {
-        bottom: 11%;
-        right: 3%;
-        background: red;
+    .avatar-bg {
+        background-size: contain;
     }
 
+    .staff-list {
+        margin-top: 10%;
+    }
 </style>

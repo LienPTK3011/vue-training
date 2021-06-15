@@ -1,37 +1,28 @@
 <template>
   <div class="staff">
-    <div class="staff-form">
-      <h3>{{ staff.name }}' todos list</h3>
+    <div class="staff-todo-form">
+      <h3 id="title">{{ staff.name }}' todos list</h3>
       <div class="add-todo">
         <v-text-field
           v-model="newTodo"
           label="New todo"
           required
+          @keyup.enter="addNewTodo()"
         ></v-text-field>
         <v-btn 
          @click="addNewTodo()"
           elevation="2"
+          id="add-todo-btn"
         >Add</v-btn>
       </div>
     
       <div class="todos-list">
-        <!-- <div class="todo" :key="index" v-for="(todo, index) in staff.todos">
-          <div class="todo-detail">
-            <h4 @click="editTodo(todo)" v-if="!todo.edit">{{ todo.name }}</h4>
-            <input @keyup.enter="doneEditTodo(todo)" v-else type="text" v-model="todo.name">
-          </div>
-          
-          <div class="delete-todo" @click="deleteTodo(index)">
-            &times;
-          </div>
-          
-        </div> -->
         <v-simple-table>
           <template v-slot:default>
             <thead>
               <tr>
                 <th class="text-left">
-                  Name
+                  
                 </th>
                 <th class="text-left">
                   
@@ -63,6 +54,31 @@
         </v-simple-table>
       </div>
     </div>
+    <div class="staff-information">
+      <img
+          :src="staff.avatar"
+          alt="Avatar"
+      >
+      <v-form class="staff-detail-form">
+        <v-container>
+            <v-text-field
+                label="Name"
+                v-model="staff.name"
+            >
+            </v-text-field>
+            <v-text-field
+                label="Age"
+                v-model="staff.age"
+            >
+            </v-text-field>
+            <v-text-field
+                label="Exprience"
+                :value="staff.exprience + ' years'"
+            >
+            </v-text-field>
+        </v-container>
+      </v-form>
+    </div>
   </div>
 </template>
 
@@ -91,11 +107,11 @@
       this.staff.todos.splice(index, 1);
     }
 
-    editTodo(todo) {
+    editTodo(todo: object) {
       todo.edit = true;
     }
 
-    doneEditTodo(todo) {
+    doneEditTodo(todo: object) {
       if (todo.edit) {
         todo.edit = false;
       }
@@ -105,8 +121,8 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .staff-form {
-    width: 50%;
+  .staff-todo-form {
+    width: 40%;
     margin: auto;
   }
 
@@ -115,22 +131,20 @@
   }
 
   .add-todo {
-    width: 80%;
+    display: flex;
+    align-items: center;
+    width: 100%;
     padding-left: 1%;
     margin-bottom: 2%;
   }
 
   #add-todo-btn {
     margin-left: 2%;
-    background: white;
-    border: 1px solid gray;
   }
 
   .staff {
-    width: 37%;
-    border: 2px solid;
-    margin: auto;
-    padding: 2%
+    display: flex;
+    align-items: center;
   }
 
   .delete-todo {
@@ -152,4 +166,20 @@
     text-decoration: line-through;
   }
 
+  .staff-information {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 50%;
+    margin: auto;
+    box-shadow: 2px 2px 2px 2px;
+  }
+
+  .staff-detail-form {
+    width: 70%;
+  }
+
+  h3#title {
+    text-align: center;
+  }
 </style>

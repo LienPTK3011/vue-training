@@ -1,7 +1,27 @@
 <template>
 <div>
+    <h1 id="title">{{ project.projectName }}'s detail</h1>
     <div class="project-detail">
-        <b-card no-body class="overflow-hidden" style="">
+        <v-form>
+            <v-container>
+                <v-text-field
+                    label="Project name"
+                    v-model="project.projectName"
+                >
+                </v-text-field>
+                <v-text-field
+                    label="Customer name"
+                    v-model="project.customerName"
+                >
+                </v-text-field>
+                <v-text-field
+                    label="Team size"
+                    :value="project.teamSize"
+                >
+                </v-text-field>
+            </v-container>
+        </v-form>
+        <!-- <b-card no-body class="overflow-hidden" style="">
             <b-row no-gutters>
                 <b-col md="6">
                     <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
@@ -16,7 +36,7 @@
                     </b-card-body>
                 </b-col>
             </b-row>
-        </b-card>
+        </b-card> -->
     </div>
 </div>
 </template>
@@ -36,5 +56,9 @@
     
     .card-size {
         width: 100%;
+    }
+
+    h1#title {
+        text-align: center;
     }
 </style>
