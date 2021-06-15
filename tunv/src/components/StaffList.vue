@@ -1,6 +1,14 @@
 <template>
   <div class="staffs">
         <h1 id="title">Staffs list</h1>
+        <div class="search-staff">
+            <v-text-field
+            v-model="nameSearch"
+            @keyup.enter="searchStaff()"
+            label="Search"
+            required
+            ></v-text-field>
+        </div>
         <div class="staffs-list">
             <div class="staff-overview" :key="index" v-for="(staff, index) in staffsList">
                 <v-card
@@ -66,6 +74,7 @@
   @Component
   export default class StaffList extends Vue {
     @Prop()
+    nameSearch = ''
     staffsList = [
         {
             name: 'Harry Osborn',
@@ -109,8 +118,27 @@
         },
     ]
 
+    initStaffsList = this.staffsList
+
     deleteStaff(index: number) {
         this.staffsList.splice(index, 1)
+    }
+
+    staffFilter(staff: object) {
+        return staff.name.includes(this.nameSearch)
+    }
+
+    searchStaff() {
+        if (this.initStaffsList.length > this.staffsList.length) {
+            this.staffsList = this.initStaffsList
+        }
+        let staffFinded = this.staffsList.filter(this.staffFilter)
+        console.log(staffFinded)
+        if (staffFinded.length) {
+            this.staffsList = staffFinded
+        }
+
+        this.nameSearch = ''
     }
   }
 </script>
@@ -197,5 +225,10 @@
 
     .staff-list {
         margin-top: 10%;
+    }
+
+    .search-staff {
+        width: 50%;
+        margin: auto;
     }
 </style>
