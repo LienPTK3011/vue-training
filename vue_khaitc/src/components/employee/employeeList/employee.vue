@@ -8,6 +8,7 @@ export default {
     search: '',
     dialog: false,
     dialogDelete: false,
+    gender: ['Trai', 'Gái'],
     headers: [
       {text: 'Tên nhân viên', value: 'name', align: 'start', sortable: false},
       {text: 'Giới tính', value: 'gender'},
@@ -20,14 +21,14 @@ export default {
     editedIndex: -1,
     editedItem: {
       name: '',
-      gender: ['Trai','Gái'],
+      gender: '',
       age: 0,
       places: '',
       position: '',
     },
     defaultItem: {
       name: '',
-      gender: ['Trai','Gái'],
+      gender: '',
       age: 0,
       places: '',
       position: '',
