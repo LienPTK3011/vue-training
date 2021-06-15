@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter, {RouteConfig} from 'vue-router'
 import Home from '../views/Home.vue'
-import employee from "@/components/employee/employee.vue";
+import employee from "@/components/employee/employeeList/employee.vue";
 import ProjectList from "@/components/project/project-list/ProjectList.vue";
 import projectDetail from "@/components/project/detail/projectDetail.vue";
 
