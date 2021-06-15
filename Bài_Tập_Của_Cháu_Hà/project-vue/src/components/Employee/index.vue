@@ -65,11 +65,11 @@
                   <v-btn class="buttonRemove"
                     :dialog="dialog"
                     @input="updateDialog"
-                    
+                    :getIdItem="item.id"
                   >
                     Delete
                   </v-btn>
-                <ButtonRemove :getIdItem="item.id"/>
+                <ButtonRemove/>
               </v-card-actions>
             </div>
           </v-card>
@@ -78,6 +78,39 @@
     </v-container>
   </div>
 </template>
+
+<script lang="ts">
+import { Component, Vue, Prop } from "vue-property-decorator";
+import Employee from "../../types/Employee";
+import ButtonRemove from "../Employee/Alert.vue"
+import EmployeeDataService from "../../business/B_employee"
+
+@Component({
+  components: {
+    ButtonRemove
+  },
+})
+export default class App extends Vue {
+    private employees: Employee[] = [];
+    private response: any;
+    private errors: any;
+    retrieveEmployee() {
+    EmployeeDataService.getAll()
+      .then((response) => {
+        this.employees = response.data;
+        console.log(response.data);
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  }
+  
+  created() {
+    this.retrieveEmployee();
+  }
+}
+</script>
+
 <style lang="scss">
 .wrapInforRole {
   display: flex;
@@ -129,35 +162,3 @@
   }
 }
 </style>
-
-<script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
-import Employee from "../../types/Employee";
-import ButtonRemove from "../Employee/Alert.vue"
-import EmployeeDataService from "../../business/B_employee"
-
-@Component({
-  components: {
-    ButtonRemove
-  },
-})
-export default class App extends Vue {
-    private employees: Employee[] = [];
-    private response: any;
-    private errors: any;
-    retrieveEmployee() {
-    EmployeeDataService.getAll()
-      .then((response) => {
-        this.employees = response.data;
-        console.log(response.data);
-      })
-      .catch((errors) => {
-        console.log(errors);
-      });
-  }
-  
-  created() {
-    this.retrieveEmployee();
-  }
-}
-</script>
