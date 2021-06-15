@@ -14,7 +14,6 @@
 import { Component, Vue, Emit } from "vue-property-decorator";
 import StaffCon from './StaffCon.vue'
 import Add from './Add.vue'
-import Search from './Search.vue'
 import Api from '../../services/Api'
 
 @Component({
@@ -44,7 +43,10 @@ export default class Staff extends Vue {
     })
   }
 
-  deleteItem(id: number) {
+  deleteItem(id: number) {  
+    if (!confirm("Xoa?")) {
+      return
+    }
     Api.delete(id).then((response: any) => {
       this.apiList()
     })

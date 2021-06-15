@@ -27,7 +27,7 @@
                     <div>{{ errors[0] }}</div>
                 </ValidationProvider>
                 <br><br>
-                <ValidationProvider rules="required|min" v-slot="{ errors }">
+                <ValidationProvider v-slot="{ errors }">
                     <input v-model="data.avatar" type="text" placeholder="Link ảnh">
                     <div>{{ errors[0] }}</div>
                 </ValidationProvider>
@@ -106,7 +106,7 @@ export default class Add extends Vue {
 }
 </script>
 
-<style>
+<style scoped>
 input {
   background: #ccc;
   color: white;
@@ -125,7 +125,7 @@ input {
 }
 select {
     width: 300px;
-    background: #CCC;
     padding: 20px;
+    background: #CCC;
 }
 </style>
