@@ -58,7 +58,8 @@ export default class StaffCon extends Vue {
     @Prop() private item?: any
     @Prop() private i?: string
   
-    @Emit('deleteItem') deleteStaff(i: number) {
+    @Emit('deleteItem') 
+    deleteStaff(i: number) {
         return i
     }
 }

@@ -8,9 +8,11 @@
       </Header>
     </div>
     <v-main>
-      <v-container>
-          <router-view />
-      </v-container>
+      <v-app>
+        <v-container>
+            <router-view />
+        </v-container>
+      </v-app>
     </v-main>
   </div>
 </template>

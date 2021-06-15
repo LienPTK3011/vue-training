@@ -3,7 +3,18 @@
     <v-row>
     </v-row>
     <v-row>
-      <StaffCon v-for="(item, i) in lists" :key="i" :item="item" :i="i" @deleteItem="deleteItem($event)"></StaffCon>
+      <StaffCon 
+        v-for="(item, i) in lists" 
+        :key="i" 
+        :item="item" 
+        :i="i" 
+        @deleteItem="prepareDelete($event)"
+      ></StaffCon>
+      <Modal 
+        :status="status"
+        @update-dialog="status = $event"
+        @confirm="onConfirm"
+      ></Modal>
     </v-row>
 
     <Add @data="addStaff($event)"></Add>
@@ -15,15 +26,18 @@ import { Component, Vue, Emit } from "vue-property-decorator";
 import StaffCon from './StaffCon.vue'
 import Add from './Add.vue'
 import Api from '../../services/Api'
+import Modal from '../common/Modal.vue'
 
 @Component({
   components: {
-    StaffCon, Add
+    StaffCon, Add, Modal
   }
 })
 export default class Staff extends Vue {
 
   private lists: Array<any> = []
+  status = false
+  idToDel = 0
 
   beforeMount() {
     this.apiList()
@@ -43,13 +57,19 @@ export default class Staff extends Vue {
     })
   }
 
-  deleteItem(id: number) {  
-    if (!confirm("Xoa?")) {
-      return
-    }
+  deleteItem(id: number) {
     Api.delete(id).then((response: any) => {
       this.apiList()
     })
+  }
+
+  prepareDelete(id: number) {
+    this.idToDel = id
+    this.status = true
+  }
+
+  onConfirm() {
+    this.deleteItem(this.idToDel)
   }
 }
 </script>
