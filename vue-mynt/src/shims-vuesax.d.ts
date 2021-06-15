@@ -1,4 +1,4 @@
 declare module 'vuesax' {
-    const Vuesax: any,
-    export default Vuesax;
+    const Vuesax : any,
+    export default Vuesax
 }

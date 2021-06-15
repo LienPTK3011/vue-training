@@ -7,9 +7,13 @@
         <b-col lg="4" class="pb-2">
           <b-input-group size="sm" class="mb-2">
             <b-input-group-prepend is-text>
-              <b-icon icon="search"></b-icon>
+              <b-icon icon="search" ></b-icon>
             </b-input-group-prepend>
-            <b-form-input type="search" placeholder="Search...."></b-form-input>
+            <b-form-input
+              type="search"
+              @click="search()"
+              placeholder="Search...."
+            ></b-form-input>
 
             <b-button style="margin" v-b-modal.modal-1 variant="success"
               >Create</b-button
@@ -20,49 +24,49 @@
           <b-modal id="modal-1" title="Create New Task">
             <!-- Work name -->
             <div class="form-group">
-              <label for="workName">Work Name</label>
+              <label for="workNameC">Work Name</label>
               <input
                 type="text"
                 class="form-control"
-                id="workName"
+                id="workNameC"
                 placeholder="Input Work Name"
-                v-model="workName"
+                v-model="workNameC"
               />
             </div>
             <br />
 
             <!-- Leader -->
             <div class="form-group">
-              <label for="leader">Leader</label>
+              <label for="leaderC">Leader</label>
               <input
                 type="text"
                 class="form-control"
-                id="leader"
+                id="leaderC"
                 placeholder="Input Leader Name"
-                v-model="leader"
+                v-model="leaderC"
               />
             </div>
             <br />
             <!-- Start date -->
             <div class="form-group">
-              <label for="startDate">Start Date</label>
+              <label for="startDateC">Start Date</label>
               <input
                 type="date"
                 class="form-control"
-                id="startDate"
-                v-model="startDate"
+                id="startDateC"
+                v-model="startDateC"
               />
             </div>
             <br />
 
             <!-- End date -->
             <div class="form-group">
-              <label for="endDate">End Date</label>
+              <label for="endDateC">End Date</label>
               <input
                 type="date"
                 class="form-control"
-                id="endDate"
-                v-model="endDate"
+                id="endDateC"
+                v-model="endDateC"
               />
             </div>
 
@@ -74,104 +78,87 @@
           </b-modal>
         </b-col>
 
- <!-- Modal update -->
-          <b-modal id="modal-2" title="Update New Task" v-bind="items">
-            <!-- Work name -->
-            <div class="form-group" >
-              <label for="workName">Work Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="workName"
-             
-                v-model="items.workName"
-              />
-            </div>
-            <br />
+        <b-table striped hover :fields="fields" :items="items">
+          <template #cell(actions)="data">
+            <b-icon
+              icon="pencil"
+              scale="1"
+              variant="danger"
+              @click="editItem(data.item.ID)"
+            ></b-icon>
 
-            <!-- Leader -->
-            <div class="form-group">
-              <label for="leader">Leader</label>
-              <input
-                type="text"
-                class="form-control"
-                id="leader"
-                placeholder="Input Leader Name"
-                v-model="items.leader"
-              />
-            </div>
-            <br />
-            <!-- Start date -->
-            <div class="form-group">
-              <label for="startDate">Start Date</label>
-              <input
-                type="date"
-                class="form-control"
-                id="startDate"
-                v-model="items.startDate"
-              />
-            </div>
-            <br />
 
-            <!-- End date -->
-            <div class="form-group">
-              <label for="endDate">End Date</label>
-              <input
-                type="date"
-                class="form-control"
-                id="endDate"
-                v-model="items.endDate"
-              />
-            </div>
 
-            <br />
+            <!-- Modal update -->
+            <b-modal title="Update New Task" :id="`modal-edit` + data.item.ID">
 
-            <button type="submit" class="btn btn-primary" @click="createWork()">
-              Submit
-            </button>
-          </b-modal>
+              <!-- Work name -->
+              <div class="form-group">
+                <label for="workName">Work Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="workName"
+                  v-model="valueInLine.WorkName"
+                />
+              </div>
+              <br />
 
-        <b-table striped hover :fields="fields" :items="items"> 
+              <!-- Leader -->
+              <div class="form-group">
+                <label for="leader">Leader</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="leader"
+                  placeholder="Input Leader Name"
+                  v-model="valueInLine.Leader"
+                />
+              </div>
+              <br />
+              <!-- Start date -->
+              <div class="form-group">
+                <label for="startDate">Start Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="startDate"
+                  v-model="valueInLine.StartDate"
+                />
+              </div>
+              <br />
 
-      <template #cell(Edit)="">
-      <b-icon icon="pencil" scale="1" variant="danger"  v-b-modal.modal-2  ></b-icon>
-      <b-icon style="margin-left : 10" icon="trash" @click="popupDelete(row.id)" scale="1" variant="danger"></b-icon>
+              <!-- End date -->
+              <div class="form-group">
+                <label for="endDate">End Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="endDate"
+                  v-model="valueInLine.EndDate"
+                />
+              </div>
 
-      
-      </template>
+              <br />
+
+              <button
+                type="submit"
+                class="btn btn-primary"
+                @click="updateWork(data.item.ID)"
+              >
+                Submit
+              </button>
+            </b-modal>
+
+            <b-icon
+              style="margin-left : 10"
+              icon="trash"
+              @click="deleteItem(data.item.ID)"
+              scale="1"
+              variant="danger"
+            ></b-icon>
+          </template>
         </b-table>
-
-
-
-        <!-- <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">{{ items.workName }}</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td colspan="2">Larry the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
-        </table> -->
       </b-col>
 
       <b-col></b-col>
@@ -180,60 +167,108 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Provide, Vue } from "vue-property-decorator";
 import WorkServirce from "@/services/WorkServices";
 
 @Component({
   components: {},
 })
 export default class ListWork extends Vue {
+  @Provide()
+  term = "";
+  search() {
+    this.$emit("search", this.term);
+  }
   public items: Array<any> = [];
-  private workName: string = "";
-  private leader: string = "";
-  private startDate: Date = new Date();
-  private endDate: Date = new Date();
-  private openPopupEdit : boolean = false;
+  private workNameC: string = "";
+  private leaderC: string = "";
+  private startDateC: Date = new Date();
+  private endDateC: Date = new Date();
+
+  private newWorkName: string = "";
+  private newLeader: string = "";
+  private newStartDate: Date = new Date();
+  private newEndDate: Date = new Date();
+  private valueInLine: any = "";
+
   public fields: Array<any> = [
-  
-  
-    {key:'ID', label: 'ID work'},
-     {key:'WorkName', label:'tên cv'},
-     {key:'Leader', label:'tên leader'},
-{key:'StartDate', label:'StartDate'},
-{key:'EndDate', label:'EndDate'},
-{key:'Edit', label:'edit here'},
-
-  
-];
-
+    { key: "ID", label: "ID work" },
+    { key: "WorkName", label: "Work Name" },
+    { key: "Leader", label: "Leader Name" },
+    { key: "StartDate", label: "Start Date" },
+    { key: "EndDate", label: "End Date" },
+    { key: "actions", label: "Actions" },
+  ];
 
   created() {
     this.getWorkList();
   }
 
   public getWorkList() {
+   
     WorkServirce.getWorkList().then((res: any) => {
       this.items = res.data;
+       
     });
+  
+    
   }
 
   public createWork() {
-    debugger
+    debugger;
     let dataToAdd = {
-      WorkName: this.workName,
-      Leader: this.leader,
-      StartDate: this.startDate,
-      EndDate: this.endDate,
+      WorkName: this.workNameC,
+      Leader: this.leaderC,
+      StartDate: this.startDateC,
+      EndDate: this.endDateC,
     };
 
     WorkServirce.createWorkList(dataToAdd).then((res: any) => {
-      this.items = res.data;
+      if(res) {
+        // console.log(res);
+        this.getWorkList()
+      }
     });
     alert("Chúc mừng bạn đã tạo thành công!");
   }
 
-  public popupEdit(){
-  this.openPopupEdit = true
+  public editItem(item: any) {
+    // TO open modal
+    debugger
+    this.$bvModal.show("modal-edit" + item);
+
+    WorkServirce.getWorkListById(item).then((res: any) => {
+      this.valueInLine = res.data;
+
+      // console.log("value here");
+      // console.log(this.valueInLine);
+    });
+  }
+
+  public updateWork(item: any) {
+    debugger;
+
+    // let dataToEdit = {
+    //   WorkName: this.newWorkName ? this.newWorkName :  this.valueInLine.workName,
+    //   Leader: this.newLeader ?  this.newLeader : this.valueInLine.leader,
+    //   StartDate: this.newStartDate ? this.newStartDate : this.valueInLine.startDate,
+    //   EndDate: this.newEndDate ? this.newEndDate : this.valueInLine.endDate,
+    // };
+
+    WorkServirce.updateWorkList(item).then((res: any) => {
+      this.valueInLine = res.data;
+      console.log(res.data);
+      this.getWorkList()
+    });
+  }
+
+  public deleteItem(item: any) {
+    alert("Are you sure to delete?");
+    WorkServirce.deleteWorkList(item).then((res: any) => {
+      if (res) {
+        this.getWorkList();
+      }
+    });
   }
 }
 </script>
