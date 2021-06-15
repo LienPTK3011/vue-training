@@ -56,6 +56,10 @@ export default class Header extends Vue {
         title: "Information",
         routeName: "Information",
       },
+      {
+        title: "Login",
+        routeName: "Login",
+      },
       // {
       //   name: "McCafé",
       //   url: "/mccafe",

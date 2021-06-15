@@ -40,6 +40,7 @@ export default class TopBar extends Vue {
     }
     li {
       padding: 0 25px;
+      cursor: pointer;
     }
   }
 }

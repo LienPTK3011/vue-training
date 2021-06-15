@@ -26,7 +26,7 @@ Route::group(['middleware' => 'auth:api'], function() {
 
 Route::get('/employee', [EmployeeController::class,'index']);
 // Route::group(['prefix' => 'employee'], function () {
-    Route::post('/add', [EmployeeController::class,'add']);
+    Route::post('/employee/add', [EmployeeController::class,'add']);
     Route::get('/employee/edit/{id}', [EmployeeController::class,'edit']);
     Route::post('/employee/update/{id}',[EmployeeController::class,'update']);
     Route::delete('/delete/{id}',[EmployeeController::class,'delete']);

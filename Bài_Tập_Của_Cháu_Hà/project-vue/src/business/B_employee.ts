@@ -9,8 +9,13 @@ class B_employee {
         return http.get(`/employee/edit/${id}`);
     }
 
+    addEmployee(data:any) {
+        return http.post("/employee/add",data);
+    }
+
     edit(id:any, data:any) {
         return http.post(`/employee/update/${id}`,data)
     }
+
 }
 export default new B_employee();

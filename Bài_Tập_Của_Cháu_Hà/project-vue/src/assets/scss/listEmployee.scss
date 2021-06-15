@@ -1,0 +1,89 @@
+.wrapHeaderEmployee {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 50px 0;
+  .wrapButtonAdd {
+    .detail {
+      color: #fff;
+      background: #00bcd4 !important;
+    }
+  }
+}
+
+.itemEmployee {
+    height: 350px !important;
+    overflow: auto;
+    margin: 50px auto;
+    .cardEmployee {
+      min-height: 350px !important;
+    }
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1; 
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555; 
+    }
+  }
+  .wrapInforRole {
+    display: flex;
+    padding: 5px 25px 5px 25px;
+    justify-content: space-around;
+  
+    .namePart {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      h3 {
+        padding: 0 0 0 15px;
+      }
+    }
+  }
+  .wrapInforUserNotWorking {
+    display: flex;
+    padding: 25px;
+    justify-content: space-around;
+    background: #b3b3b3;
+    color: #fff;
+    img {
+      object-fit: cover;
+    }
+  }
+  .wrapInforUser {
+    display: flex;
+    padding: 25px;
+    justify-content: space-around;
+    background: #00bcd4;
+    color: #fff;
+    img {
+      object-fit: cover;
+    }
+  }
+  .new_Staff{
+    display: flex;
+    padding: 25px;
+    justify-content: space-around;
+    background: pink;
+    color: #fff;
+    img {
+      object-fit: cover;
+    }
+  }
+  .wrapButton {
+    display: flex;
+    padding: 40px 10px 10px 10px;
+    .button-item {
+      .detail {
+        color: #fff;
+        background: #00bcd4;
+      }
+      .delete {
+        background: red;
+        color: #fff;
+        margin: 0 0 0 10px;
+      }
+    }
+  }
