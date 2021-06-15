@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 class UserController extends Controller
 {
     public function create(Request $request) {
+        if ($request->avatar == '') {
+            $request->avatar = 'https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg';
+        }
         User::create([
             'name' => $request->name,
             'avatar' => $request->avatar,
@@ -42,9 +45,13 @@ class UserController extends Controller
     public function update(Request $request) {
         $id = $request->id;
         $name = $request->name;
+        $url = $request->url;
+        $level = $request->level;
 
         $user = User::find($id);
         $user->name = $name;
+        $user->avatar = $url;
+        $user->level = $level;
         $user->save();
         return response()->json([], 200);
     }

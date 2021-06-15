@@ -29,7 +29,7 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title class="text-left"
-                    >Working:
+                    >Working status:
                     <span class="bold">{{
                       item.is_work
                     }}</span></v-list-item-title>
@@ -38,7 +38,7 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title class="text-left"
-                    >
+                    >Level: 
                     <span class="bold">{{
                       item.level
                     }}</span></v-list-item-title>
@@ -57,19 +57,29 @@
                   v-model="formInformation.name"
                   label="Name"
                   required
+                  class="update-name"
                 ></v-text-field>
                 <span>{{ errors[0] }}</span>
               </ValidationProvider>
-              <ValidationProvider>
+              <ValidationProvider rules="required" v-slot="{ errors }">
                 <template>
                   <v-file-input
                     multiple
                     label="File input"
-                    v-model="formInformation.avatar"
-                    webkitdirectory
+                    @change="onChangeAvatar"
                   ></v-file-input>
+                  <span>{{ errors[0] }}</span>
                 </template>
               </ValidationProvider>
+                <ValidationProvider>
+                  <div data-app>
+                    <v-select
+                      v-model="formInformation.level"
+                      :items="levels"
+                      label="Level"
+                    ></v-select>
+                  </div>
+                </ValidationProvider>
               <v-btn :disabled="!formInformation.valid" class="mr-4" @click="save"
                 >Save</v-btn
               >
@@ -95,22 +105,39 @@ extend('min', {
 })
 
 interface form {
+  id: number
   valid: boolean
-  name: string,
-  avatar: Array<any>
+  name: string
+  url: string
+  level: string
 }
 
 @Component
 export default class StaffAction extends Vue {
   id = this.$attrs.id;
 
-  private item: Array<any> = []
+  private item: any = []
 
   formInformation: form = {
+    id: parseInt(this.id),
     valid: false,
     name: "",
-    avatar: []
+    url: "",
+    level: ""
   };
+
+  levels: Array<string> = [
+    "Level 1",
+    "Level 2",
+    "Level 3",
+    "Level 4",
+    "Level 5",
+    "Level 6",
+    "Level 7",
+    "Level 8",
+    "Level 9",
+    "Level 10",
+  ]
 
   created() {
     this.getItem();
@@ -131,8 +158,24 @@ export default class StaffAction extends Vue {
     }
   }
 
+  onChangeAvatar(e: any) {
+      const fr = new FileReader();
+      fr.readAsDataURL(e[0]);
+      fr.addEventListener("load", () => {
+        // @ts-expect-error comment
+        this.formInformation.url = fr.result;
+      });
+  }
+
+
   save() {
-    Api.update(parseInt(this.id), this.formInformation.name).then((response: any) => {
+    if (this.formInformation.url == '') {
+      this.formInformation.url = this.item.avatar
+    }
+    if (this.formInformation.level == '') {
+      this.formInformation.level = this.item.level
+    }
+    Api.update(this.formInformation).then((response: any) => {
       this.getItem();
       alert("thanh cong")
     })

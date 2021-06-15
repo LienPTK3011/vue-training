@@ -23,7 +23,7 @@ class User extends Authenticatable
         'year',
         'is_work',
         'password',
-        'level'
+        'level',
     ];
 
     /**
