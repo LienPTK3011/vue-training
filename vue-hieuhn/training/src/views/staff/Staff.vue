@@ -1,10 +1,18 @@
 <template>
   <div>
     <v-row>
+      <v-col cols="12" md="12">
+        <v-text-field
+          label="Search"
+          v-model="textSearch"
+          v-on:keydown.enter.prevent='onKey'
+          required
+        ></v-text-field>
+      </v-col>
     </v-row>
     <v-row>
       <StaffCon 
-        v-for="(item, i) in lists" 
+        v-for="(item, i) in listsAll" 
         :key="i" 
         :item="item" 
         :i="i" 
@@ -22,22 +30,25 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Emit } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import StaffCon from './StaffCon.vue'
 import Add from './Add.vue'
 import Api from '../../services/Api'
 import Modal from '../common/Modal.vue'
+import Search from './Search.vue'
 
 @Component({
   components: {
-    StaffCon, Add, Modal
+    StaffCon, Add, Modal, Search
   }
 })
 export default class Staff extends Vue {
 
   private lists: Array<any> = []
+  private listsAll?: Array<any> = []
   status = false
   idToDel = 0
+  textSearch = ''
 
   beforeMount() {
     this.apiList()
@@ -46,6 +57,7 @@ export default class Staff extends Vue {
   apiList() {
     Api.getAll().then((response: any) => {
       this.lists = response.data
+      this.listsAll = this.lists
     }).catch((errors) => {
       console.log(errors)
     });
@@ -60,6 +72,13 @@ export default class Staff extends Vue {
   deleteItem(id: number) {
     Api.delete(id).then((response: any) => {
       this.apiList()
+      this.$notify({
+        group: 'noti',
+        title: 'Xoá',
+        text: 'Bạn đã xoá thành công',
+        width: '300px',
+        closeOnClick: true,
+      });
     })
   }
 
@@ -70,6 +89,10 @@ export default class Staff extends Vue {
 
   onConfirm() {
     this.deleteItem(this.idToDel)
+  }
+
+  onKey() {
+    this.$router.push({ name: 'Search', query: { key: this.textSearch } })
   }
 }
 </script>

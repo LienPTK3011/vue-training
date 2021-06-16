@@ -42,9 +42,7 @@
           >
             <v-btn small class="cart-button-detail"> DETAIL </v-btn>
           </router-link>
-          <router-link class="cart-button" to="">
             <v-btn small @click="deleteStaff(item.id)"> DELETE </v-btn>
-          </router-link>
         </div>
       </v-card>
       </v-col>

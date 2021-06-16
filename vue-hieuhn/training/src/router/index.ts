@@ -33,12 +33,6 @@ const routes: Array<RouteConfig> = [
     component: Staff,
   },
   {
-    path: "/search",
-    name: "Search",
-    component: Search,
-    props: true,
-  },
-  {
     path: "/staff/:id",
     name: "StaffAction",
     component: StaffAction,
@@ -68,6 +62,11 @@ const routes: Array<RouteConfig> = [
     path: '/logout',
     name: 'Logout',
     component: () => import('../views/user/Logout.vue')
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search
   }
 ];
 

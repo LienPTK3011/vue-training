@@ -40,12 +40,6 @@ import { Component, Vue, Prop, Emit } from "vue-property-decorator";
 @Component
 export default class Modal extends Vue {
     @Prop() readonly status?: boolean
-    private isShow?: boolean
-
-    created() {
-        this.isShow = this.status
-        console.log(this.isShow)
-    }
 
     @Emit('update-dialog')
     updateDialog(e: boolean) {

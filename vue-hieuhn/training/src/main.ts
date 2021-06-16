@@ -8,6 +8,9 @@ import { ValidationObserver } from 'vee-validate'
 Vue.component('ValidationProvider', ValidationProvider);
 Vue.component('ValidationObserver', ValidationObserver);
 
+import Notifications from 'vue-notification'
+Vue.use(Notifications)
+
 Vue.config.productionTip = false;
 
 new Vue({

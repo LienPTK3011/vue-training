@@ -14,6 +14,7 @@
         </v-container>
       </v-app>
     </v-main>
+    <notifications group="noti" :style="{top: '20px'}" />
   </div>
 </template>
 

@@ -57,7 +57,9 @@ class UserController extends Controller
     }
 
     public function search(Request $request) {
-        dd($request->all());
+        $text = $request->text;
+        $userSearch = User::where('name', 'LIKE', "%$text%")->get();
+        return response()->json($userSearch, 200);
     }
 
 }
