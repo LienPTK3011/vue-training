@@ -16,6 +16,9 @@ export default {
       },{
       name: 'employee',
         url: '/employee'
+      },{
+      name: 'API',
+        url: '/api'
       }
     ],
   }),
