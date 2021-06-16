@@ -2,7 +2,11 @@
   <div>
     <h1 class="project-header">Project List</h1>
     <v-row>
-      <ProjectCon v-for="(item, i) in listProject" :key="i" :item="item"></ProjectCon>
+      <ProjectCon
+        v-for="(item, i) in listProject"
+        :key="i"
+        :item="item"
+      ></ProjectCon>
     </v-row>
     <router-link class="home" to="/">
       <v-btn>Trang chu</v-btn>
@@ -12,12 +16,12 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import ProjectCon from './ProjectCon.vue'
+import ProjectCon from "./ProjectCon.vue";
 
 @Component({
   components: {
-    ProjectCon
-  }
+    ProjectCon,
+  },
 })
 export default class ListProject extends Vue {
   @Prop() private listProject?: any[];

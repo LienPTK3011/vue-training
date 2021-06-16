@@ -5,20 +5,20 @@
         <v-text-field
           label="Search"
           v-model="textSearch"
-          v-on:keydown.enter.prevent='onKey'
+          v-on:keydown.enter.prevent="onKey"
           required
         ></v-text-field>
       </v-col>
     </v-row>
     <v-row>
-      <StaffCon 
-        v-for="(item, i) in listsAll" 
-        :key="i" 
-        :item="item" 
-        :i="i" 
+      <StaffCon
+        v-for="(item, i) in listsAll"
+        :key="i"
+        :item="item"
+        :i="i"
         @deleteItem="prepareDelete($event)"
       ></StaffCon>
-      <Modal 
+      <Modal
         :status="status"
         @update-dialog="status = $event"
         @confirm="onConfirm"
@@ -31,68 +31,86 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import StaffCon from './StaffCon.vue'
-import Add from './Add.vue'
-import Api from '../../services/Api'
-import Modal from '../common/Modal.vue'
-import Search from './Search.vue'
+import StaffCon from "./StaffCon.vue";
+import Add from "./Add.vue";
+import Api from "../../services/Api";
+import Modal from "../common/Modal.vue";
+import Search from "./Search.vue";
 
 @Component({
   components: {
-    StaffCon, Add, Modal, Search
-  }
+    StaffCon,
+    Add,
+    Modal,
+    Search,
+  },
 })
 export default class Staff extends Vue {
+  private lists: Array<any> = [];
+  private listsAll?: Array<any> = [];
+  status = false;
+  idToDel = 0;
+  textSearch = "";
 
-  private lists: Array<any> = []
-  private listsAll?: Array<any> = []
-  status = false
-  idToDel = 0
-  textSearch = ''
-
-  beforeMount() {
-    this.apiList()
+  beforeMount(): void {
+    this.apiList();
   }
 
-  apiList() {
-    Api.getAll().then((response: any) => {
-      this.lists = response.data
-      this.listsAll = this.lists
-    }).catch((errors) => {
-      console.log(errors)
-    });
-  } 
-
-  addStaff(data: any) {
-    Api.create(data).then((response: any) => {
-      this.apiList()
-    })
-  }
-
-  deleteItem(id: number) {
-    Api.delete(id).then((response: any) => {
-      this.apiList()
-      this.$notify({
-        group: 'noti',
-        title: 'Xoá',
-        text: 'Bạn đã xoá thành công',
-        width: '300px',
-        closeOnClick: true,
+  apiList(): void {
+    Api.getAll()
+      .then((response: any) => {
+        this.lists = response.data;
+        this.listsAll = this.lists;
+      })
+      .catch((errors) => {
+        console.log(errors);
       });
-    })
   }
 
-  prepareDelete(id: number) {
-    this.idToDel = id
-    this.status = true
+  addStaff(data: Array<any>): void {
+    Api.create(data).then(() => {
+      this.apiList();
+      this.$notify({
+        group: "noti",
+        title: "Thêm",
+        text: "Bạn đã thêm thành công",
+        type: "success",
+      });
+    });
   }
 
-  onConfirm() {
-    this.deleteItem(this.idToDel)
+  deleteItem(id: number): void {
+    Api.delete(id).then(() => {
+      this.apiList();
+      this.$notify({
+        group: "noti",
+        title: "Xoá",
+        text: "Bạn đã xoá thành công",
+        type: "success",
+      });
+    });
   }
 
-  onKey() {
-    this.$router.push({ name: 'Search', query: { key: this.textSearch } })
+  prepareDelete(id: number): void {
+    this.idToDel = id;
+    this.status = true;
+  }
+
+  onConfirm(): void {
+    this.deleteItem(this.idToDel);
+  }
+
+  onKey(): void {
+    if (this.textSearch == "") {
+      this.$notify({
+        group: "noti",
+        title: "Lỗi",
+        text: "Vui lòng nhập từ khoá",
+        type: "warn",
+      });
+      return;
+    }
+    this.$router.push({ name: "Search", query: { key: this.textSearch } });
   }
 }
 </script>
