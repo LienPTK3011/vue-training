@@ -63,13 +63,16 @@
                   </v-btn>
                 </router-link>
                   <v-btn class="buttonRemove"
-                    :dialog="dialog"
-                    @input="updateDialog"
                     :getIdItem="item.id"
+                    @deleteItem="prepareDelete($event)"
+                    @click="this.dialog = true"
                   >
                     Delete
                   </v-btn>
-                <ButtonRemove/>
+                  <ButtonRemove
+                    :dialog="dialog"
+                    @update-dialog="status = $event"
+                  />
               </v-card-actions>
             </div>
           </v-card>
@@ -94,6 +97,8 @@ export default class App extends Vue {
     private employees: Employee[] = [];
     private response: any;
     private errors: any;
+    dialog = false;
+    tempId = 0
     retrieveEmployee() {
     EmployeeDataService.getAll()
       .then((response) => {
@@ -108,6 +113,25 @@ export default class App extends Vue {
   created() {
     this.retrieveEmployee();
   }
+
+  prepareDelete(id: number) {
+    this.tempId = id
+    this.dialog = true
+  }
+
+   deleteItem(id: number) {
+    EmployeeDataService.delete(id).then((response) => {
+      console.log('remove')
+    })
+    .catch((errors) => {
+        console.log(errors);
+      });
+  }
+
+  onConfirm() {
+    this.deleteItem(this.tempId)
+  }
+
 }
 </script>
 

@@ -17,5 +17,9 @@ class B_employee {
         return http.post(`/employee/update/${id}`,data)
     }
 
+    delete (id:number) {
+        return http.post(`/employee/delete/${id}`)
+    }
+
 }
 export default new B_employee();
