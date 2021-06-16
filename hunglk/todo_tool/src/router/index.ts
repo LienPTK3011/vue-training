@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import Home from '../views/Home.vue';
 import UserListPage from '../views/user/UserListPage.vue';
+import UserEditPage from '../views/user/UserEditPage.vue';
 Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
@@ -17,9 +18,26 @@ const routes: RouteConfig[] = [
   },
   {
     path: '/user',
-    name: 'User',
+    name: 'user',
     component: UserListPage,
+    // children: [
+    //   {
+    //     path: '/user/:id',
+    //     name: 'user_edit',
+    //     component: UserEditPage,
+    //   }
+    // ]
   },
+   {
+      path: '/user/:id',
+      name: 'user_edit',
+      component: UserEditPage,
+    },
+    {
+      path: '/user',
+      name: 'user_add',
+      component: UserEditPage,
+    },
 ];
 
 const router = new VueRouter({
