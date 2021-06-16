@@ -1,5 +1,11 @@
 <template>
   <div>
+    
+    <Modal
+      :status="status"
+      @update-dialog="status = $event"
+      @confirm="onConfirm"
+    ></Modal>
     <v-row>
       <v-col cols="12" md="12">
         <v-text-field
@@ -18,11 +24,6 @@
         :i="i"
         @deleteItem="prepareDelete($event)"
       ></StaffCon>
-      <Modal
-        :status="status"
-        @update-dialog="status = $event"
-        @confirm="onConfirm"
-      ></Modal>
     </v-row>
 
     <Add @data="addStaff($event)"></Add>
