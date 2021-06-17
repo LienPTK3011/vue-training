@@ -38,7 +38,7 @@ const routes: Array<RouteConfig> = [
     component: StaffList
   },
   {
-    path: '/staff-detail/:name',
+    path: '/staff-detail/:id',
     name: 'staff-detail',
     component: StaffDetail,
     props: true

@@ -18,7 +18,7 @@
             required
             ></v-text-field>
         </td>
-        <td class="delete-todo" @click="deleteTodo(index)">
+        <td class="delete-todo" @click="deleteTodo(todoIndex)">
             &times;
         </td>
     </tr>
@@ -27,14 +27,21 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
+    import { Todo } from '@/interfaces/index.js';
     @Component
     export default class StaffTodo extends Vue {
-        @Prop() todo!: unknown
+        @Prop() todo!: Todo;
+        @Prop() todoIndex!: number
         deleteTodo(index: number) {
             this.$emit('deleteTodo', index)
         }
-        editTodo(todo: object) {
+        editTodo(todo: Todo) {
             todo.edit = true;
+        }
+
+        doneEditTodo(todo: Todo) {
+            todo.edit = false
+            this.$emit('doneEditTodo', todo)
         }
     }
 </script>

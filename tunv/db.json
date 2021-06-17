@@ -1,31 +1,61 @@
 {
   "staffs": [
     {
-      "id": 1,
-      "name": "Obama",
-      "age": 59,
-      "isWorking": false,
-      "exprience": 5,
-      "avatar": "./avatar-3.jpg",
-      "todos": []
-    },
-    {
-      "id": 1,
+      "id": 2,
       "name": "Troy",
       "age": 22,
       "isWorking": true,
       "exprience": 2,
-      "avatar": "./avatar-2.jpg",
-      "todos": []
+      "avatar": "blob:http://localhost:8080/7a8d7f6b-e469-4fed-93c3-7dbe074ff59e",
+      "todos": [
+        {
+          "name": "asdasd",
+          "completed": false,
+          "edit": false
+        }
+      ]
     },
     {
-      "name": "De Jong",
+      "name": "Jong21",
+      "age": 18,
+      "stillWorking": true,
+      "exprience": "2",
+      "avatar": "blob:http://localhost:8080/434e4b19-20e6-4f3e-80d0-8b9f3997d463",
+      "todos": [],
+      "id": 3
+    },
+    {
+      "name": "De Jong tu",
       "age": "23",
       "stillWorking": true,
       "exprience": "3",
-      "avatar": "./avatar-2.jpg",
+      "avatar": "blob:http://localhost:8080/24a7a948-3f50-49fc-a769-71a26e7c7c11",
+      "todos": [
+        {
+          "name": "Do something cooll",
+          "completed": false,
+          "edit": false
+        }
+      ],
+      "id": 4
+    },
+    {
+      "name": "asdas",
+      "age": 18,
+      "isWorking": true,
+      "exprience": "1010",
+      "avatar": "blob:http://localhost:8080/c0374ede-8f1c-4681-95d4-7336b1cc6e1d",
       "todos": [],
-      "id": 3
+      "id": 5
+    },
+    {
+      "name": "joojojo",
+      "age": 18,
+      "isWorking": true,
+      "exprience": "2",
+      "avatar": "blob:http://localhost:8080/09fa259c-e025-4441-819c-77ce0bc7ef9b",
+      "todos": [],
+      "id": 7
     }
   ],
   "projects": [

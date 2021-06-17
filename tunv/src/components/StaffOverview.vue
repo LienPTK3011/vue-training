@@ -43,7 +43,6 @@
                         name: 'staff-detail',
                         params: {
                             id: id,
-                            name: staff.name,
                         }
                     }"
                 >
@@ -67,12 +66,15 @@
     import { Component, Prop, Vue } from 'vue-property-decorator';
     @Component
     export default class StaffOverview extends Vue {
-    @Prop() staff!: object; index!: number;
-    id = this.staff.id 
-    deleteStaff(id: number) {
-        this.$emit('deleteStaff', id)
+        @Prop() staff!: object;
+
+        index!: number;
+        id = this.staff.id
+
+        deleteStaff(id: number) {
+            this.$emit('deleteStaff', id)
+        }
     }
-}
 </script>
 
 <style scoped>
