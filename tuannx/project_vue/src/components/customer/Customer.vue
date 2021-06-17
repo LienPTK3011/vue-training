@@ -4,7 +4,7 @@
     :headers="headers"
     :items="posts"
     :search="search"
-    sort-by="calories"
+    sort-by="age"
     class="elevation-1"
   >
     <template v-slot:top>
@@ -31,21 +31,18 @@
                         <v-text-field
                           label="Name*"
                           v-model="item.name"
-                          :rules="[(v) => !!v || 'Name is required']"
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12">
                         <v-text-field
                           label="Age*"
                           v-model="item.age"
-                          :rules="[(v) => !!v || 'Age is required']"
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12">
                         <v-text-field
                           label="Experience*"
                           v-model="item.experience"
-                          :rules="[(v) => !!v || 'Experience is required']"
                           required
                         ></v-text-field>
                       </v-col>
@@ -53,7 +50,6 @@
                         <v-text-field
                           label="Role*"
                           v-model="item.role"
-                          :rules="[(v) => !!v || 'Role is required']"
                           required
                         ></v-text-field>
                       </v-col>
@@ -100,13 +96,14 @@
 import { Component, Vue } from "vue-property-decorator";
 import CustomerService from "@/service/CustomerService";
 import CustomerInterface from "@/service/CustomerInterface";
+
 @Component({
   components: {
     //  StaffDialog,
   },
 })
 export default class Customer extends Vue {
-  private posts: CustomerInterface[] =[];
+  private posts: CustomerInterface[] = [];
   dialog = false;
   private response: any;
   private errors: any;
