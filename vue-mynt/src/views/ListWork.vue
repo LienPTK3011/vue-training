@@ -7,10 +7,12 @@
         <b-col lg="4" class="pb-2">
           <b-input-group size="sm" class="mb-2">
             <b-input-group-prepend is-text>
-              <b-icon icon="search" ></b-icon>
+              <!-- Search -->
+              <b-icon icon="search"></b-icon>
             </b-input-group-prepend>
             <b-form-input
               type="search"
+              v-model="keyword"
               @click="search()"
               placeholder="Search...."
             ></b-form-input>
@@ -23,58 +25,77 @@
           <!-- Modal Create -->
           <b-modal id="modal-1" title="Create New Task">
             <!-- Work name -->
-            <div class="form-group">
-              <label for="workNameC">Work Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="workNameC"
-                placeholder="Input Work Name"
-                v-model="workNameC"
-              />
-            </div>
-            <br />
+            <ValidationObserver ref="observer">
+              <div class="form-group">
+                <label for="workNameC">Work Name</label>
+                <ValidationProvider
+                  :rules="{ required: true, min: 3, max: 20 }"
+                  name="workName"
+                  v-slot="{ errors }"
+                >
+                  <b-input
+                    type="text"
+                    name="workName"
+                    class="form-control"
+                    :class="errors[0] ? 'border-ranger' : ''"
+                    placeholder="Input Work Name"
+                    v-model="workNameC"
+                  />
+                  <span>{{ errors[0] }}</span>
+                </ValidationProvider>
+              </div>
+              <br />
 
-            <!-- Leader -->
-            <div class="form-group">
-              <label for="leaderC">Leader</label>
-              <input
-                type="text"
-                class="form-control"
-                id="leaderC"
-                placeholder="Input Leader Name"
-                v-model="leaderC"
-              />
-            </div>
-            <br />
-            <!-- Start date -->
-            <div class="form-group">
-              <label for="startDateC">Start Date</label>
-              <input
-                type="date"
-                class="form-control"
-                id="startDateC"
-                v-model="startDateC"
-              />
-            </div>
-            <br />
+              <!-- Leader -->
+              <div class="form-group">
+                <label for="leaderC">Leader</label>
+                <ValidationProvider
+                  :rules="{ required: true, min: 3, max: 20 }"
+                  name="leader"
+                  v-slot="{ errors }"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    :class="errors[0] ? 'border-ranger' : ''"
+                    id="leaderC"
+                    name="leader"
+                    placeholder="Input Leader Name"
+                    v-model="leaderC"
+                  />
+                  <span>{{ errors[0] }}</span>
+                </ValidationProvider>
+              </div>
+              <br />
+              <!-- Start date -->
+              <div class="form-group">
+                <label for="startDateC">Start Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="startDateC"
+                  v-model="startDateC"
+                />
+              </div>
+              <br />
 
-            <!-- End date -->
-            <div class="form-group">
-              <label for="endDateC">End Date</label>
-              <input
-                type="date"
-                class="form-control"
-                id="endDateC"
-                v-model="endDateC"
-              />
-            </div>
+              <!-- End date -->
+              <div class="form-group">
+                <label for="endDateC">End Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="endDateC"
+                  v-model="endDateC"
+                />
+              </div>
 
-            <br />
+              <br />
 
-            <button type="submit" class="btn btn-primary" @click="createWork()">
-              Submit
-            </button>
+              <button class="btn btn-primary" @click="createWork()">
+                Submit
+              </button>
+            </ValidationObserver>
           </b-modal>
         </b-col>
 
@@ -87,11 +108,8 @@
               @click="editItem(data.item.ID)"
             ></b-icon>
 
-
-
             <!-- Modal update -->
             <b-modal title="Update New Task" :id="`modal-edit` + data.item.ID">
-
               <!-- Work name -->
               <div class="form-group">
                 <label for="workName">Work Name</label>
@@ -141,6 +159,7 @@
 
               <br />
 
+              <!-- Button edit and delete -->
               <button
                 type="submit"
                 class="btn btn-primary"
@@ -169,16 +188,12 @@
 <script lang="ts">
 import { Component, Provide, Vue } from "vue-property-decorator";
 import WorkServirce from "@/services/WorkServices";
+//import { required, minLength, between } from 'vuelidate/lib/validators'
 
 @Component({
   components: {},
 })
 export default class ListWork extends Vue {
-  @Provide()
-  term = "";
-  search() {
-    this.$emit("search", this.term);
-  }
   public items: Array<any> = [];
   private workNameC: string = "";
   private leaderC: string = "";
@@ -190,6 +205,7 @@ export default class ListWork extends Vue {
   private newStartDate: Date = new Date();
   private newEndDate: Date = new Date();
   private valueInLine: any = "";
+  private keyword: string = "";
 
   public fields: Array<any> = [
     { key: "ID", label: "ID work" },
@@ -205,60 +221,61 @@ export default class ListWork extends Vue {
   }
 
   public getWorkList() {
-   
     WorkServirce.getWorkList().then((res: any) => {
       this.items = res.data;
-       
     });
-  
-    
   }
 
-  public createWork() {
-    debugger;
-    let dataToAdd = {
-      WorkName: this.workNameC,
-      Leader: this.leaderC,
-      StartDate: this.startDateC,
-      EndDate: this.endDateC,
-    };
+  public async createWork() {
+    const isValid = await (this.$refs.observer as any).validate();
 
-    WorkServirce.createWorkList(dataToAdd).then((res: any) => {
-      if(res) {
-        // console.log(res);
-        this.getWorkList()
-      }
-    });
-    alert("Chúc mừng bạn đã tạo thành công!");
+    //Nếu qua vòng validate
+    if (isValid) {
+      let dataToAdd = {
+        WorkName: this.workNameC,
+        Leader: this.leaderC,
+        StartDate: this.startDateC,
+        EndDate: this.endDateC,
+      };
+
+      WorkServirce.createWorkList(dataToAdd).then((res: any) => {
+        if (res) {
+          // console.log(res);
+          this.getWorkList();
+        }
+      });
+      alert("Chúc mừng bạn đã tạo thành công!");
+    }
   }
 
   public editItem(item: any) {
     // TO open modal
-    debugger
+    debugger;
     this.$bvModal.show("modal-edit" + item);
 
     WorkServirce.getWorkListById(item).then((res: any) => {
       this.valueInLine = res.data;
 
-      // console.log("value here");
-      // console.log(this.valueInLine);
+      console.log("value here");
+      console.log(this.valueInLine);
     });
   }
 
   public updateWork(item: any) {
-    debugger;
+    let dataToEdit = {
+      WorkName: this.newWorkName ? this.newWorkName : this.valueInLine.WorkName,
+      Leader: this.newLeader ? this.newLeader : this.valueInLine.Leader,
+      StartDate: this.newStartDate
+        ? this.newStartDate
+        : this.valueInLine.StartDate,
+      EndDate: this.newEndDate ? this.newEndDate : this.valueInLine.EndDate,
+    };
 
-    // let dataToEdit = {
-    //   WorkName: this.newWorkName ? this.newWorkName :  this.valueInLine.workName,
-    //   Leader: this.newLeader ?  this.newLeader : this.valueInLine.leader,
-    //   StartDate: this.newStartDate ? this.newStartDate : this.valueInLine.startDate,
-    //   EndDate: this.newEndDate ? this.newEndDate : this.valueInLine.endDate,
-    // };
-
-    WorkServirce.updateWorkList(item).then((res: any) => {
-      this.valueInLine = res.data;
-      console.log(res.data);
-      this.getWorkList()
+    WorkServirce.updateWorkList(item, dataToEdit).then((res: any) => {
+      if (res) {
+        this.valueInLine = res.data;
+        this.getWorkList();
+      }
     });
   }
 
@@ -270,5 +287,23 @@ export default class ListWork extends Vue {
       }
     });
   }
+
+  public search(keyword: string) {
+    debugger;
+    this.items = this.keyword
+      ? this.items.filter((item) => item.WorkName.include(this.keyword)) ||
+        this.items.filter((item) => item.Leader.include(this.keyword))
+      : this.items;
+  }
+
+  public validateState(name: any) {
+    //const{ $dirty, $error} = this.$v.form[name]
+  }
 }
 </script>
+
+<style scoped>
+.border-ranger {
+  border-color: red;
+}
+</style>
