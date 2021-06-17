@@ -3,7 +3,7 @@
     <h1>{{isEdit? 'This is user edit page' : 'this is user add page'}}</h1>
     <div class="form-input">
       <form>
-        <div class="row">
+        <div v-show="isEdit" class="row">
           <div class="col-25">
             <label for="id">Id</label>
           </div>
