@@ -76,8 +76,8 @@
         </div>
       </form>
       <div class="row">
-          <button @click="save">Save</button>
-        </div>
+        <button @click="save">Save</button>
+      </div>
     </div>
       
   </div>
@@ -101,7 +101,7 @@ export default class UserEditPage extends Vue {
       });
     }
   }
-  private save(){
+  private save() {
    if (this.isEdit) {
       userService.updateUser(this.data).then((res) => {
         this.$router.push(
@@ -117,7 +117,7 @@ export default class UserEditPage extends Vue {
             name: 'user',
           },
         );
-     })
+     });
    }
   }
 }
