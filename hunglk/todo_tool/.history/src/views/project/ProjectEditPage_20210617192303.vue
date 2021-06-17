@@ -98,12 +98,12 @@ export default class UserEditPage extends Vue {
           },
     );
   }
-  private dele() {
+  private dele(){
     const id = Number(this.data.id);
     projectService.deleteById(id).then((res) => {
-      alert('Đã xóa: ' + this.data.name);
+      alert('Đã xóa: ' + this.data.name)
       this.goListProject();
-    });
+    })
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{isEdit? 'This is project edit page' : 'This is project add page'}}</h1>
+    <h1>{{isEdit? 'This is user edit page' : 'This is user add page'}}</h1>
     <div class="form-input">
       <form>
         <div v-show="isEdit" class="row">
@@ -14,45 +14,70 @@
         
         <div class="row">
           <div class="col-25">
-            <label>Project name</label>
+            <label>User name</label>
           </div>
           <div class="col-75">
-            <input type="text" v-model="data.name" placeholder="Project name..">
+            <input type="text" v-model="data.userName" placeholder="Your user name..">
           </div>
         </div>
 
         <div class="row">
           <div class="col-25">
-            <label>Project namager</label>
+            <label>Full name</label>
           </div>
           <div class="col-75">
-            <input type="text" v-model="data.pm" placeholder="Project manager name..">
+            <input type="text" v-model="data.fullName" placeholder="Your full name..">
           </div>
         </div>
         
         <div class="row">
           <div class="col-25">
-            <label>Team size</label>
+            <label>Age</label>
           </div>
           <div class="col-75">
-            <input type="number" v-model="data.teamSize" placeholder="Team size...">
+            <input type="number" v-model="data.age" placeholder="Your age..">
           </div>
         </div>
 
          <div class="row">
           <div class="col-25">
-            <label>Customer</label>
+            <label>Gender</label>
           </div>
           <div class="col-75">
-            <input type="text" v-model="data.customer" placeholder="Customer name..">
+            <input type="text" v-model="data.gender" placeholder="Your gender..">
           </div>
         </div>
 
+        <div class="row">
+          <div class="col-25">
+            <label>Address</label>
+          </div>
+          <div class="col-75">
+            <input type="text" v-model="data.address" placeholder="Your address..">
+          </div>
+        </div>
+
+         <div class="row">
+          <div class="col-25">
+            <label>email</label>
+          </div>
+          <div class="col-75">
+            <input type="text" v-model="data.email" placeholder="Your email..">
+          </div>
+        </div>
+
+         <div class="row">
+          <div class="col-25">
+            <label>Phone number</label>
+          </div>
+          <div class="col-75">
+            <input type="number" v-model="data.phoneNumber" placeholder="Your phone number..">
+          </div>
+        </div>
       </form>
       <div class="row">
         <button @click="cancel">Cancel</button>
         <button @click="save">Save</button>
-        <button @click="dele" v-show="isEdit" class="delete">Delete</button>
       </div>
     </div>
       
@@ -61,49 +86,42 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { projectService } from '@/service';
-import { ProjectRequest } from '@/models';
+import { userService } from '@/service';
+import { UserRequest } from '@/models';
 
 @Component
 export default class UserEditPage extends Vue {
-  private data: ProjectRequest = new ProjectRequest();
+  private data: UserRequest = new UserRequest();
   private isEdit = false;
   private created() {
     if (this.$router.currentRoute.params.id) {
       const id = Number(this.$router.currentRoute.params.id);
       this.isEdit = true;
-      projectService.getProjectById(id).then((res) => {
+      userService.getUserById(id).then((res) => {
         this.data = res.data;
       });
     }
   }
   private save() {
    if (this.isEdit) {
-      projectService.updateProject(this.data).then((res) => {
-        this.goListProject();
+      userService.updateUser(this.data).then((res) => {
+        this.goListUser();
     });
    } else {
-     projectService.saveProject(this.data).then((res) => {
-        this.goListProject();
+     userService.saveUser(this.data).then((res) => {
+        this.goListUser();
      });
    }
   }
   private cancel() {
-    this.goListProject();
+    this.goListUser();
   }
-  private goListProject() {
+  private goListUser() {
     this.$router.push(
           {
-            name: 'project',
+            name: 'user',
           },
     );
-  }
-  private dele() {
-    const id = Number(this.data.id);
-    projectService.deleteById(id).then((res) => {
-      alert('Đã xóa: ' + this.data.name);
-      this.goListProject();
-    });
   }
 }
 </script>
@@ -170,9 +188,6 @@ input[type=submit]:hover {
   float: left;
   width: 50%;
   margin-top: 6px;
-}
-.delete {
-  background-color: #f30303;
 }
 
 /* Clear floats after the columns */

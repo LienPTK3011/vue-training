@@ -103,7 +103,7 @@ export default class UserEditPage extends Vue {
     projectService.deleteById(id).then((res) => {
       alert('Đã xóa: ' + this.data.name);
       this.goListProject();
-    });
+    })
   }
 }
 </script>

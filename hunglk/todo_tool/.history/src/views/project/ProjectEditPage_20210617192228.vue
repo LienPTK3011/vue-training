@@ -52,7 +52,6 @@
       <div class="row">
         <button @click="cancel">Cancel</button>
         <button @click="save">Save</button>
-        <button @click="dele" v-show="isEdit" class="delete">Delete</button>
       </div>
     </div>
       
@@ -98,12 +97,12 @@ export default class UserEditPage extends Vue {
           },
     );
   }
-  private dele() {
+  private dele(){
     const id = Number(this.data.id);
     projectService.deleteById(id).then((res) => {
-      alert('Đã xóa: ' + this.data.name);
+      alert('Đã xóa: ' + this.data.name)
       this.goListProject();
-    });
+    })
   }
 }
 </script>
@@ -170,9 +169,6 @@ input[type=submit]:hover {
   float: left;
   width: 50%;
   margin-top: 6px;
-}
-.delete {
-  background-color: #f30303;
 }
 
 /* Clear floats after the columns */

@@ -1,5 +1,5 @@
 export class ProjectRequest {
-  public id?: number;
+  public id?: 
   public name?: string;
   public pm?: string;
   public teamSize?: number;
