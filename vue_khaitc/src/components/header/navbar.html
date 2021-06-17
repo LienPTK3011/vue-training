@@ -1,0 +1,26 @@
+<div>
+    <v-app-bar app>
+        <div class="v-banner">
+            <a href="/">
+                <img src="https://newwave.vn/wp-content/uploads/2020/02/logo-nws-2_latest.png" alt="logo"
+                     id="logo">
+            </a>
+        </div>
+        <v-row
+                justify="center"
+                no-gutters
+        >
+            <v-btn
+                    :to="link.url"
+                    v-for="(link,i) in links"
+                    :key="i"
+                    color="black"
+                    text
+                    rounded
+                    class="my-2"
+            >
+                {{ link.name }}
+            </v-btn>
+        </v-row>
+    </v-app-bar>
+</div>
