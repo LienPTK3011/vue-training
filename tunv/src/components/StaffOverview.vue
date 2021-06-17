@@ -4,7 +4,7 @@
             class="mx-auto"
             max-width="344"
             outlined
-            :color="!staff.stillWorking ? '#385F73' : staff.experience >= 5 ? 'yellow' : 'white'"
+            :color="!staff.isWorking ? '#385F73' : 'white'"
         >
             <v-list-item three-line>
                 <v-list-item-content>
@@ -42,8 +42,8 @@
                     :to="{
                         name: 'staff-detail',
                         params: {
+                            id: id,
                             name: staff.name,
-                            items: staff
                         }
                     }"
                 >
@@ -54,7 +54,7 @@
                 depressed
                 color="error"
                 id="staff-delete-btn"
-                @click="deleteStaff(index)"
+                @click="deleteStaff(staff.id)"
             >
                 Delete
             </v-btn>
@@ -67,10 +67,13 @@
     import { Component, Prop, Vue } from 'vue-property-decorator';
     @Component
     export default class StaffOverview extends Vue {
-        @Prop() staff!: object;
+    @Prop() staff!: object; index!: number;
+    id = this.staff.id 
+    deleteStaff(id: number) {
+        this.$emit('deleteStaff', id)
     }
+}
 </script>
-
 
 <style scoped>
     #staff-detail-btn a {

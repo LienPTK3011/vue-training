@@ -20,28 +20,25 @@
   @Component
   export default class ProjectList extends Vue {
     @Prop()
-    projectsList = [
-      {
-        projectName: 'Avengers',
-        teamSize : 7,
-        customerName: 'Nick',
-      },
-      {
-        projectName: 'Boom',
-        teamSize : 6,
-        customerName: 'Nick'
-      },
-      {
-        projectName: 'Bum',
-        teamSize : 5,
-        customerName: 'Nick'
-      },
-      {
-        projectName: 'Holy shit',
-        teamSize : 4,
-        customerName: 'Nick'
-      },
-    ]
+    projectsList = []
+    new = {
+        "id": 5,
+        "projectName": "Avengers",
+        "teamSize" : 17,
+        "customerName": "Nick Fury"
+      }
+    async fetchApi() {
+      let res = await fetch('http://localhost:3000/projects')
+      let data = await res.json()
+      return data
+    }
+
+    async created() {
+      let data = await this.fetchApi()
+      this.projectsList = data
+      this.projectsList.push(this.new)
+      console.log(data)
+    }
   }
 </script>
 

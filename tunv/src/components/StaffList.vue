@@ -14,9 +14,11 @@
             <div class="staffs-list">
                 <StaffOverview 
                     :key="index"
-                    v-for="(staff, index) in staffsList" 
+                    v-for="(staff, index) in staffs" 
                     :staff="staff"
-                    :index="index"/>  
+                    :index="index"
+                    @deleteStaff='deleteStaff'
+                />  
             </div>
             <div class="add-staff-form shadow">
                 <v-form
@@ -64,6 +66,17 @@
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
     import StaffOverview from './StaffOverview.vue'
+
+    //interface
+    interface staff {
+        name: string,
+        age: number,
+        stillWorking: boolean,
+        exprience: number,
+        avatar: string,
+        todos: Array<any>
+    }
+
     @Component({
         components: {
             StaffOverview,
@@ -71,89 +84,70 @@
     })
     export default class StaffList extends Vue {
         nameSearch = ''
-        newStaff = {
-            name: '',
+        newStaff: staff = {
+            name: 'Asdfasdsad',
             age: 18,
             stillWorking: true,
             exprience: 0,
             avatar: './avatar-2.jpg',
             todos: []
         }
-        errors = []
+        errors: Array<string> = []
+        staffs: Array<staff> = []
+        initstaffs = this.staffs
 
-        staffsList = [
-            {
-                name: 'Harry Osborn',
-                age: '19',
-                stillWorking: true,
-                exprience: 2,
-                avatar: './avatar-2.jpg',
-                todos: [
-                    {
-                        name: 'eat',
-                        completed: false,
-                        edit: false
-                    },
-                    {
-                        name: 'sleep',
-                        completed: false,
-                        edit: false
-                    },
-                    {
-                        name: 'game',
-                        completed: false,
-                        edit: false
-                    },
-                ]
-            },
-            {
-                name: 'Oscar',
-                age: '25',
-                stillWorking: true,
-                exprience: 5,
-                avatar: './avatar-2.jpg',
-                todos: []
-            },
-            {
-                name: 'John Wane',
-                age: '30',
-                stillWorking: false,
-                exprience: 4,
-                avatar: './avatar-3.jpg',
-                todos: []
-            },
-        ]
-
-        initStaffsList = this.staffsList
-
-        deleteStaff(index: number) {
-            this.staffsList.splice(index, 1)
+        async deleteStaff(id: number) {
+            let staff = await fetch(`http://localhost:3000/staffs/${id}`,{
+                method: 'DELETE',
+            })
+            console.log(staff)
+            if (staff.status === 200) {
+                this.staffs = this.staffs.filter(staff => staff.id != id )
+            }
         }
-
-        staffFilter(staff: object) {
+        
+        staffFilter(staff: staff) {
             return staff.name.includes(this.nameSearch)
         }
 
         searchStaff() {
-            if (this.initStaffsList.length > this.staffsList.length) {
-                this.staffsList = this.initStaffsList
+            if (this.initstaffs.length > this.staffs.length) {
+                this.staffs = this.initstaffs
             }
 
-            let staffFinded = this.staffsList.filter(this.staffFilter)
+            let staffFinded = this.staffs.filter(this.staffFilter)
             if (staffFinded.length) {
-                this.staffsList = staffFinded
+                this.staffs = staffFinded
             }
             this.nameSearch = ''
         }
-        checkForm() {
+        async checkForm() {
             if (!this.newStaff.name.length) {
                 let error = 'Please enter the name!'
                 this.errors.push(error)
+                return
             }
+            let respone = await fetch('http://localhost:3000/staffs', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(this.newStaff)
+            })
+            let staff = await respone.json()
+            this.staffs.push(staff)
+        }
 
-            if (!this.errors.length) {
-                this.staffsList.push(this.newStaff)
-            }
+        async getStaffs() {
+            let respone = await fetch('http://localhost:3000/staffs')
+            let staffs = await respone.json()
+            return staffs
+        }
+
+        async created() {
+            this.staffs = await this.getStaffs()
+            
+            console.log(this.staffs)
         }
     }
 </script>

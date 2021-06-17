@@ -37,7 +37,10 @@
           :src="'../../' + staff.avatar"
           alt="Avatar"
       >
-      <v-form class="staff-detail-form">
+      <v-form @submit.prevent="checkValidInformation()" class="staff-detail-form">
+        <div v-if="errorMessage.length">
+          <p :key="index" v-for="(error,index) in errorMessage">{{ error }}</p>
+        </div>
         <v-container>
           <v-text-field
               label="Name"
@@ -55,6 +58,12 @@
           >
           </v-text-field>
         </v-container>
+        <v-btn
+          elevation="2"
+          type="submit"
+        >
+          Save
+        </v-btn>
       </v-form>
     </div>
   </div>
@@ -72,7 +81,42 @@
     @Prop() readonly name!: unknown
     newTodo = '' ;
     staffName = this.$route.params.name;
-    staff = this.$route.params.items;
+    staff: object = {};
+    staffId = this.$route.params.id
+    errorMessage: Array<string> = []
+
+    async getStaffFromApi() {
+      let respone = await fetch(`http://localhost:3000/staffs/${this.staffId}`)
+      let staff = await respone.json()
+      return staff
+    }
+
+    async created() {
+      let staff = await this.getStaffFromApi()
+      this.staff = staff
+    }
+
+    async checkValidInformation() {
+      if (!this.staff.name.length || !this.staff.age.length) {
+        let error = 'Please enter your information'
+        this.errorMessage.push(error)
+        return
+      }
+
+      let currentStaff = await this.getStaffFromApi()
+      let currentStaffInfor = await currentStaff.json()
+      let staffUpdate = {...currentStaffInfor, name:'Sherlock'}
+
+      let respone = await fetch(`http://localhost:3000/staffs/${this.staffId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(staffUpdate)
+      })
+      let staffUpdated = await respone.json()
+      this.staff = staffUpdated
+    }
 
     addNewTodo() {
       if (this.newTodo.length) {

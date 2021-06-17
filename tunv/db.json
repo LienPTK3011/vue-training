@@ -1,0 +1,57 @@
+{
+  "staffs": [
+    {
+      "id": 1,
+      "name": "Obama",
+      "age": 59,
+      "isWorking": false,
+      "exprience": 5,
+      "avatar": "./avatar-3.jpg",
+      "todos": []
+    },
+    {
+      "id": 1,
+      "name": "Troy",
+      "age": 22,
+      "isWorking": true,
+      "exprience": 2,
+      "avatar": "./avatar-2.jpg",
+      "todos": []
+    },
+    {
+      "name": "De Jong",
+      "age": "23",
+      "stillWorking": true,
+      "exprience": "3",
+      "avatar": "./avatar-2.jpg",
+      "todos": [],
+      "id": 3
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "projectName": "Avengers",
+      "teamSize": 7,
+      "customerName": "Nick"
+    },
+    {
+      "id": 2,
+      "projectName": "Boom",
+      "teamSize": 6,
+      "customerName": "Nick"
+    },
+    {
+      "id": 3,
+      "projectName": "Bum",
+      "teamSize": 5,
+      "customerName": "Nick"
+    },
+    {
+      "id": 4,
+      "projectName": "Holy shit",
+      "teamSize": 4,
+      "customerName": "Nick"
+    }
+  ]
+}
