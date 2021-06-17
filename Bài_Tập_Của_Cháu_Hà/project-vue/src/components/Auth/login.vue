@@ -1,93 +1,136 @@
 <template>
-    <v-content class="wrapLogin">
-      <v-container fill-height="fill-height">
-        <v-layout align-center="align-center" justify-center="justify-center">
-          <v-flex class="login-form text-xs-center"> 
-            <div class="display-1 mb-3">
-            Login
-            </div>
-            <v-card light="light">
-              <v-card-text>
-                <Form
-                    @submit="onSubmit"
-                >
-                  <v-text-field 
-                    light="light" 
-                    label="Email" 
-                    type="email"
-                    name="email"
-                    :rules="validateEmail"
-                  ></v-text-field>
-                  <ErrorMessage name="email" />
-                  <v-text-field 
-                    light="light" 
-                    label="Password" 
-                    type="password"
-                  >
-                  </v-text-field>
-                  <v-btn 
-                    block="block" 
-                    class="button-submit"
-                    >Sign in</v-btn>
-                    <v-btn 
-                    block="block" 
-                    type="button"
-                  >Register
-                  </v-btn>
-                </Form>
-              </v-card-text>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-content>
+  <v-container>
+    <v-card flat>
+      <v-snackbar v-model="snackbar" absolute top right color="success">
+        <span>Registration successful!</span>
+        <v-icon dark> mdi-checkbox-marked-circle </v-icon>
+      </v-snackbar>
+      <v-form ref="form" @submit.prevent="submit">
+        <v-container fluid>
+          <v-row>
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model="form.first"
+                :rules="rules.name"
+                color="purple darken-2"
+                label="First name"
+                required
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model="form.last"
+                :rules="rules.name"
+                color="blue darken-2"
+                label="Last name"
+                required
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-textarea v-model="form.bio" color="teal">
+                <template v-slot:label>
+                  <div>Bio <small>(optional)</small></div>
+                </template>
+              </v-textarea>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-select
+                v-model="form.favoriteAnimal"
+                :items="animals"
+                :rules="rules.animal"
+                color="pink"
+                label="Favorite animal"
+                required
+              ></v-select>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-slider
+                v-model="form.age"
+                :rules="rules.age"
+                color="orange"
+                label="Age"
+                hint="Be honest"
+                min="1"
+                max="100"
+                thumb-label
+              ></v-slider>
+            </v-col>
+            <v-col cols="12">
+              <v-checkbox v-model="form.terms" color="green">
+                <template v-slot:label>
+                  <div @click.stop="">
+                    Do you accept the
+                    <a href="#" @click.prevent="terms = true">terms</a>
+                    and
+                    <a href="#" @click.prevent="conditions = true"
+                      >conditions?</a
+                    >
+                  </div>
+                </template>
+              </v-checkbox>
+            </v-col>
+          </v-row>
+        </v-container>
+        <v-card-actions>
+          <v-btn text @click="resetForm"> Cancel </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn :disabled="!formIsValid" text color="primary" type="submit">
+            Register
+          </v-btn>
+        </v-card-actions>
+      </v-form>
+    </v-card>
+  </v-container>
 </template>
 
-<style lang="scss">
-.wrapLogin {
-    margin: 50px 0 0 0;
-    .display-1 {
-        text-align: center;
-    }
-    .login-form {
-        max-width: 500px;
-        .button-submit {
-            background: #00bcd4;
-            color: white;
-            margin: 10px 0 30px 0;
-        }
-    }
-}
-</style>
+<script>
+export default {
+  data() {
+    const defaultForm = Object.freeze({
+      first: "",
+      last: "",
+      bio: "",
+      favoriteAnimal: "",
+      age: null,
+      terms: false,
+    });
 
-<script lang="ts">
-import {Vue,Component} from 'vue-property-decorator'
-interface user {
-    email: string
-    name: string
-    password: string
-}
-@Component
-export default class Login extends Vue{
-    user: user= {
-        email:'test1@gmail.com',
-        name:'Hoang Ha',
-        password:'1234'
-    }
-    onSubmit(values:any) {
-      alert(JSON.stringify(values, null, 2));
-    }
-    validateEmail(value:any) {
-      // if the field is empty
-      if (!value) {
-        return 'This field is required';
-      }
+    return {
+      form: Object.assign({}, defaultForm),
+      rules: {
+        age: [(val) => val < 10 || `I don't believe you!`],
+        animal: [(val) => (val || "").length > 0 || "This field is required"],
+        name: [(val) => (val || "").length > 0 || "This field is required"],
+      },
+      animals: ["Dog", "Cat", "Rabbit", "Turtle", "Snake"],
+      conditions: false,
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.",
+      snackbar: false,
+      terms: false,
+      defaultForm,
+    };
+  },
+  computed: {
+    formIsValid() {
+      return (
+        this.form.first &&
+        this.form.last &&
+        this.form.favoriteAnimal &&
+        this.form.terms
+      );
+    },
+  },
 
-      // if the field is not a valid email
-      if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-        return 'This field must be a valid email';
-      }
-      return true;
-    }
-}
+  methods: {
+    resetForm() {
+      this.form = Object.assign({}, this.defaultForm);
+      this.$refs.form.reset();
+    },
+    submit() {
+      this.snackbar = true;
+      this.resetForm();
+    },
+  },
+};
 </script>

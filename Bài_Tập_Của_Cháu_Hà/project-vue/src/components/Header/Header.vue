@@ -3,10 +3,7 @@
     <v-container>
       <div class="wrapHeader">
         <div class="logo">
-            <img
-             :src="Menu.logo" 
-              @click="$router.push({ name: 'Home' })"
-            />
+          <img :src="Menu.logo" @click="$router.push({ name: 'Home' })" />
         </div>
         <div class="wrapTopBar">
           <TopBar :getDataTopBar="Menu.menu" />

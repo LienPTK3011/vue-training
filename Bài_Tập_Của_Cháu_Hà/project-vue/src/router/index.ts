@@ -6,6 +6,7 @@ import ProductDetail from "@/components/Product/detail.vue";
 import ProfileUser from "@/components/Employee/profile.vue";
 import Login from "@/components/Auth/login.vue";
 import AddEmployee from "@/components/Employee/add.vue";
+
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
@@ -58,7 +59,7 @@ const loginRequiredRoutes: Array<string | null | undefined> = [
 
 router.beforeEach((to, from, next) => {
   if (loginRequiredRoutes.includes(to.name)) {
-    next();
+    // next();
   }
 
   next();

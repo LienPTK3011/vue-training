@@ -45,4 +45,3 @@ export default class TopBar extends Vue {
   }
 }
 </style>
-

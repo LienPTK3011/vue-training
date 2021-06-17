@@ -5,15 +5,10 @@
         <h1>View Profile</h1>
         <div class="wrapAvatar">
           <v-avatar size="300" class="wrapAvatarItem">
-            <img 
+            <img
               src="https://image.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg"
-            >
-            <input
-              ref="uploader"
-              class="d-none"
-              type="file"
-              accept="image/*"
-            >
+            />
+            <input ref="uploader" class="d-none" type="file" accept="image/*" />
           </v-avatar>
         </div>
         <div class="wrapInfoProfile">
@@ -27,21 +22,19 @@
           <v-col cols="12" md="3">
             <v-text-field
               label="AGE"
-              outlined 
+              outlined
               v-model="item.old"
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="3">
-             <v-select
+            <v-select
               label="Part"
               outlined
               :items="itemPart"
               v-model="item.part"
             ></v-select>
           </v-col>
-          <v-col 
-            cols="12" 
-            md="3">
+          <v-col cols="12" md="3">
             <v-select
               label="Status"
               outlined
@@ -58,10 +51,7 @@
             ></v-select>
           </v-col>
           <div class="wrapButton">
-            <v-btn 
-              elevation="8"
-              @click="addNewMember"
-            > Create Proflie </v-btn>
+            <v-btn elevation="8" @click="addNewMember"> Create Proflie </v-btn>
           </div>
         </v-row>
       </div>
@@ -70,54 +60,50 @@
 </template>
 
 <script lang="ts">
-import { Vue,Component } from "vue-property-decorator"
+import { Vue, Component } from "vue-property-decorator";
 import EmployeeDataService from "../../business/B_employee";
 import Employee from "../../types/Employee";
 interface data {
-    name:string
-    old: number
-    position: string
-    part: string
-    status: string
-    avatar: string
+  name: string;
+  old: number;
+  position: string;
+  part: string;
+  status: string;
+  avatar: string;
 }
 @Component
 export default class addEmployee extends Vue {
-    itemsStatus = [
-      "Working",
-      "Not Working",
-      "New staff",
+  itemsStatus = ["Working", "Not Working", "New staff"];
+  itemsPosition = [
+    "Develop",
+    "PM",
+    "HR",
+    "BRSE",
+    "Leader",
+    "Chủ Tịt",
+    "Giám Đốc",
+  ];
+  itemPart = [
+    "DIVISION 1",
+    "DIVISION 2",
+    "BO",
+    "IT",
+    "Social Media",
+    "Degisner",
+    "Board Of Manager",
+  ];
 
-    ];
-    itemsPosition = [
-      "Develop",
-      "PM",
-      "HR",
-      "BRSE",
-      "Leader",
-      "Chủ Tịt",
-      "Giám Đốc",
-    ];
-    itemPart = [
-      "DIVISION 1",
-      "DIVISION 2",
-      "BO",
-      "IT",
-      "Social Media",
-      "Degisner",
-      "Board Of Manager",
-    ];
+  private item = {} as Employee;
 
-    private item = {} as Employee;
-
-    addNewMember() {
-      EmployeeDataService.addEmployee(this.item).then((response:any) => {
+  addNewMember() {
+    EmployeeDataService.addEmployee(this.item)
+      .then((response: any) => {
         this.item = response.data;
       })
       .catch((errors) => {
         console.log(errors);
       });
-    }
+  }
 }
 </script>
 

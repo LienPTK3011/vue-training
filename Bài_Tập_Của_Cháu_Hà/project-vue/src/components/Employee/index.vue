@@ -1,14 +1,22 @@
 <template>
   <div>
     <v-container>
-      <h1>The list of Employee</h1>
+      <div class="wrapHeaderEmployee">
+        <div class="title">
+          <h1>The list of Employee</h1>
+        </div>
+        <div class="wrapButtonAdd">
+          <v-btn
+            elevation="8"
+            class="detail"
+            @click="$router.push({ name: 'Employee_Add' })"
+          >
+            New member
+          </v-btn>
+        </div>
+      </div>
       <v-row>
-        <v-col
-          cols="12"
-          md="3"
-          v-for="(item, key) in employees"
-          :key="key"
-        >
+        <v-col cols="12" md="3" v-for="(item, key) in employees" :key="key">
           <v-card elevation="13" :class="item.id">
             <v-progress-linear color="white" indeterminate></v-progress-linear>
 
@@ -40,7 +48,7 @@
             <div class="wrapInforRole">
               <div class="namePart">
                 <div>Position:</div>
-                <h3>{{ item.postion }}</h3>
+                <h3>{{ item.position }}</h3>
               </div>
             </div>
             <div class="wrapInforRole">
@@ -57,27 +65,21 @@
                     params: { id: item.id, items: item },
                   }"
                 >
-                  <v-btn text 
-                    class="detail"
-                  > Detail 
-                  </v-btn>
+                  <v-btn text class="detail"> Detail </v-btn>
                 </router-link>
-                  <v-btn class="buttonRemove"
-                    :getIdItem="item.id"
-                    @deleteItem="prepareDelete($event)"
-                    @click="this.dialog = true"
-                  >
-                    Delete
-                  </v-btn>
-                  <ButtonRemove
-                    :dialog="dialog"
-                    @update-dialog="status = $event"
-                  />
+                <v-btn class="buttonRemove" @click="prepareDelete(item.id)">
+                  Delete
+                </v-btn>
               </v-card-actions>
             </div>
           </v-card>
         </v-col>
       </v-row>
+      <ButtonRemove
+        :dialog="dialog"
+        @update-dialog="dialog = $event"
+        @confirm="onConfirm"
+      />
     </v-container>
   </div>
 </template>
@@ -85,104 +87,65 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 import Employee from "../../types/Employee";
-import ButtonRemove from "../Employee/Alert.vue"
-import EmployeeDataService from "../../business/B_employee"
+import ButtonRemove from "../Employee/Alert.vue";
+import EmployeeDataService from "../../business/B_employee";
+import VueToast from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+Vue.use(VueToast);
 
 @Component({
   components: {
-    ButtonRemove
+    ButtonRemove,
   },
 })
 export default class App extends Vue {
-    private employees: Employee[] = [];
-    private response: any;
-    private errors: any;
-    dialog = false;
-    tempId = 0
-    retrieveEmployee() {
+  private employees: Employee[] = [];
+  private response: any;
+  private errors: any;
+  dialog = false;
+  tempId = 0;
+
+  retrieveEmployee() {
     EmployeeDataService.getAll()
       .then((response) => {
         this.employees = response.data;
         console.log(response.data);
       })
-      .catch((errors) => {
-        console.log(errors);
-      });
+      .catch(console.log);
   }
-  
+
   created() {
     this.retrieveEmployee();
   }
 
   prepareDelete(id: number) {
-    this.tempId = id
-    this.dialog = true
+    this.tempId = id;
+    this.dialog = true;
   }
 
-   deleteItem(id: number) {
-    EmployeeDataService.delete(id).then((response) => {
-      console.log('remove')
-    })
-    .catch((errors) => {
+  deleteItem(id: number) {
+    EmployeeDataService.delete(id)
+      .then((response) => {
+        this.retrieveEmployee();
+        this.$toast.open({
+          message: "Delete successfully",
+          type: "success",
+          duration: 5000,
+          dismissible: true,
+          position: "top-right",
+        });
+      })
+      .catch((errors) => {
         console.log(errors);
       });
   }
 
   onConfirm() {
-    this.deleteItem(this.tempId)
+    this.deleteItem(this.tempId);
   }
-
 }
 </script>
 
 <style lang="scss">
-.wrapInforRole {
-  display: flex;
-  padding: 5px 25px 5px 25px;
-  justify-content: space-around;
-
-  .namePart {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    h3 {
-      padding: 0 0 0 15px;
-    }
-  }
-}
-.wrapInforUserNotWorking {
-  display: flex;
-  padding: 25px;
-  justify-content: space-around;
-  background: #b3b3b3;
-  color: #fff;
-  img {
-    object-fit: cover;
-  }
-}
-.wrapInforUser {
-  display: flex;
-  padding: 25px;
-  justify-content: space-around;
-  background: #00bcd4;
-  color: #fff;
-  img {
-    object-fit: cover;
-  }
-}
-.wrapButton {
-  display: flex;
-  padding: 40px 10px 10px 10px;
-  .button-item {
-    .detail {
-      color: #fff;
-      background: #00bcd4;
-    }
-    .delete {
-      background: red;
-      color: #fff;
-      margin: 0 0 0 10px;
-    }
-  }
-}
+@import "../../assets/scss/listEmployee.scss";
 </style>
