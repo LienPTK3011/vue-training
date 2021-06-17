@@ -51,7 +51,7 @@ const loginRequiredRoutes: Array<string | null | undefined> = [
 
 router.beforeEach((to, from, next) => {
   if (loginRequiredRoutes.includes(to.name)) {
-    console.log(123213213);
+    next();
   }
 
   next();

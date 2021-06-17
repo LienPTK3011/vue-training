@@ -6,10 +6,10 @@
         <v-col
           cols="12"
           md="3"
-          v-for="(item, key) in ListUser.listUser"
+          v-for="(item, key) in employees"
           :key="key"
         >
-          <v-card elevation="13" :loading="loading" :class="item.id">
+          <v-card elevation="13" :class="item.id">
             <v-progress-linear color="white" indeterminate></v-progress-linear>
 
             <div
@@ -57,7 +57,10 @@
                     params: { id: item.id, items: item },
                   }"
                 >
-                  <v-btn text class="detail"> Detail </v-btn>
+                  <v-btn text 
+                    class="detail"
+                  > Detail 
+                  </v-btn>
                 </router-link>
                 <v-btn text @click="deleteEvent(key)" class="delete"> Delete </v-btn>
               </v-card-actions>
@@ -122,118 +125,29 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-interface ProjectItem {
-  listUser: any[];
-}
+import Employee from "../../types/Employee";
+import EmployeeDataService from "../../business/B_employee"
+
 @Component({
   components: {},
 })
 export default class App extends Vue {
-  ListUser: ProjectItem = {
-    listUser: [
-      {
-        id: 1,
-        name: "Hoàng Trọng Hà",
-        age: 20,
-        part: "devison",
-        status: "Working",
-        postion: "Develop",
-        avatar:
-          "https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
-      },
-      {
-        id: 2,
-        name: "Nguyễn Đức Phú",
-        age: 20,
-        part: "devison",
-        status: "not_woking",
-        postion: "Develop",
-        avatar:
-          "https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
-      },
-      {
-        id: 3,
-        name: "Phạm Bá Vũ",
-        age: 20,
-        part: "devison",
-        status: "not_woking",
-        postion: "Develop",
-        avatar:
-          "https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
-      },
-      {
-        id: 4,
-        name: "Lê Anh Tuấn",
-        age: 20,
-        part: "devison",
-        status: "not_woking",
-        postion: "Develop",
-        avatar:
-          "https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
-      },
-      {
-        id: 5,
-        name: "Phí Thị Kim Liên",
-        age: 20,
-        part: "devison",
-        status: "not_woking",
-        postion: "Develop",
-        avatar:
-          "https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
-      },
-      {
-        id: 6,
-        name: "Hoàng Ngọc Hiếu",
-        age: 20,
-        part: "devison",
-        status: "Working",
-        postion: "Develop",
-        avatar:
-          "https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
-      },
-      {
-        id: 7,
-        name: "Lê Bình An",
-        age: 20,
-        part: "devison",
-        status: "not_woking",
-        postion: "Develop",
-        avatar:
-          "https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
-      },
-      {
-        id: 8,
-        name: "Trần Ngọc Duy Linh",
-        age: 20,
-        part: "devison",
-        status: "Working",
-        postion: "Develop",
-        avatar:
-          "https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
-      },
-      {
-        id: 9,
-        name: "Ối Zồi Ôi",
-        age: 20,
-        part: "devison",
-        status: "not_woking",
-        postion: "Develop",
-        avatar: "",
-      },
-      {
-        id: 10,
-        name: "Ngô Bá Khá",
-        age: 20,
-        part: "devison",
-        status: "Working",
-        postion: "Develop",
-        avatar: "",
-      },
-    ],
-  };
-
-  deleteEvent(key:number): void {
-    this.ListUser.listUser.splice(key, 1);
+    private employees: Employee[] = [];
+    private response: any;
+    private errors: any;
+    retrieveEmployee() {
+    EmployeeDataService.getAll()
+      .then((response) => {
+        this.employees = response.data;
+        console.log(response.data);
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  }
+  
+  created() {
+    this.retrieveEmployee();
   }
 }
 </script>

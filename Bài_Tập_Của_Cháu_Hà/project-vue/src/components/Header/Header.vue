@@ -3,9 +3,10 @@
     <v-container>
       <div class="wrapHeader">
         <div class="logo">
-          <a href="/">
-            <img :src="Menu.logo" />
-          </a>
+            <img
+             :src="Menu.logo" 
+              @click="$router.push({ name: 'Home' })"
+            />
         </div>
         <div class="wrapTopBar">
           <TopBar :getDataTopBar="Menu.menu" />
@@ -52,37 +53,37 @@ export default class Header extends Vue {
   Menu: dataHeader = {
     menu: [
       {
-        name: "Our Menu",
-        url: "/ourmenu",
+        title: "Information",
+        routeName: "Information",
       },
-      {
-        name: "McCafé",
-        url: "/mccafe",
-      },
-      {
-        name: "About Our Food",
-        url: "/aboutourfood",
-      },
-      {
-        name: "Exclusive Deals",
-        url: "/exclusivedeals",
-      },
-      {
-        name: "Download App",
-        url: "/downloadapp",
-      },
-      {
-        name: "locate",
-        url: "/locate",
-      },
-      {
-        name: "Information",
-        url: "/information",
-      },
-      {
-        name: "Login",
-        url: "/login",
-      },
+      // {
+      //   name: "McCafé",
+      //   url: "/mccafe",
+      // },
+      // {
+      //   name: "About Our Food",
+      //   url: "/aboutourfood",
+      // },
+      // {
+      //   name: "Exclusive Deals",
+      //   url: "/exclusivedeals",
+      // },
+      // {
+      //   name: "Download App",
+      //   url: "/downloadapp",
+      // },
+      // {
+      //   name: "locate",
+      //   url: "/locate",
+      // },
+      // {
+      //   name: "Information",
+      //   url: "/information",
+      // },
+      // {
+      //   name: "Login",
+      //   url: "/login",
+      // },
     ],
     logo: "../img/logo.jpg",
   };

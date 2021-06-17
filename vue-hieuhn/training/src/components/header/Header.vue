@@ -24,7 +24,7 @@ import { Component, Emit, Prop, Vue } from "vue-property-decorator";
 export default class Header extends Vue {
   @Prop() private lists?: string[];
 
-  logo = '/assets/images/logo.png'
+  logo = "/assets/images/logo.png";
 
   showDialog = () => {
     this.$emit("emitName");

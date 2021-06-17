@@ -1,44 +1,43 @@
 <template>
   <div id="app">
     <div id="nav">
-      <Header 
-        :lists="menus.lists"
-        @emitName="emitFunc"
-        >
-      </Header>
+      <Header :lists="menus.lists" @emitName="emitFunc"> </Header>
     </div>
     <v-main>
-      <v-container>
+      <v-app>
+        <v-container>
           <router-view />
-      </v-container>
+        </v-container>
+      </v-app>
     </v-main>
+    <notifications group="noti" :style="{ top: '20px' }" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import Header from './components/header/Header.vue'
+import { Component, Vue } from "vue-property-decorator";
+import Header from "./components/header/Header.vue";
 
 interface menu {
-  lists: any[]
+  lists: any[];
 }
 
 @Component({
   components: {
     Header,
-  }
+  },
 })
 export default class App extends Vue {
   menus: menu = {
     lists: [
-      { name: 'Project', url: '/project' },
-      { name: 'Staff', url: '/staff' },
-    ]
-  }
+      { name: "Project", url: "/project" },
+      { name: "Staff", url: "/staff" },
+    ],
+  };
 
   emitFunc = () => {
-    console.log(true)
-  }
+    console.log(true);
+  };
 }
 </script>
 
