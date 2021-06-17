@@ -18,7 +18,7 @@ class UserService extends Vue {
   }
 
   public getUserById(id: number) {
-    return axios.get<UserRequest>(this.ROOT_API + '/' + id);
+    return axios.get(this.ROOT_API + '/' + id);
   }
 
   public deleteById(id: number) {
