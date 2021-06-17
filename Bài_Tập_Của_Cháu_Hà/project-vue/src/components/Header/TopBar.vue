@@ -1,14 +1,30 @@
 <template>
   <div class="topbar">
     <ul class="itemMenu">
-      <a v-for="(item, key) in getDataTopBar" :key="key" :href="item.url">
-        <li>
-          {{ item.name }}
-        </li>
-      </a>
+      <li
+        v-for="(item, key) in getDataTopBar"
+        :key="key"
+        @click="$router.push({ name: item.routeName })"
+      >
+        {{ item.title }}
+      </li>
     </ul>
   </div>
 </template>
+
+<script lang="ts">
+import { Component, Vue, Prop } from "vue-property-decorator";
+import Header from "./Header.vue";
+@Component({
+  components: {
+    Header,
+  },
+})
+export default class TopBar extends Vue {
+  @Prop() private getDataTopBar?: string[];
+}
+</script>
+
 <style lang="scss">
 .topbar {
   width: 100%;
@@ -24,20 +40,8 @@
     }
     li {
       padding: 0 25px;
+      cursor: pointer;
     }
   }
 }
 </style>
-
-<script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
-import Header from "./Header.vue";
-@Component({
-  components: {
-    Header,
-  },
-})
-export default class TopBar extends Vue {
-  @Prop() private getDataTopBar?: string[];
-}
-</script>

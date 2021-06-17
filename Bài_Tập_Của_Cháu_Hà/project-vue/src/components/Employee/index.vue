@@ -1,15 +1,23 @@
 <template>
   <div>
     <v-container>
-      <h1>The list of Employee</h1>
+      <div class="wrapHeaderEmployee">
+        <div class="title">
+          <h1>The list of Employee</h1>
+        </div>
+        <div class="wrapButtonAdd">
+          <v-btn
+            elevation="8"
+            class="detail"
+            @click="$router.push({ name: 'Employee_Add' })"
+          >
+            New member
+          </v-btn>
+        </div>
+      </div>
       <v-row>
-        <v-col
-          cols="12"
-          md="3"
-          v-for="(item, key) in ListUser.listUser"
-          :key="key"
-        >
-          <v-card elevation="13" :loading="loading" :class="item.id">
+        <v-col cols="12" md="3" v-for="(item, key) in employees" :key="key">
+          <v-card elevation="13" :class="item.id">
             <v-progress-linear color="white" indeterminate></v-progress-linear>
 
             <div
@@ -40,7 +48,7 @@
             <div class="wrapInforRole">
               <div class="namePart">
                 <div>Position:</div>
-                <h3>{{ item.postion }}</h3>
+                <h3>{{ item.position }}</h3>
               </div>
             </div>
             <div class="wrapInforRole">
@@ -59,181 +67,85 @@
                 >
                   <v-btn text class="detail"> Detail </v-btn>
                 </router-link>
-                <v-btn text @click="deleteEvent(key)" class="delete"> Delete </v-btn>
+                <v-btn class="buttonRemove" @click="prepareDelete(item.id)">
+                  Delete
+                </v-btn>
               </v-card-actions>
             </div>
           </v-card>
         </v-col>
       </v-row>
+      <ButtonRemove
+        :dialog="dialog"
+        @update-dialog="dialog = $event"
+        @confirm="onConfirm"
+      />
     </v-container>
   </div>
 </template>
-<style lang="scss">
-.wrapInforRole {
-  display: flex;
-  padding: 5px 25px 5px 25px;
-  justify-content: space-around;
-
-  .namePart {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    h3 {
-      padding: 0 0 0 15px;
-    }
-  }
-}
-.wrapInforUserNotWorking {
-  display: flex;
-  padding: 25px;
-  justify-content: space-around;
-  background: #b3b3b3;
-  color: #fff;
-  img {
-    object-fit: cover;
-  }
-}
-.wrapInforUser {
-  display: flex;
-  padding: 25px;
-  justify-content: space-around;
-  background: #00bcd4;
-  color: #fff;
-  img {
-    object-fit: cover;
-  }
-}
-.wrapButton {
-  display: flex;
-  padding: 40px 10px 10px 10px;
-  .button-item {
-    .detail {
-      color: #fff;
-      background: #00bcd4;
-    }
-    .delete {
-      background: red;
-      color: #fff;
-      margin: 0 0 0 10px;
-    }
-  }
-}
-</style>
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-interface ProjectItem {
-  listUser: any[];
-}
+import Employee from "../../types/Employee";
+import ButtonRemove from "../Employee/Alert.vue";
+import EmployeeDataService from "../../business/B_employee";
+import VueToast from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+Vue.use(VueToast);
+
 @Component({
-  components: {},
+  components: {
+    ButtonRemove,
+  },
 })
 export default class App extends Vue {
-  ListUser: ProjectItem = {
-    listUser: [
-      {
-        id: 1,
-        name: "Hoàng Trọng Hà",
-        age: 20,
-        part: "devison",
-        status: "Working",
-        postion: "Develop",
-        avatar:
-          "https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
-      },
-      {
-        id: 2,
-        name: "Nguyễn Đức Phú",
-        age: 20,
-        part: "devison",
-        status: "not_woking",
-        postion: "Develop",
-        avatar:
-          "https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
-      },
-      {
-        id: 3,
-        name: "Phạm Bá Vũ",
-        age: 20,
-        part: "devison",
-        status: "not_woking",
-        postion: "Develop",
-        avatar:
-          "https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
-      },
-      {
-        id: 4,
-        name: "Lê Anh Tuấn",
-        age: 20,
-        part: "devison",
-        status: "not_woking",
-        postion: "Develop",
-        avatar:
-          "https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
-      },
-      {
-        id: 5,
-        name: "Phí Thị Kim Liên",
-        age: 20,
-        part: "devison",
-        status: "not_woking",
-        postion: "Develop",
-        avatar:
-          "https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
-      },
-      {
-        id: 6,
-        name: "Hoàng Ngọc Hiếu",
-        age: 20,
-        part: "devison",
-        status: "Working",
-        postion: "Develop",
-        avatar:
-          "https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
-      },
-      {
-        id: 7,
-        name: "Lê Bình An",
-        age: 20,
-        part: "devison",
-        status: "not_woking",
-        postion: "Develop",
-        avatar:
-          "https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
-      },
-      {
-        id: 8,
-        name: "Trần Ngọc Duy Linh",
-        age: 20,
-        part: "devison",
-        status: "Working",
-        postion: "Develop",
-        avatar:
-          "https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
-      },
-      {
-        id: 9,
-        name: "Ối Zồi Ôi",
-        age: 20,
-        part: "devison",
-        status: "not_woking",
-        postion: "Develop",
-        avatar: "",
-      },
-      {
-        id: 10,
-        name: "Ngô Bá Khá",
-        age: 20,
-        part: "devison",
-        status: "Working",
-        postion: "Develop",
-        avatar: "",
-      },
-    ],
-  };
+  private employees: Employee[] = [];
+  private response: any;
+  private errors: any;
+  dialog = false;
+  tempId = 0;
 
-  deleteEvent(key:number): void {
-    this.ListUser.listUser.splice(key, 1);
+  retrieveEmployee() {
+    EmployeeDataService.getAll()
+      .then((response) => {
+        this.employees = response.data;
+        console.log(response.data);
+      })
+      .catch(console.log);
+  }
+
+  created() {
+    this.retrieveEmployee();
+  }
+
+  prepareDelete(id: number) {
+    this.tempId = id;
+    this.dialog = true;
+  }
+
+  deleteItem(id: number) {
+    EmployeeDataService.delete(id)
+      .then((response) => {
+        this.retrieveEmployee();
+        this.$toast.open({
+          message: "Delete successfully",
+          type: "success",
+          duration: 5000,
+          dismissible: true,
+          position: "top-right",
+        });
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  }
+
+  onConfirm() {
+    this.deleteItem(this.tempId);
   }
 }
 </script>
+
+<style lang="scss">
+@import "../../assets/scss/listEmployee.scss";
+</style>

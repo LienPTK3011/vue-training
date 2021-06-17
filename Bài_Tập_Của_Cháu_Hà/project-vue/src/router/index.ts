@@ -5,6 +5,8 @@ import Information from "@/components/information/index.vue";
 import ProductDetail from "@/components/Product/detail.vue";
 import ProfileUser from "@/components/Employee/profile.vue";
 import Login from "@/components/Auth/login.vue";
+import AddEmployee from "@/components/Employee/add.vue";
+
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
@@ -15,7 +17,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/login",
-    name: "login",
+    name: "Login",
     component: Login,
   },
   {
@@ -35,6 +37,12 @@ const routes: Array<RouteConfig> = [
     component: ProfileUser,
     props: true,
   },
+  {
+    path: "/employee/add",
+    name: "Employee_Add",
+    component: AddEmployee,
+    props: true,
+  },
 ];
 
 const router = new VueRouter({
@@ -51,7 +59,7 @@ const loginRequiredRoutes: Array<string | null | undefined> = [
 
 router.beforeEach((to, from, next) => {
   if (loginRequiredRoutes.includes(to.name)) {
-    console.log(123213213);
+    // next();
   }
 
   next();
