@@ -5,17 +5,14 @@
         <h1>View Profile</h1>
         <div class="wrapAvatar">
           <v-avatar size="300" class="wrapAvatarItem">
-            <img :src="getAvatar(item.avatar)"
-              @click="onButtonClick()"
-
-            >
+            <img :src="item.avatar" @click="onButtonClick()" />
             <input
               ref="uploader"
               class="d-none"
               type="file"
               accept="image/*"
-              @change="onFileChanged"
-            >
+              @change="onFileChange"
+            />
           </v-avatar>
         </div>
         <div class="wrapInfoProfile">
@@ -53,11 +50,14 @@
               :items="itemsPosition"
               label="Postion"
               outlined
-              v-model="item.postion"
+              v-model="item.position"
             ></v-select>
           </v-col>
           <div class="wrapButton">
-            <v-btn elevation="8" @click="saveData"> Update Profile </v-btn>
+            <v-btn 
+              elevation="8" 
+              @click="saveData"
+            > Update Profile </v-btn>
           </div>
         </v-row>
       </div>
@@ -93,18 +93,20 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue, Prop} from "vue-property-decorator";
+import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import EmployeeDataService from "../../business/B_employee";
 import Employee from "../../types/Employee";
+import VueSimpleAlert from "vue-simple-alert";
+Vue.use(VueSimpleAlert);
 
 @Component
 export default class profile extends Vue {
-  id = this.$attrs.id
-  private response: any
-  private errors: any
+  id = this.$attrs.id;
+  private response: any;
+  private errors: any;
   private item = {} as Employee;
-  selectedFile= null;
-  itemsStatus = ["Working", "not_working"];
+  private valid = false;
+  itemsStatus = ["Working", "Not Working", "New staff"];
   itemsPosition = [
     "Develop",
     "PM",
@@ -114,48 +116,77 @@ export default class profile extends Vue {
     "Chủ Tịt",
     "Giám Đốc",
   ];
-
+  itemPart = [
+    "DIVISION 1",
+    "DIVISION 2",
+    "BO",
+    "IT",
+    "Social Media",
+    "Degisner",
+    "Board Of Manager",
+  ];
   mount() {
-    this.onButtonClick()
+    this.onButtonClick();
   }
 
   created() {
-      let data = {
-          id: this.item.id,
-          name: this.item.name,
-          old: this.item.old,
-          position: this.item.position,
-          part: this.item.part,
-          status: this.item.status,
-          avatar: this.item.avatar,
-      }
-      EmployeeDataService.profile(this.id).then((response) => {
+    let data = {
+      id: this.item.id,
+      name: this.item.name,
+      old: this.item.old,
+      position: this.item.position,
+      part: this.item.part,
+      status: this.item.status,
+      avatar: this.item.avatar,
+    };
+    EmployeeDataService.profile(this.id)
+      .then((response) => {
         this.item = response.data;
       })
       .catch((errors) => {
         console.log(errors);
       });
   }
-    
-  getAvatar(avatar:string) {
-    return (avatar != null && avatar  !== '') ? avatar : ('../public/img/logo.jpg')
-  } 
+
+  get getAvatar() {
+    const avatar = this.item.avatar;
+    return avatar != null && avatar !== "" ? avatar : "../public/img/logo.jpg";
+  }
 
   saveData() {
-    EmployeeDataService.edit(this.item.id, this.item).then((response) => {
+    EmployeeDataService.edit(this.item.id, this.item)
+      .then((response) => {
         console.log(response.data);
-    })
-    .catch((errors) => {
+        alert("Cập nhật thành công");
+      })
+      .catch((errors) => {
         console.log(errors);
-    });
+      });
   }
 
   onButtonClick() {
+    // @ts-expect-error xóa lỗi
     this.$refs.uploader.click();
   }
-  
-  onFileChanged(e:any) {
-        this.selectedFile = e.target.files[0]
+
+  imager = null;
+  onFileChange(e: any) {
+    var files = e.target.files || e.dataTransfer.files;
+    if (!files.length) return;
+    this.imager = files[0];
+    console.log(this.imager);
+    let imgName = files[0].name;
+    console.log(imgName);
+    if (imgName.lastIndexOf(".") <= 0) {
+      return;
+    }
+    const fr = new FileReader();
+    fr.readAsDataURL(files[0]);
+    fr.addEventListener("load", () => {
+      // @ts-expect-error xóa lỗi nó có thể null
+      this.item.avatar = fr.result;
+      console.log(this.item.avatar);
+    });
   }
 }
 </script>

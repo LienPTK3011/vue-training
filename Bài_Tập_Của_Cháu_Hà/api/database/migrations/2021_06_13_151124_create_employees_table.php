@@ -20,7 +20,7 @@ class CreateEmployeesTable extends Migration
             $table->string('position');
             $table->string('part');
             $table->string('status');
-            $table->string('avatar');
+            $table->longText('avatar');
             $table->timestamps();
         });
     }

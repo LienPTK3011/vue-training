@@ -2,7 +2,7 @@
   <div>
     <v-item-group>
       <v-container>
-        <h1>Project Management</h1>
+        <h1 style="padding: 50px 0">Project Management</h1>
         <v-row>
           <v-col
             v-for="(item, key) in ListInformationProduct.projectItem"
