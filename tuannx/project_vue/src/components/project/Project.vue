@@ -6,6 +6,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import ProjectList from "./ProjectList.vue";
+import axios from "axios";
 interface project {
   projectList: any[];
 }
@@ -16,45 +17,17 @@ interface project {
 })
 export default class Project extends Vue {
   project: project = {
-    projectList: [
-      {
-        id: 1,
-        name: "Xay dung 1",
-        pm: "Nguyen Xuan Tuan",
-        teamSize: 5,
-        customer: "VietNam",
-        important: false,
-        detail: "Rất quan trọng",
-      },
-      {
-        id: 2,
-        name: "Xay dung 2",
-        pm: "Tran Thi Duyen",
-        teamSize: 10,
-        customer: "Japan",
-        important: true,
-        detail: "Rất quan trọng",
-      },
-      {
-        id: 3,
-        name: "Xay dung 3",
-        pm: "Nguyen Thi My Duyen",
-        teamSize: 20,
-        customer: "Vietnam",
-        important: false,
-        detail: "Đặc biệt",
-      },
-      {
-        id: 4,
-        name: "Xay dung 4",
-        pm: "Nguyen Thanh Long",
-        teamSize: 4,
-        customer: "HongKong",
-        important: true,
-        detail: "Quan trọng",
-      },
-    ],
+    projectList: [],
   };
+  async created() {
+    try {
+      const res = await axios.get(`http://localhost:3000/project`);
+
+      this.project.projectList = res.data;
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }
 </script>
 

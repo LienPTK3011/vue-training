@@ -1,7 +1,7 @@
 import http from '../http-common'
 class StaffService {
   getAll () {
-    return http.get('/staff')
+    return http.get('/')
   }
 
   //   get(id) {
@@ -9,15 +9,15 @@ class StaffService {
   //   }
 
   create (data: any) {
-    return http.post('/staff', data)
+    return http.post('/', data)
   }
 
   update (id: any, data: any) {
-    return http.put(`/staff/${id}`, data)
+    return http.put(`/${id}`, data)
   }
 
   delete (id: any) {
-    return http.delete(`/staff/${id}`)
+    return http.delete(`/${id}`)
   }
 
   //   deleteAll() {

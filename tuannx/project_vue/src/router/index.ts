@@ -41,11 +41,6 @@ const routes: Array<RouteConfig> = [
      component: () =>
        import(/* webpackChunkName: "Work" */ '../components/customer/Customer.vue')
    }
-  // // {
-  // //   path: '/addwork',
-  // //   name: 'AddWork',
-  // //   component: () => import(/* webpackChunkName: "Work" */ '../components/work/AddWork.vue')
-  // // },
 ]
 
 const router = new VueRouter({

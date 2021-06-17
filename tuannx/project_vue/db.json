@@ -1,0 +1,114 @@
+{
+  "employee": [
+    {
+      "id": 0,
+      "name": "Nguyen Xuan Tuan",
+      "age": 22,
+      "seniority": 6,
+      "isWork": true
+    },
+    {
+      "id": 2,
+      "name": "Lê Văn A",
+      "age": 22,
+      "seniority": 2,
+      "isWork": true
+    },
+    {
+      "id": 3,
+      "name": "Nguyen Thanh Long",
+      "age": 22,
+      "seniority": 1,
+      "isWork": true
+    },
+    {
+      "id": 4,
+      "name": "Hoang Van Cuong",
+      "age": 22,
+      "seniority": 8,
+      "isWork": false
+    },
+    {
+      "id": 5,
+      "name": "Le Xuan Quang",
+      "age": 19,
+      "seniority": 4,
+      "isWork": false
+    },
+    {
+      "id": 6,
+      "name": "Le Xuan Quang",
+      "age": 19,
+      "seniority": 7,
+      "isWork": true
+    }
+  ],
+  "project": [
+    {
+      "id": 1,
+      "name": "Xay dung 1",
+      "pm": "Nguyen Xuan Tuan",
+      "teamSize": 5,
+      "customer": "VietNam",
+      "important": false,
+      "detail": "Rất quan trọng"
+    },
+    {
+      "id": 2,
+      "name": "Xay dung 2",
+      "pm": "Tran Thi Duyen",
+      "teamSize": 10,
+      "customer": "Japan",
+      "important": true,
+      "detail": "Rất quan trọng"
+    },
+    {
+      "id": 3,
+      "name": "Xay dung 3",
+      "pm": "Nguyen Thi My Duyen",
+      "teamSize": 20,
+      "customer": "Vietnam",
+      "important": false,
+      "detail": "Đặc biệt"
+    },
+    {
+      "id": 4,
+      "name": "Xay dung 4",
+      "pm": "Nguyen Thanh Long",
+      "teamSize": 4,
+      "customer": "HongKong",
+      "important": true,
+      "detail": "Quan trọng"
+    }
+  ],
+  "customer": [
+    {
+      "id": 1,
+      "name": "Nguyen Xuan Tuan",
+      "age": 20,
+      "experience": 2,
+      "role": "Dev"
+    },
+    {
+      "id": 2,
+      "name": "Nguyen Thi My Duyen",
+      "age": 26,
+      "experience": 3,
+      "role": "Boss"
+    },
+    {
+      "id": 3,
+      "name": "Hoan Van Nam",
+      "age": 25,
+      "experience": 5,
+      "role": "Tester"
+    },
+    {
+      "name": "Le Van Luyen ",
+      "age": "30",
+      "experience": "6",
+      "role": "BA",
+      "id": 4
+    }
+  ]
+}

@@ -4,6 +4,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import EmployeeList from "./EmployeeList.vue";
+import axios from 'axios';
 interface employee {
   employeeList: any[];
 }
@@ -13,53 +14,20 @@ interface employee {
   },
 })
 export default class Project extends Vue {
-  employee: employee = {
-    employeeList: [
-      {
-        id: 1,
-        name: "Nguyen Xuan Tuan",
-        age: 22,
-        seniority: 6,
-        isWork: true,
-      },
-      {
-        id: 2,
-        name: "Lê Văn A",
-        age: 22,
-        seniority: 2,
-        isWork: true,
-      },
-      {
-        id: 3,
-        name: "Nguyen Thanh Long",
-        age: 22,
-        seniority: 1,
-        isWork: true,
-      },
-      {
-        id: 4,
-        name: "Hoang Van Cuong",
-        age: 22,
-        seniority: 8,
-        isWork: false,
-      },
-      {
-        id: 5,
-        name: "Le Xuan Quang",
-        age: 19,
-        seniority: 4,
-        isWork: false,
-      },
-      {
-        id: 6,
-        name: "Le Xuan Quang",
-        age: 19,
-        seniority: 7,
-        isWork: true,
-      },
-    ],
+  private employee: employee = {
+    employeeList:[]
   };
+  async created() {
+    try {
+      const res = await axios.get(`http://localhost:3000/employee`)
+
+      this.employee.employeeList = res.data;
+    } catch(e) {
+      console.error(e)
+    }
+  }
 }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

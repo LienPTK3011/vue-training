@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default axios.create({
-  baseURL: 'https://60cac46821337e0017e42f83.mockapi.io/api',
+  baseURL: 'http://localhost:3000/customer',
   headers: {
     'Content-type': 'application/json'
   }

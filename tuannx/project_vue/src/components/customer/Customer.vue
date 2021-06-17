@@ -9,7 +9,7 @@
   >
     <template v-slot:top>
       <v-toolbar style="margin-bottom: 50px" flat>
-        <v-toolbar-title>Danh sách Staff</v-toolbar-title>
+        <v-toolbar-title>Danh sách Customer</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-row style="margin-top: 25px">

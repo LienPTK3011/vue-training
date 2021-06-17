@@ -13,11 +13,11 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{ item.name }} <span v-show="item.important">*</span></td>
-          <td>{{ item.pm }}</td>
-          <td>{{ item.teamSize }}</td>
-          <td>{{ item.customer }}</td>
-          <td>{{ item.detail }}</td>
+          <td>{{ project.name }} <span v-show="project.important">*</span></td>
+          <td>{{ project.pm }}</td>
+          <td>{{ project.teamSize }}</td>
+          <td>{{ project.customer }}</td>
+          <td>{{ project.detail }}</td>
         </tr>
       </tbody>
     </table>
@@ -25,18 +25,26 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
+import axios from "axios"
 @Component
 export default class ProjectDetail extends Vue {
-  item = this.$attrs.item;
+  @Prop() readonly id?:number;
+  project={};
+  async created() {
+    try {
+      const res = await axios.get(`http://localhost:3000/project/${this.id}`);
+
+      this.project = res.data;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  
 }
 </script>
 
 <style scoped>
-.project-header{
-  margin-top:30px;
-  text-align:center;
-}
 #customers {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
