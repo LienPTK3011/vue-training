@@ -9,152 +9,170 @@
             required
             ></v-text-field>
         </div>
-        <div class="staffs-list">
-            <div class="staff-overview" :key="index" v-for="(staff, index) in staffsList">
-                <v-card
-                    class="mx-auto"
-                    max-width="344"
-                    outlined
-                    :color="!staff.stillWorking ? '#385F73' : staff.experience >= 5 ? 'yellow' : 'white'"
-                >
-                    <v-list-item three-line>
-                        <v-list-item-content>
-                            <div class="text-overline mb-4">
-                            OVERVIEW
-                            </div>
-                            <v-list-item-title class="text-h5 mb-1">
-                            {{ staff.name }}
-                            </v-list-item-title>
-                            <v-list-item-subtitle>Age: {{ staff.age }} years old</v-list-item-subtitle>
-                            <v-list-item-subtitle v-if="staff.stillWorking">Still working here!</v-list-item-subtitle>
-                            <v-list-item-subtitle v-else>No longer here!</v-list-item-subtitle>
-                            <v-list-item-subtitle>Exprience: have {{ staff.exprience }} years experience</v-list-item-subtitle>
-                        </v-list-item-content>
 
-                        <v-list-item-avatar
-                            tile
-                            size="80"
-                            color="grey"
-                        >
-                        <img
-                            :src="staff.avatar"
-                            alt="Avatar"
-                        >
-                        </v-list-item-avatar>
-                    </v-list-item>
-
-                    <v-card-actions>
-                    <v-btn
-                depressed
-                color="primary"
-                id="staff-detail-btn"
+        <div class="overview">
+            <div class="staffs-list">
+                <StaffOverview 
+                    :key="index"
+                    v-for="(staff, index) in staffsList" 
+                    :staff="staff"
+                    :index="index"/>  
+            </div>
+            <div class="add-staff-form shadow">
+                <v-form
+                    @submit.prevent="checkForm()"
+                    action="" method="POST" 
+                    novalidate="true"
                 >
-                <router-link :to="{name: 'staff-detail', params: {name: staff.name, items: staff}}">Detail</router-link>
-                </v-btn>
-                <v-btn
-                depressed
-                color="error"
-                id="staff-delete-btn"
-                @click="deleteStaff(index)"
-                >
-                Delete
-                </v-btn>
-                    </v-card-actions>
-                </v-card>
+                    <p v-if="errors.length">
+                        <b class="errors-message">Please correct the following error(s):</b>
+                        <ul>
+                        <li :key="index" v-for="(error,index) in errors">{{ error }}</li>
+                        </ul>
+                    </p>
+                    <v-container>
+                        <v-text-field
+                            label="Name"
+                            v-model="newStaff.name"
+                        >
+                        </v-text-field>
+                        <v-text-field
+                            label="Age"
+                            v-model="newStaff.age"
+                        >
+                        </v-text-field>
+                        <v-text-field
+                            label="Exprience"
+                            v-model="newStaff.exprience"
+                        >
+                        </v-text-field>
+                        <v-btn
+                        depressed
+                        color="primary"
+                        id="staff-add-btn"
+                        type="submit"
+                        >
+                        Add
+                        </v-btn>
+                    </v-container>
+                </v-form>
             </div>
         </div>
-        <v-main>
-      <router-view/>
-    </v-main>
   </div>
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
-  @Component
-  export default class StaffList extends Vue {
-    @Prop()
-    nameSearch = ''
-    staffsList = [
-        {
-            name: 'Harry Osborn',
-            age: '19',
+    import { Component, Vue } from 'vue-property-decorator';
+    import StaffOverview from './StaffOverview.vue'
+    @Component({
+        components: {
+            StaffOverview,
+        }
+    })
+    export default class StaffList extends Vue {
+        nameSearch = ''
+        newStaff = {
+            name: '',
+            age: 18,
             stillWorking: true,
-            exprience: 2,
-            avatar: './avatar.jpg',
-            todos: [
-                {
-                    name: 'eat',
-                    completed: false,
-                    edit: false
-                },
-                {
-                    name: 'sleep',
-                    completed: false,
-                    edit: false
-                },
-                {
-                    name: 'game',
-                    completed: false,
-                    edit: false
-                },
-            ]
-        },
-        {
-            name: 'Oscar',
-            age: '25',
-            stillWorking: true,
-            exprience: 5,
+            exprience: 0,
             avatar: './avatar-2.jpg',
             todos: []
-        },
-        {
-            name: 'John Wane',
-            age: '30',
-            stillWorking: false,
-            exprience: 4,
-            avatar: './avatar-3.jpg',
-            todos: []
-        },
-    ]
-
-    initStaffsList = this.staffsList
-
-    deleteStaff(index: number) {
-        this.staffsList.splice(index, 1)
-    }
-
-    staffFilter(staff: object) {
-        return staff.name.includes(this.nameSearch)
-    }
-
-    searchStaff() {
-        if (this.initStaffsList.length > this.staffsList.length) {
-            this.staffsList = this.initStaffsList
         }
-        let staffFinded = this.staffsList.filter(this.staffFilter)
-        console.log(staffFinded)
-        if (staffFinded.length) {
-            this.staffsList = staffFinded
+        errors = []
+
+        staffsList = [
+            {
+                name: 'Harry Osborn',
+                age: '19',
+                stillWorking: true,
+                exprience: 2,
+                avatar: './avatar-2.jpg',
+                todos: [
+                    {
+                        name: 'eat',
+                        completed: false,
+                        edit: false
+                    },
+                    {
+                        name: 'sleep',
+                        completed: false,
+                        edit: false
+                    },
+                    {
+                        name: 'game',
+                        completed: false,
+                        edit: false
+                    },
+                ]
+            },
+            {
+                name: 'Oscar',
+                age: '25',
+                stillWorking: true,
+                exprience: 5,
+                avatar: './avatar-2.jpg',
+                todos: []
+            },
+            {
+                name: 'John Wane',
+                age: '30',
+                stillWorking: false,
+                exprience: 4,
+                avatar: './avatar-3.jpg',
+                todos: []
+            },
+        ]
+
+        initStaffsList = this.staffsList
+
+        deleteStaff(index: number) {
+            this.staffsList.splice(index, 1)
         }
 
-        this.nameSearch = ''
+        staffFilter(staff: object) {
+            return staff.name.includes(this.nameSearch)
+        }
+
+        searchStaff() {
+            if (this.initStaffsList.length > this.staffsList.length) {
+                this.staffsList = this.initStaffsList
+            }
+
+            let staffFinded = this.staffsList.filter(this.staffFilter)
+            if (staffFinded.length) {
+                this.staffsList = staffFinded
+            }
+            this.nameSearch = ''
+        }
+        checkForm() {
+            if (!this.newStaff.name.length) {
+                let error = 'Please enter the name!'
+                this.errors.push(error)
+            }
+
+            if (!this.errors.length) {
+                this.staffsList.push(this.newStaff)
+            }
+        }
     }
-  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .staffs-list {
+        margin-top: 4%;
+        width: 70%;
         display: flex;
         justify-content: space-around;
         align-items: center;
         flex-wrap: wrap;
-        margin-top: 4%;
     }
 
     .staff-overview {
         width: 20%;
+        margin-top: 5%;
+        margin-left: 1%;
         border-radius: 5%;
         background: rgb(225, 217, 217);
         position: relative;
@@ -230,5 +248,19 @@
     .search-staff {
         width: 50%;
         margin: auto;
+    }
+
+    .add-staff-form {
+        width: 20%;
+    }
+
+    .errors-message {
+        text-align: center;
+    }
+
+    .overview {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 </style>

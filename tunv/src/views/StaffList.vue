@@ -10,7 +10,7 @@ import StaffList from '@/components/StaffList.vue'
 export default {
   name: 'staff-list',
   components: {
-    StaffList
+    StaffList,
   }
 }
 </script>

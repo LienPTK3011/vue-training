@@ -1,7 +1,7 @@
 <template>
   <div class="staff">
     <div class="staff-todo-form">
-      <h3 id="title">{{ staff.name }}' todos list</h3>
+      <h3 id="title">{{ staffName }}' todos list</h3>
       <div class="add-todo">
         <v-text-field
           v-model="newTodo"
@@ -9,46 +9,24 @@
           required
           @keyup.enter="addNewTodo()"
         ></v-text-field>
-        <v-btn 
+        <v-btn
          @click="addNewTodo()"
           elevation="2"
           id="add-todo-btn"
         >Add</v-btn>
       </div>
-    
+
       <div class="todos-list">
         <v-simple-table>
           <template v-slot:default>
-            <thead>
-              <tr>
-                <th class="text-left">
-                  
-                </th>
-                <th class="text-left">
-                  
-                </th>
-              </tr>
-            </thead>
             <tbody>
-              <tr
+              <StaffTodo 
                 v-for="(todo, index) in staff.todos"
                 :key="index"
-              >
-                <td>
-                  <v-checkbox
-                    @click="doneEditTodo(todo)"
-                    v-model="todo.completed"
-                  ></v-checkbox>
-                </td>
-                <td @click="editTodo(todo)" :class="{completed: todo.completed}" v-if="!todo.edit">{{ todo.name }}</td>
-                <td @keyup.enter="doneEditTodo(todo)" v-else>
-                  <v-text-field
-                    v-model="todo.name"
-                    required
-                  ></v-text-field>
-                </td>
-                <td class="delete-todo" @click="deleteTodo(index)">&times;</td>
-              </tr>
+                :todo="todo"
+                :index="index"
+                @deleteTodo="deleteTodo"
+              />
             </tbody>
           </template>
         </v-simple-table>
@@ -56,26 +34,26 @@
     </div>
     <div class="staff-information">
       <img
-          :src="staff.avatar"
+          :src="'../../' + staff.avatar"
           alt="Avatar"
       >
       <v-form class="staff-detail-form">
         <v-container>
-            <v-text-field
-                label="Name"
-                v-model="staff.name"
-            >
-            </v-text-field>
-            <v-text-field
-                label="Age"
-                v-model="staff.age"
-            >
-            </v-text-field>
-            <v-text-field
-                label="Exprience"
-                :value="staff.exprience + ' years'"
-            >
-            </v-text-field>
+          <v-text-field
+              label="Name"
+              v-model="staff.name"
+          >
+          </v-text-field>
+          <v-text-field
+              label="Age"
+              v-model="staff.age"
+          >
+          </v-text-field>
+          <v-text-field
+              label="Exprience"
+              :value="staff.exprience + ' years'"
+          >
+          </v-text-field>
         </v-container>
       </v-form>
     </div>
@@ -84,11 +62,16 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  @Component
+  import StaffTodo from './StaffTodo.vue'
+  @Component({
+    components: {
+      StaffTodo,
+    }
+  })
   export default class StaffDetail extends Vue {
-
-    newTodo = '' ;  
-    @Prop()
+    @Prop() readonly name!: unknown
+    newTodo = '' ;
+    staffName = this.$route.params.name;
     staff = this.$route.params.items;
 
     addNewTodo() {
@@ -99,6 +82,7 @@
           edit: false
         }
         this.staff.todos.push(newTodo);
+        // this.$emit('add-todo', newTodo)
         this.newTodo = '';
       }
     }
