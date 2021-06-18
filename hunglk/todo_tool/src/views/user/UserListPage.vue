@@ -21,7 +21,7 @@
           </tr>
         </thead>
         <tbody v-for="(item, index) in this.data" :key="item.id">
-          <tr @dblclick="edit(item)">
+          <tr @dblclick="edit(item)" :class='item.experience >= 5 ? "yellow" : ( item.experience == 0 ? "gray" : "")'>
             <td>{{ index + 1 }}</td>
             <td>{{ item.userName }}</td>
             <td>{{ item.fullName }}</td>
@@ -135,6 +135,12 @@ tr:hover {
 }
 .b {
   margin: 10px;
+}
+.yellow {
+  background-color: yellow;
+}
+.gray {
+  background-color: gray;
 }
 /* .active-pink-4 input[type=text]:focus:not([readonly]) {
     border: 1px solid #f48fb1;
