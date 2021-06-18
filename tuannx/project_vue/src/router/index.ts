@@ -35,12 +35,20 @@ const routes: Array<RouteConfig> = [
       ),
     props: true
   },
-   {
-     path: '/customer',
-     name: 'Customer',
-     component: () =>
-       import(/* webpackChunkName: "Work" */ '../components/customer/Customer.vue')
-   }
+  {
+    path: '/customer',
+    name: 'Customer',
+    component: () =>
+      import(
+        /* webpackChunkName: "Customer" */ '../components/customer/Customer.vue'
+      )
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () =>
+      import(/* webpackChunkName: "Login" */ '../components/login/Login.vue')
+  }
 ]
 
 const router = new VueRouter({

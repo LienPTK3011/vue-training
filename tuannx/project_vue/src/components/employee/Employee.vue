@@ -1,33 +1,37 @@
 <template>
-  <EmployeeList :employeeList="employee.employeeList"></EmployeeList>
+  <div>
+    <Header />
+    <EmployeeList :employeeList="employee.employeeList"></EmployeeList>
+  </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import EmployeeList from "./EmployeeList.vue";
-import axios from 'axios';
+import Header from "../header/Header.vue";
+import axios from "axios";
 interface employee {
   employeeList: any[];
 }
 @Component({
   components: {
     EmployeeList,
+    Header,
   },
 })
 export default class Project extends Vue {
   private employee: employee = {
-    employeeList:[]
+    employeeList: [],
   };
   async created() {
     try {
-      const res = await axios.get(`http://localhost:3000/employee`)
+      const res = await axios.get(`http://localhost:3000/employee`);
 
       this.employee.employeeList = res.data;
-    } catch(e) {
-      console.error(e)
+    } catch (e) {
+      console.error(e);
     }
   }
 }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Header/>
     <ProjectList :projectList="project.projectList"></ProjectList>
   </div>
 </template>
@@ -7,11 +8,13 @@
 import { Component, Vue } from "vue-property-decorator";
 import ProjectList from "./ProjectList.vue";
 import axios from "axios";
+import Header from "../header/Header.vue"
 interface project {
   projectList: any[];
 }
 @Component({
   components: {
+    Header,
     ProjectList,
   },
 })

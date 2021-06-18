@@ -38,20 +38,43 @@
     <v-spacer></v-spacer>
 
     <v-btn
-      href="https://github.com/vuetifyjs/vuetify/releases/latest"
       target="_blank"
       text
     >
-      <span class="mr-2">Latest Release</span>
-      <v-icon>mdi-open-in-new</v-icon>
+      <router-link
+          style="color: white; text-decoration: none; padding: 5px"
+          to="/login"
+          ><span class="mr-2">Login</span></router-link>
     </v-btn>
   </v-app-bar>
 </template>
 <script lang="ts">
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
+
 @Component
 export default class Header extends Vue {
-  @Prop() private listMenu?: any[];
+    listMenu= [
+      {
+        id: 1,
+        name: "Home",
+        url: "/",
+      },
+      {
+        id: 2,
+        name: "Project",
+        url: "/project",
+      },
+      {
+        id: 3,
+        name: "Employee",
+        url: "/employee",
+      },
+      {
+        id: 4,
+        name: "Customer",
+        url: "/customer",
+      },
+    ]
 }
 </script>

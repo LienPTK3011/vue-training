@@ -110,5 +110,15 @@
       "role": "Boss",
       "id": 4
     }
+  ],
+  "user": [
+    {
+      "id": 1,
+      "name": "Nguyen Xuan Tuan",
+      "age": 20,
+      "email": "tuan@gmail.com",
+      "address": "Ha Noi",
+      "phone": "0963935197"
+    }
   ]
 }
