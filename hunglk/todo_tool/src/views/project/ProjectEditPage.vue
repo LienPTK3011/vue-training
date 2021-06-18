@@ -52,6 +52,7 @@
       <div class="row">
         <button @click="cancel">Cancel</button>
         <button @click="save">Save</button>
+        <button class="dele" @click="dele">Delete</button>
       </div>
     </div>
       
@@ -86,6 +87,13 @@ export default class UserEditPage extends Vue {
         this.goListProject();
      });
    }
+  }
+    private dele() {
+    const id = Number(this.data.id);
+    projectService.deleteById(id).then((res) => {
+      alert('Đã xóa: ' + this.data.name);
+      this.goListProject();
+    });
   }
   private cancel() {
     this.goListProject();
@@ -170,7 +178,9 @@ input[type=submit]:hover {
   display: table;
   clear: both;
 }
-
+.dele {
+  background-color: red;
+}
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
   .col-25, .col-75, input[type=submit] {
