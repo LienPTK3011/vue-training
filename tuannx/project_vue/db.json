@@ -102,13 +102,6 @@
       "age": 25,
       "experience": 5,
       "role": "Tester"
-    },
-    {
-      "name": "Dương Đình Nghệ",
-      "age": "28",
-      "experience": "4",
-      "role": "Boss",
-      "id": 4
     }
   ],
   "user": [
@@ -117,8 +110,67 @@
       "name": "Nguyen Xuan Tuan",
       "age": 20,
       "email": "tuan@gmail.com",
+      "username": "tuanpc",
+      "password": "123456",
       "address": "Ha Noi",
-      "phone": "0963935197"
+      "phone": "0963935197",
+      "url": "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
+      "detail": "Thủ tướng vừa có quyết định sửa đổi, bổ sung một số điều của quyết định số 37/2018/QĐ-TTg ngày 31/8/2018 ban hành quy định tiêu chuẩn, thủ tục xét công nhận đạt tiêu chuẩn và bổ nhiệm chức danh Giáo sư, Phó Giáo sư. Theo đó, Thủ tướng Chính phủ sửa đổi, bổ sung tiêu chuẩn ở khoản 8 Điều 5 và khoản 7 Điều 6 về bài báo khoa học."
+    },
+    {
+      "id": 2,
+      "name": "Nguyen Xuan Tuan",
+      "age": 20,
+      "email": "tuan@gmail.com",
+      "username": "tuanpc",
+      "password": "123456",
+      "address": "Ha Noi",
+      "phone": "0963935197",
+      "url": "https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Nguyen Xuan Tuan",
+      "age": 20,
+      "email": "tuan@gmail.com",
+      "username": "tuanpc",
+      "password": "123456",
+      "address": "Ha Noi",
+      "phone": "0963935197",
+      "url": "https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Nguyen Xuan Tuan",
+      "age": 20,
+      "email": "tuan@gmail.com",
+      "username": "tuanpc",
+      "password": "123456",
+      "address": "Ha Noi",
+      "phone": "0963935197",
+      "url": "https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Nguyen Xuan Tuan",
+      "age": 20,
+      "email": "tuan@gmail.com",
+      "username": "tuanpc",
+      "password": "123456",
+      "address": "Ha Noi",
+      "phone": "0963935197",
+      "url": "https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Nguyen Xuan Tuan",
+      "age": 20,
+      "email": "tuan@gmail.com",
+      "username": "tuanpc",
+      "password": "123456",
+      "address": "Ha Noi",
+      "phone": "0963935197",
+      "url": "https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
     }
   ]
 }

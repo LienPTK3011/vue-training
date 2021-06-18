@@ -100,7 +100,6 @@ import { Component, Vue } from "vue-property-decorator";
 import CustomerService from "@/service/CustomerService";
 import CustomerInterface from "@/service/CustomerInterface";
 import Header from "../header/Header.vue";
-
 @Component({
   components: {
     Header,

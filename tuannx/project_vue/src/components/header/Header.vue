@@ -38,7 +38,6 @@
     <v-spacer></v-spacer>
 
     <v-btn
-      target="_blank"
       text
     >
       <router-link
@@ -74,6 +73,11 @@ export default class Header extends Vue {
         id: 4,
         name: "Customer",
         url: "/customer",
+      },
+      {
+        id: 4,
+        name: "User",
+        url: "/user",
       },
     ]
 }

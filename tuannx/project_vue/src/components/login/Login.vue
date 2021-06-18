@@ -54,6 +54,7 @@
                 Sign In
               </v-btn>
             </div>
+            <p class="mess">{{message}}</p>
           </v-form>
         </ValidationObserver>
       </v-col>
@@ -86,6 +87,7 @@ export default class Login extends Vue {
   private password = null;
   private showPass=false;
   private User : User[]=[];
+  private message='';
   params() {
     return {
       email: this.email,
@@ -102,6 +104,7 @@ export default class Login extends Vue {
           
       }else{
           console.log("that bai");
+          this.message="Tài khoản hoặc mật khẩu k đúng"
 
       }
   }
@@ -142,4 +145,7 @@ export default class Login extends Vue {
     .signin-btn
         width: 100%
         color: #30ac7c
+    .mess
+        color: red
+        margin-top :10px
 </style>
