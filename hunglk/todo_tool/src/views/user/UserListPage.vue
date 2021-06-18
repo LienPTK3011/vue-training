@@ -17,6 +17,7 @@
             <th>Address</th>
             <th>email</th>
             <th>Phone number</th>
+            <th>Experience</th>
           </tr>
         </thead>
         <tbody v-for="(item, index) in this.data" :key="item.id">
@@ -29,6 +30,7 @@
             <td>{{ item.address }}</td>
             <td>{{ item.email }}</td>
             <td>{{ item.phoneNumber }}</td>
+            <td>{{ item.experience }}</td>
           </tr>
         </tbody>
         

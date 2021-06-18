@@ -8,6 +8,7 @@ export class UserRequest {
   public address?: string;
   public email?: string;
   public phoneNumber?: number;
+  public experience?: number;
   constructor(init?: Partial<UserRequest>) {
     Object.assign(this, init);
   }
