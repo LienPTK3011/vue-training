@@ -13,9 +13,10 @@
             <b-form-input
               type="search"
               v-model="keyword"
-              @click="search()"
               placeholder="Search...."
             ></b-form-input>
+
+            <!-- @click="search()"-->
 
             <b-button style="margin" v-b-modal.modal-1 variant="success"
               >Create</b-button
@@ -206,6 +207,8 @@ export default class ListWork extends Vue {
   private newEndDate: Date = new Date();
   private valueInLine: any = "";
   private keyword: string = "";
+  private originalRows: Array<any> = [];
+  private resultSearch: Array<any> = [];
 
   public fields: Array<any> = [
     { key: "ID", label: "ID work" },
@@ -215,6 +218,11 @@ export default class ListWork extends Vue {
     { key: "EndDate", label: "End Date" },
     { key: "actions", label: "Actions" },
   ];
+
+  //Copy all data to originalRows
+  beforeMount() {
+    this.originalRows = this.items;
+  }
 
   created() {
     this.getWorkList();
@@ -288,16 +296,40 @@ export default class ListWork extends Vue {
     });
   }
 
-  public search(keyword: string) {
+  public search() {
     debugger;
-    this.items = this.keyword
-      ? this.items.filter((item) => item.WorkName.include(this.keyword)) ||
-        this.items.filter((item) => item.Leader.include(this.keyword))
-      : this.items;
+    // this.items = this.keyword
+    //   ? this.items.filter((item) => item.WorkName.include(this.keyword)) ||
+    //     this.items.filter((item) => item.Leader.include(this.keyword))
+    //   : this.items;
+
+    let searchData = this.originalRows;
+    if (this.keyword === "") {
+      this.items = this.originalRows;
+    } else {
+      for (let i = 0; i < searchData.length; i++) {
+        let sparam = this.keyword.toLowerCase();
+
+        for (const key in searchData[i]) {
+          if (searchData[i].hasOwnProperty(key)) {
+            let value = searchData[i][key];
+            if (
+              typeof value === "string" &&
+              value.toLowerCase().indexOf(sparam) >= 0
+            ) {
+              this.resultSearch.push(searchData[i]);
+            }
+          }
+        }
+      }
+    }
+    this.items = this.resultSearch;
   }
 
-  public validateState(name: any) {
-    //const{ $dirty, $error} = this.$v.form[name]
+  watch() {
+    Query: {
+      this.search();
+    }
   }
 }
 </script>

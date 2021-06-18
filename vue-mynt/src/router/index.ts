@@ -20,6 +20,12 @@ const routes: Array<RouteConfig> = [
     name: 'Work List',
     component: () => import('@/views/ListWork.vue')
   },
+
+  {
+    path: '/practice',
+    name: 'Practice',
+    component: () => import('@/views/Practice.vue')
+  },
 ]
 
 const router = new VueRouter({

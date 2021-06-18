@@ -1,23 +1,26 @@
 <template>
   <div>
     <h1 class="project-header">Project List</h1>
+    <button @click="$emit('toParent', 'Phát đi thông báo')">
+      Emit
+    </button>
     <v-row>
-      <v-col xl="2" 
-      v-for="project in listProject" 
-      v-bind:key="project.id">
-          <v-card class="mx-auto">
-            <v-card-text>
-              <h1 class="project-title">
-                {{ project.projectName }}
-                <span class="project-important" v-show="project.important">*</span>
-              </h1>
-              <div class="project-content">
-                <h4 class="project-auth">PM: {{ project.pm }}</h4>
-                <p class="bold">Teamsize: {{ project.teamSize }}</p>
-                <p class="bold">Client: {{ project.client }}</p>
-              </div>
-            </v-card-text>
-          </v-card>
+      <v-col xl="2" v-for="project in listProject" v-bind:key="project.id">
+        <v-card class="mx-auto">
+          <v-card-text>
+            <h1 class="project-title">
+              {{ project.projectName }}
+              <span class="project-important" v-show="project.important"
+                >*</span
+              >
+            </h1>
+            <div class="project-content">
+              <h4 class="project-auth">PM: {{ project.pm }}</h4>
+              <p class="bold">Teamsize: {{ project.teamSize }}</p>
+              <p class="bold">Client: {{ project.client }}</p>
+            </div>
+          </v-card-text>
+        </v-card>
       </v-col>
     </v-row>
   </div>
