@@ -131,13 +131,7 @@ export default class UserEditPage extends Vue {
           },
     );
   }
-  private dele() {
-    const id = Number(this.data.id);
-    userService.deleteById(id).then((res) => {
-      alert('Đã xóa: ' + this.data.userName);
-      this.goListUser();
-    });
-  }
+
 }
 </script>
 
