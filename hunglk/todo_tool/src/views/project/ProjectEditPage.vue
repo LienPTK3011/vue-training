@@ -88,6 +88,13 @@ export default class UserEditPage extends Vue {
      });
    }
   }
+    private dele() {
+    const id = Number(this.data.id);
+    projectService.deleteById(id).then((res) => {
+      alert('Đã xóa: ' + this.data.name);
+      this.goListProject();
+    });
+  }
   private cancel() {
     this.goListProject();
   }
@@ -97,13 +104,6 @@ export default class UserEditPage extends Vue {
             name: 'project',
           },
     );
-  }
-  private dele() {
-    const id = Number(this.data.id);
-    projectService.deleteById(id).then((res) => {
-      alert('Đã xóa: ' + this.data.name);
-      this.goListProject();
-    });
   }
 }
 </script>
@@ -181,7 +181,9 @@ input[type=submit]:hover {
   display: table;
   clear: both;
 }
-
+.dele {
+  background-color: red;
+}
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
   .col-25, .col-75, input[type=submit] {
