@@ -1,0 +1,17 @@
+button:focus,
+input:focus,
+textarea:focus {
+    box-shadow: none !important;
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+@media (min-width: 1904px) {
+    .container {
+        max-width: 1185px !important;
+        padding: 0;
+    }
+}

@@ -47,16 +47,7 @@ interface dataHeader {
   },
 })
 export default class Header extends Vue {
-  Menu: dataHeader = {
-    menu: [
-      {
-        title: "Information",
-        routeName: "Information",
-      },
-      {
-        title: "Login",
-        routeName: "Login",
-      },
+    
       // {
       //   name: "McCafé",
       //   url: "/mccafe",

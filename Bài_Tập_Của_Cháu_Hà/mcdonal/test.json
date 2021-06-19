@@ -1,0 +1,56 @@
+{
+  "menu": [
+    {
+      "id": 1,
+      "name": "Trang chủ",
+      "location": "Home"
+    },
+    {
+      "id": 2,
+      "name": "Tìm Hiểu",
+      "location": [
+        {
+          "id": 1,
+          "location": "history"
+        },
+        {
+          "id": 2,
+          "location": "history"
+        },
+        {
+          "id": 3,
+          "location": "history"
+        },
+        {
+          "id": 4,
+          "location": "history"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Thực Đơn",
+      "location": "test"
+    },
+    {
+      "id": 4,
+      "name": "Thực Đơn",
+      "location": "test"
+    },
+    {
+      "id": 5,
+      "name": "Thực Đơn",
+      "location": "test"
+    }
+  ],
+  "banner": [
+    {
+      "id" : 1,
+      "base64" : "https://mcdonalds.vn/uploads/2018/banner-slider/combosutvo_homeslide.jpg"
+    },
+    {
+      "id" : 2,
+      "base64" : "https://mcdonalds.vn/uploads/2018/banner-slider/slider.jpg"
+    }
+  ]
+}
