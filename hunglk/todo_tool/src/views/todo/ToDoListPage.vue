@@ -4,33 +4,25 @@
       <div class="b">
         <input v-model="searchId" class="search-text" type="number" placeholder="Search by id" />
          <button @click="search">Search</button>
-         <button @click="add">Add User</button>
+      </div>
+       <div class="b">
+        <select name="" id="projectId" placehoder="Select project"></select>
+        <select name="" id="userId" placehoder="Select user"></select>
+        <button @click="add">Add</button>
       </div>
       <table>
         <thead>
           <tr>
             <th>No.</th>
-            <th>User name</th>
-            <th>Full name</th>
-            <th>Age</th>
-            <th>Gender</th>
-            <th>Address</th>
-            <th>email</th>
-            <th>Phone number</th>
-            <th>Experience</th>
+            <th>Project</th>
+            <th>User</th>
           </tr>
         </thead>
         <tbody v-for="(item, index) in this.data" :key="item.id">
-          <tr @dblclick="edit(item)" :class='item.experience >= 5 ? "yellow" : ( item.experience == 0 ? "gray" : "")'>
+          <tr>
             <td>{{ index + 1 }}</td>
-            <td>{{ item.userName }}</td>
-            <td>{{ item.fullName }}</td>
-            <td>{{ item.age }}</td>
-            <td>{{ item.gender }}</td>
-            <td>{{ item.address }}</td>
-            <td>{{ item.email }}</td>
-            <td>{{ item.phoneNumber }}</td>
-            <td>{{ item.experience }}</td>
+            <td>{{ item.projectId }}</td>
+            <td>{{ item.userId }}</td>
           </tr>
         </tbody>
         
@@ -40,33 +32,21 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { userService } from '@/service';
+import { userService, projectService, toDoService } from '@/service';
 import { UserResponse } from '@/models';
 
 import { component } from 'vue/types/umd';
 
 @Component
-export default class UserListPage extends Vue {
-  private data: UserResponse [] = [];
-  private datas: any;
+export default class ToDoListPage extends Vue {
+  private data: any [] = [];
   private searchId?: number | null = null;
-
    private created() {
-    return userService.getAllUser().then((res) => {
+    return toDoService.getAllToDo().then((res) => {
        this.data = res.data;
     });
   }
-  private edit(item: any) {
-     if (!item.id) {
-      return;
-    }
-    this.$router.push(
-      {
-        name: 'user_edit',
-        params: { id: item.id },
-      },
-    );
-  }
+  
   private add() {
     this.$router.push(
       {
@@ -130,6 +110,13 @@ button {
 tr:hover {
   background-color: #d3db60;
 }
+select {
+  width: 200px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
 .search-text {
   width: 300px;
   padding: 12px;
@@ -138,7 +125,7 @@ tr:hover {
   resize: vertical;
 }
 .b {
-  margin: 10px;
+  margin: 15px;
 }
 .yellow {
   background-color: yellow;

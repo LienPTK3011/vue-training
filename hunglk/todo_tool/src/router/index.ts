@@ -5,7 +5,10 @@ import UserListPage from '../views/user/UserListPage.vue';
 import UserEditPage from '../views/user/UserEditPage.vue';
 import ProjectListPage from '../views/project/ProjectListPage.vue';
 import ProjectEditPage from '../views/project/ProjectEditPage.vue';
+import ToDoListPage from '../views/todo/ToDoListPage.vue';
 import Dashboard from '../views/Dashboard.vue';
+import Counter from '../components/Counter.vue';
+import Result from '../components/Result.vue';
 Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
@@ -43,6 +46,21 @@ const routes: RouteConfig[] = [
         path: '/project',
         name: 'project_add',
         component: ProjectEditPage,
+      },
+      {
+        path: '/todo',
+        name: 'todo',
+        component: ToDoListPage,
+      },
+      {
+        path: '/counter',
+        name: 'counter',
+        component: Counter,
+      },
+      {
+        path: '/result',
+        name: 'result',
+        component: Result,
       },
     ],
   },

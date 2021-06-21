@@ -14,6 +14,16 @@
                     Project
                 </div>
             </router-link>
+            <router-link to="todo" active-class="active" tag="button" exact class="side-btn">
+                <div class="link-container">
+                    To do list
+                </div>
+            </router-link>
+            <router-link to="counter" active-class="active" tag="button" exact class="side-btn">
+                <div class="link-container">
+                   Counter
+                </div>
+            </router-link>
         </div>
     </div>
 </template>

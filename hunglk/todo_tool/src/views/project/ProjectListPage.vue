@@ -77,6 +77,10 @@ export default class ProjectListPage extends Vue {
           customer: res.data.customer,
         });
     });
+    } else {
+      projectService.getAllProject().then((res) => {
+       this.data = res.data;
+      });
     }
   }
 }
