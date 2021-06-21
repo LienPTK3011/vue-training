@@ -1,0 +1,28 @@
+{
+  "menus": [
+    {
+      "id": 1,
+      "name": "Brand",
+      "status": true,
+      "url": "test"
+    },
+    {
+      "id": 2,
+      "name": "Order Now",
+      "status": true,
+      "url": "test"
+    },
+    {
+      "id": 3,
+      "name": "Menu",
+      "status": true,
+      "url": "test"
+    },
+    {
+      "id": 4,
+      "name": "Frandchising",
+      "status": true,
+      "url": "test"
+    }
+  ]
+}
