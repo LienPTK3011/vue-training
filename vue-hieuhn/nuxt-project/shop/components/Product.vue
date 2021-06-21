@@ -9,41 +9,7 @@
       </v-row>
       <v-row>
         <v-col md="12">
-          <v-carousel 
-            v-model="dataSlide.model"
-            :show-arrows="false"
-          >
-          <v-carousel-item
-            v-for="(color, i) in colors"
-            :key="i"
-          >
-            <v-sheet
-              height="100%"
-              tile
-            >
-              <v-row
-                class="fill-height"
-                align="center"
-                justify="center"
-              >
-                <div class="product-list text-h2">
-                  <v-col md="4" class="product-item">
-                    1
-                  </v-col>
-                  <v-col md="4" class="product-item">
-                    1
-                  </v-col>
-                  <v-col md="4" class="product-item">
-                    1
-                  </v-col>
-                  <v-col md="4" class="product-item">
-                    1
-                  </v-col>
-                </div>
-              </v-row>
-            </v-sheet>
-          </v-carousel-item>
-        </v-carousel>
+          <h1>Slide Item, Coming Soon!!!</h1>
         </v-col>
       </v-row>
     </v-container>
@@ -62,29 +28,69 @@ import Title from './common/Title.vue'
 export default class Product extends Vue {
   dataTitle = "Hungry? What to eat Today?"
 
-  dataSlide = {
-    model: 5
-  }
-  colors = [
-    '1',
-    '2',
-    '3'
-  ]
-  
 }
 </script>
 
 <style lang="scss" scoped>
   #product {
     margin-bottom: 50px;
+    height: 450px;
 
     .product-list {
       width: 100%;
       display: flex;
       justify-content: space-between;
     }
-    .product-item {
-      background: red;
+
+    .agile {
+      width: 100%;
+      height: 100px;
+
+      &__actions {
+        margin-top: 20px;
+      }
+      &__nav-button {
+        background: transparent;
+        border: none;
+        color: #ccc;
+        cursor: pointer;
+        font-size: 24px;
+        transition-duration: .3s;
+
+        &:hover {
+          color: #888;
+        }
+      }
+      &__dot {
+        margin: 0 10px
+
+        button {
+          background-color: #eee;
+          border: none;
+          border-radius: 50%;
+          cursor: pointer;
+          display: block;
+          height: 10px;
+          font-size: 0;
+          line-height: 0;
+          margin: 0;
+          padding: 0;
+          transition-duration: .3s;
+          width: 10px;
+        }
+      }
+    }
+
+    .slide {
+      align-items: center;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+
+      h3 {
+        font-size: 32px;
+        font-weight: 300;
+      }
     }
   }
 </style>

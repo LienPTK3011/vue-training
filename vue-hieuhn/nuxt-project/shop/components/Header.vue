@@ -1,5 +1,8 @@
 <template>
-  <div id="header">
+  <div id="header" 
+    :style="{backgroundColor: changeBackgroundColorWhenScrollHeader}" 
+    @scroll="scrollHeader"
+  >
     <v-container>
       <v-row>
         <v-col cols="12" md="12" lg="12">
@@ -38,9 +41,18 @@ import ModalLogin from './common/modal/ModalLogin.vue'
   }
 })
 export default class Header extends Vue {
+  changeBackgroundColorWhenScrollHeader = ""
 
   created() {
     this.$store.dispatch("getAllMenu")
+  }
+
+  mounted() {
+    window.addEventListener('scroll', this.scrollHeader) 
+  }
+
+  scrollHeader() {
+    this.changeBackgroundColorWhenScrollHeader = "#DDD"
   }
 }
 </script>

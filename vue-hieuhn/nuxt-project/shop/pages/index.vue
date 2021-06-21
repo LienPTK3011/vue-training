@@ -5,6 +5,8 @@
     <Brand></Brand>
     <Promotion></Promotion>
     <Product></Product>
+    <New></New>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -15,10 +17,12 @@ import Banner from '../components/Banner.vue'
 import Brand from '../components/Brand.vue'
 import Promotion from '../components/Promotion.vue'
 import Product from '../components/Product.vue'
+import New from '../components/New.vue'
+import Footer from '../components/Footer.vue'
 
 @Component({
   components: {
-    Header, Banner, Brand, Promotion, Product
+    Header, Banner, Brand, Promotion, Product, New, Footer
   }
 })
 export default class Home extends Vue {
