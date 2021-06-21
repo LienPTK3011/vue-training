@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <p>Tuanla4</p>
+    <p>Mixi gaming</p>
   </div>
 </template>
 
@@ -12,7 +12,7 @@
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: red;
+  background-color: dodgerblue;
   color: white;
   text-align: center;
 }

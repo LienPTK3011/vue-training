@@ -14,8 +14,8 @@ class ProjectService extends Vue {
     return axios.post<Response<any>>(this.ROOT_API, Project);
   }
 
-  public updateProject(Project: any) {
-    return axios.put<Response<any>>(this.ROOT_API + "/" + Project.id, Project);
+  public updateProject(Project: any, id: number) {
+    return axios.put<Response<Project>>(this.ROOT_API + "/" + id, Project);
   }
 
   public getProjectById(id: number) {
@@ -23,7 +23,7 @@ class ProjectService extends Vue {
   }
 
   public deleteProjectById(id: number) {
-    return axios.delete(this.ROOT_API + "/" + id);
+    return axios.delete<Response<Project>>(this.ROOT_API + "/" + id);
   }
 }
 export const projectService = new ProjectService();

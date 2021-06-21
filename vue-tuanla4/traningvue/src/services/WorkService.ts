@@ -14,8 +14,8 @@ class WorkService extends Vue {
     return axios.post<Response<any>>(this.ROOT_API, Work);
   }
 
-  public updateWork(Work: any) {
-    return axios.put<Response<any>>(this.ROOT_API + "/" + Work.id, Work);
+  public updateWork(Work: any, id: number) {
+    return axios.put<Response<Work>>(this.ROOT_API + "/" + id, Work);
   }
 
   public getWorkById(id: number) {
@@ -23,7 +23,7 @@ class WorkService extends Vue {
   }
 
   public deleteWorkById(id: number) {
-    return axios.delete(this.ROOT_API + "/" + id);
+    return axios.delete<Response<Work>>(this.ROOT_API + "/" + id);
   }
 }
 export const workService = new WorkService();

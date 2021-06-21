@@ -2,7 +2,7 @@
   <b-container>
     <form>
       <div class="container">
-        <h1>Cập nhật nhân viên</h1>
+        <h1>Cập nhật thành viên</h1>
         <form novalidate>
           <div class="form-group">
             <label>Tên đăng nhập</label>
@@ -54,14 +54,14 @@
               value="true"
               v-model="userModel.online"
             />
-            <label for="3">Hoạt động</label>
+            <label for="2">Hoạt động</label>
             <input
               type="radio"
               id="2"
               value="false"
               v-model="userModel.online"
             />
-            <label for="4">Không hoạt động</label>
+            <label for="3">Không hoạt động</label>
           </div>
           <br />
           <div class="form-group">

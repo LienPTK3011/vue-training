@@ -1,29 +1,29 @@
 <template>
   <form>
-    <div class="container">
-      <h1>Quản lý nhân viên</h1>
+    <div>
+      <h1>Quản lý thành viên</h1>
       <button class="buttoncreate" @click="createUser">
-        Tạo mới nhân viên
+        Tạo mới thành viên
       </button>
       <table>
         <thead>
           <tr>
             <th>Tên đăng nhập</th>
-            <th>Tên nhân viên</th>
+            <th>Tên thành viên</th>
             <th>Email</th>
             <th>Giới tính</th>
             <th>Vị trí</th>
             <th>Hoạt động</th>
           </tr>
         </thead>
-        <tbody>
-          <tr v-for="user in userData" :key="user.id">
+        <tbody v-for="user in userData" :key="user.id">
+          <tr :class='user.online  === "true" ? "color1" :"color2"'>
             <td>{{ user.user_name }}</td>
             <td>{{ user.full_name }}</td>
             <td>{{ user.email }}</td>
-            <td>{{ user.sex ? "Nam" : "Nữ" }}</td>
+            <td>{{ user.sex === 'true' ? "Nam" : "Nữ" }}</td>
             <td>{{ user.work_id }}</td>
-            <td>{{ user.online ? "Hoạt động" : "Không hoạt động" }}</td>
+            <td>{{ user.online === 'true'  ? "Hoạt động" : "Không hoạt động"}}</td>
             <td>
               <tr>
                 <button @click="getDetail(user.id)">Xem</button>
@@ -73,6 +73,7 @@ export default class extends Vue {
 
   //find dữ liệu
   private getUser() {
+    debugger
     userService.getAllUser().then((response) => {
       if (response.data && response) {
         this.userData = response.data;
@@ -95,5 +96,11 @@ export default class extends Vue {
 .buttoncreate {
   width: 200px;
   height: 50px;
+}
+.color1 {
+  background-color: #FFFF99;
+}
+.color2 {
+  background-color: #DDDDDD;
 }
 </style>

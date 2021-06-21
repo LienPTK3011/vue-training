@@ -55,7 +55,7 @@ export default class extends Vue {
   // }
 
   private login() {
-    this.$router.push("/user");
+    this.$router.push("/dashboard");
   }
 }
 </script>

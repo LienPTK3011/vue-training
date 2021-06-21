@@ -1,29 +1,34 @@
 <template>
   <b-container>
-    <form>
-      <div class="container">
-        <h1>Cập nhật dự án</h1>
+    <form class="container">
+      <div>
+        <h3>Thông tin chi tiết: {{ projectModel.name }}</h3>
         <form novalidate>
           <div class="form-group">
             <label>Mã dự án</label>
             <input
+              type="text"
               class="form-control"
               v-model="projectModel.code"
-              type="text"
-              required
+              :disabled="true"
             />
           </div>
           <div class="form-group">
             <label>Tên dự án</label>
-            <input v-model="projectModel.name" type="text" required />
+            <input
+              type="text"
+              class="form-control"
+              v-model="projectModel.name"
+              :disabled="true"
+            />
           </div>
           <div class="form-group">
             <label>Ghi chú</label>
             <input
               type="text"
-              required
               class="form-control"
               v-model="projectModel.description"
+              :disabled="true"
             />
           </div>
           <div class="form-group">
@@ -51,9 +56,7 @@
               v-model="projectModel.endDate"
             />
           </div>
-          <button @click="getEdit(projectModel.id)" type="submit">
-            Cập nhật
-          </button>
+          <button @click="crudLink()" type="submit">Đóng</button>
         </form>
       </div>
     </form>
@@ -87,14 +90,7 @@ export default class extends Vue {
     });
   }
 
-  private getEdit(id: number) {
-    projectService
-      .updateProject(this.projectModel, id)
-      .then((response: any) => {
-        if (response.data && response) {
-          this.getDetail(id);
-        }
-      });
+  private crudLink() {
     this.$router.push("/project").catch(() => {});
   }
 
@@ -113,3 +109,5 @@ export default class extends Vue {
   }
 }
 </script>
+
+<style scoped></style>
