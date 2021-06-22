@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar>
+    <v-app-bar style="background:#fed100">
       <v-toolbar-title>SHOP HIHI</v-toolbar-title>
       <v-spacer></v-spacer>
 
@@ -60,3 +60,4 @@ export default class Menu extends Vue {
 
 }
 </script>
+

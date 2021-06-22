@@ -1,15 +1,43 @@
 <template>
   <v-container>
-    <v-row align="center" justify="center">
-      <v-carousel >
-        <v-carousel-item
-          v-for="(item, i) in items"
-          :key="i"
-          :src="item.src"
-          reverse-transition="fade-transition"
-          transition="fade-transition"
-        ></v-carousel-item>
-      </v-carousel>
+    <v-row>
+      <v-col md="8">
+        <v-carousel height="425">
+          <v-carousel-item
+            v-for="(item, i) in items"
+            :key="i"
+            :src="item.src"
+            reverse-transition="fade-transition"
+            transition="fade-transition"
+          ></v-carousel-item>
+        </v-carousel>
+      </v-col>
+      <v-col md="4" style="padding: 12px 0 12px 12px">
+        <v-row>
+          <v-col md="6">
+            <v-card outlined>
+              <v-img :src="product.url"></v-img>
+            </v-card>
+          </v-col>
+          <v-col md="6">
+            <v-card outlined>
+              <v-img src="//cdn.tgdd.vn/2021/06/banner/bannerdt-340x340-2.jpg"></v-img>
+            </v-card>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col md="6">
+            <v-card outlined>
+              <v-img src="//cdn.tgdd.vn/2021/06/banner/laptopdesk-340x340.jpg"></v-img>
+            </v-card>
+          </v-col>
+          <v-col md="6">
+            <v-card outlined>
+              <v-img src="//cdn.tgdd.vn/2021/06/banner/─æie╠ú╠énthoaidesk-340x340.jpg"></v-img>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -36,21 +64,25 @@ export default class Header extends Vue {
 
   items = [
     {
-      src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+      src: "//cdn.tgdd.vn/2021/06/banner/hotsale-830-300-830x300-1.png",
     },
     {
-      src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",
+      src: "//cdn.tgdd.vn/2021/05/banner/euro-oppo-830-300-830x300.png",
     },
     {
-      src: "https://cdn.vuetifyjs.com/images/carousel/bird.jpg",
+      src: "//cdn.tgdd.vn/2021/06/banner/830-300-830x300-8.png",
     },
     {
-      src: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+      src: "//cdn.tgdd.vn/2021/06/banner/830-300-830x300-1.png",
     },
   ];
+  product = {
+    url: "//cdn.tgdd.vn/2021/06/banner/diệnthoaidesk-340x340-2.jpg",
+  };
 }
 </script>
 <style lang="sass" scoped>
 .container
-  padding: 50px 0 50px 0
-</style>>
+  max-width: 1300px
+  padding: 12px 12px 12px 0
+</style>

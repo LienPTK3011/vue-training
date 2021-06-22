@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
-
 export default new Vuex.Store({
   state: {
     forProduct: [
@@ -55,7 +54,7 @@ export default new Vuex.Store({
         detail: 'Đây là sản phẩm số 4'
       }
     ],
-    inCart: []
+    inCart: [],
   },
   getters: {
     forProduct: state => state.forProduct,
@@ -63,6 +62,7 @@ export default new Vuex.Store({
   },
   mutations: {
     ADD_TO_CART (state, id) {
+      //@ts-ignore
       state.inCart.push(id)
     },
     REMOVE_ITEM_CART (state, index) {

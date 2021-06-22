@@ -1,22 +1,22 @@
 <template>
   <v-app>
-    <Menu/>
+    <Menu />
     <v-main>
-      <router-view/>
+      <router-view />
     </v-main>
   </v-app>
 </template>
-
-<script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import Menu from './components/menu/Menu.vue';
+ <script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
+import Menu from "./components/menu/Menu.vue";
 @Component({
-  components:{
-    Menu
-  }
+  components: {
+    Menu,
+  },
 })
-export default class App extends Vue{
-
-}
+export default class App extends Vue {}
 </script>
+
+
+
