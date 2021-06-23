@@ -12,13 +12,16 @@
           <v-icon small left>fa-home</v-icon>
           Home
         </v-btn>
-        <v-btn to="/store" text>
+        <v-btn to="/store"  text>
           <v-icon small left>fa-shopping-basket</v-icon>
           Store
         </v-btn>
-        <v-btn to="/cart" text>
+        <v-btn to="/cart"  text>
           <v-icon small left>fa-shopping-cart</v-icon>
           Cart {{numberCart}}
+        </v-btn>
+        <v-btn to="/login" text>
+            Login
         </v-btn>
       </v-toolbar-items>
     </v-app-bar>
@@ -57,7 +60,6 @@ export default class Menu extends Vue {
   get numberCart():number{
     return this.$store.getters.inCart.length;
   }
-
 }
 </script>
 

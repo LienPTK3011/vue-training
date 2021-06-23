@@ -1,6 +1,7 @@
 <template>
     <div class="component">
         <h3>User Details</h3>
+        <p>Tên toi: {{customName}}</p>
         <p>Tuoi toi: {{customAge}}</p>
         <v-btn @click="restAge">rest</v-btn>
         <v-btn @click="testChangeAgefn()">Thử thay nào</v-btn>
@@ -15,6 +16,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 })
 export default class UserDetail extends Vue {
     @Prop() private customAge?:number;
+    @Prop() private customName?:string;
     @Prop() private testChangeAgefn?:Function;
     @Prop() private userAge?:number;
 

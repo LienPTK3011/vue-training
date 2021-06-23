@@ -1,8 +1,8 @@
 <template>
     <div class="component">
         <h3>Edit User</h3>
-        <p>Tuoi cua toi:{{userAge}} </p>
-        <button>Thay doi</button>
+        <p>Tên cua toi:{{userName}} </p>
+        <v-btn @click="changeName()">Thay doi</v-btn>
     </div>
 </template>
 
@@ -13,6 +13,10 @@ import { Component, Prop, Vue } from "vue-property-decorator";
   }
 })
 export default class UserEdit extends Vue {
-    @Prop() private userAge?: number;
+    @Prop() private userName?: string;
+    @Prop() private changeName?:Function;
+    editName(){
+        this.userName = "Dep trai qua";
+    }
 }
 </script>

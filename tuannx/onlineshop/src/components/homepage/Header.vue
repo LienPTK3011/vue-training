@@ -21,19 +21,25 @@
           </v-col>
           <v-col md="6">
             <v-card outlined>
-              <v-img src="//cdn.tgdd.vn/2021/06/banner/bannerdt-340x340-2.jpg"></v-img>
+              <v-img
+                src="//cdn.tgdd.vn/2021/06/banner/bannerdt-340x340-2.jpg"
+              ></v-img>
             </v-card>
           </v-col>
         </v-row>
         <v-row>
           <v-col md="6">
             <v-card outlined>
-              <v-img src="//cdn.tgdd.vn/2021/06/banner/laptopdesk-340x340.jpg"></v-img>
+              <v-img
+                src="//cdn.tgdd.vn/2021/06/banner/laptopdesk-340x340.jpg"
+              ></v-img>
             </v-card>
           </v-col>
           <v-col md="6">
             <v-card outlined>
-              <v-img src="//cdn.tgdd.vn/2021/06/banner/─æie╠ú╠énthoaidesk-340x340.jpg"></v-img>
+              <v-img
+                src="//cdn.tgdd.vn/2021/06/banner/─æie╠ú╠énthoaidesk-340x340.jpg"
+              ></v-img>
             </v-card>
           </v-col>
         </v-row>

@@ -26,7 +26,7 @@
                 class="ma-4"
                 @click="toggle"
               >
-                <v-img :src="product.url"></v-img>
+                <v-img :src="product.image" height="256"></v-img>
                 <v-card-title>{{ product.name }}</v-card-title>
                 <v-card-subtitle>${{ product.price }}</v-card-subtitle>
                 <v-card-actions>
@@ -64,7 +64,7 @@
     <v-row class="mx-auto banner">
       <v-col md="3" v-for="product in product" :key="product.id">
         <v-card outlined>
-          <v-img :src="product.url"></v-img>
+          <v-img :src="product.image" height="256"></v-img>
           <v-card-title>{{ product.name }}</v-card-title>
           <v-card-subtitle>${{ product.price }}</v-card-subtitle>
           <v-card-actions>
@@ -82,102 +82,32 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import ProductDetail from "../homepage/ProductDetail.vue";
+import ProductService from "@/service/ProductService";
+import Product from '@/product'
 @Component({
   components: {
     ProductDetail,
   },
 })
 export default class Carts extends Vue {
-  product = [
-    {
-      id: "0",
-      name: "Sp1",
-      price: 40,
-      url: "https://kenh14cdn.com/thumb_w/660/2020/9/15/11963801839296277670535927754525774287441377n-1600162022002149207466.jpg",
-      detail: "Đây là sản phẩm số 1",
-    },
-    {
-      id: "1",
-      name: "Sp2",
-      price: 60,
-      url: "https://kenh14cdn.com/thumb_w/660/2020/9/15/11963801839296277670535927754525774287441377n-1600162022002149207466.jpg",
-      detail: "Đây là sản phẩm số 2",
-    },
-    {
-      id: "2",
-      name: "Sp3",
-      price: 80,
-      url: "https://kenh14cdn.com/thumb_w/660/2020/9/15/11963801839296277670535927754525774287441377n-1600162022002149207466.jpg",
-      detail: "Đây là sản phẩm số 3",
-    },
-    {
-      id: "3",
-      name: "Sp4",
-      price: 10,
-      url: "https://kenh14cdn.com/thumb_w/660/2020/9/15/11963801839296277670535927754525774287441377n-1600162022002149207466.jpg",
-      detail: "Đây là sản phẩm số 4",
-    },
-    {
-      id: "4",
-      name: "Sp5",
-      price: 10,
-      url: "https://kenh14cdn.com/thumb_w/660/2020/9/15/11963801839296277670535927754525774287441377n-1600162022002149207466.jpg",
-      detail: "Đây là sản phẩm số 4",
-    },
-    {
-      id: "5",
-      name: "Sp6",
-      price: 10,
-      url: "https://kenh14cdn.com/thumb_w/660/2020/9/15/11963801839296277670535927754525774287441377n-1600162022002149207466.jpg",
-      detail: "Đây là sản phẩm số 4",
-    },
-    {
-      id: "6",
-      name: "Sp7",
-      price: 10,
-      url: "https://kenh14cdn.com/thumb_w/660/2020/9/15/11963801839296277670535927754525774287441377n-1600162022002149207466.jpg",
-      detail: "Đây là sản phẩm số 4",
-    },
-    {
-      id: "7",
-      name: "Sp8",
-      price: 10,
-      url: "https://kenh14cdn.com/thumb_w/660/2020/9/15/11963801839296277670535927754525774287441377n-1600162022002149207466.jpg",
-      detail: "Đây là sản phẩm số 4",
-    },
-    {
-      id: "8",
-      name: "Sp9",
-      price: 10,
-      url: "https://kenh14cdn.com/thumb_w/660/2020/9/15/11963801839296277670535927754525774287441377n-1600162022002149207466.jpg",
-      detail: "Đây là sản phẩm số 4",
-    },
-    {
-      id: "9",
-      name: "Sp10",
-      price: 10,
-      url: "https://kenh14cdn.com/thumb_w/660/2020/9/15/11963801839296277670535927754525774287441377n-1600162022002149207466.jpg",
-      detail: "Đây là sản phẩm số 4",
-    },
-    {
-      id: "10",
-      name: "Sp11",
-      price: 10,
-      url: "https://kenh14cdn.com/thumb_w/660/2020/9/15/11963801839296277670535927754525774287441377n-1600162022002149207466.jpg",
-      detail: "Đây là sản phẩm số 4",
-    },
-    {
-      id: "11",
-      name: "Sp12",
-      price: 10,
-      url: "https://kenh14cdn.com/thumb_w/660/2020/9/15/11963801839296277670535927754525774287441377n-1600162022002149207466.jpg",
-      detail: "Đây là sản phẩm số 4",
-    },
-  ];
+  private product=Product;
+   getAll() {
+    ProductService.getAll()
+      .then((response) => {
+        this.product = response.data;
+        console.log(response.data);
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  }
+  created(){
+    this.getAll();
+  }
 
   addToCart(id: any) {
     this.$store.dispatch("addToCart", id);
-    alert('Đã thêm vào giỏ hàng')
+    alert("Đã thêm vào giỏ hàng");
   }
 }
 </script>

@@ -7,14 +7,17 @@
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-6">
         <UserDetail 
-        :customAge="users.age" 
+        :customAge="users.age"
+        :customName="users.name"
         @changeAge="users.age=$event"
         :testChangeAgefn="testChangeAge"
         :userAge="users.age"
         ></UserDetail>
       </div>
       <div class="col-xs-12 col-sm-6 col-6">
-        <UserEdit :userAge="users.age"></UserEdit>
+        <UserEdit :userName="users.name"
+        :changeName="testChangeName"
+        ></UserEdit>
       </div>
     </div>
   </div>
@@ -42,6 +45,10 @@ export default class User extends Vue {
 
         testChangeAge(){
           this.users.age = 60;
+        }
+
+        testChangeName(){
+          this.users.name='dep trai qua'
         }
 }
 </script>

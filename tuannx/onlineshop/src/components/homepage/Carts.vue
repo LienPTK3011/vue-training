@@ -40,8 +40,8 @@
             <v-text-field label="Phone" />
             <v-text-field label="Address" />
 
-            <p style="color:red;font-size:20px">Total: ${{total}}</p>
-            <v-btn color="primary" > Checkout </v-btn>
+            <p style="color: red; font-size: 20px">Total: ${{ total }}</p>
+            <v-btn color="primary"> Checkout </v-btn>
           </v-card-text>
         </v-card>
       </v-col>
@@ -66,8 +66,8 @@ export default class Carts extends Vue {
     });
   }
 
-  get total():number{
-      return this.Cart.reduce((acc,cur)=>acc + cur.price,0)
+  get total(): number {
+    return this.Cart.reduce((acc, cur) => acc + cur.price, 0);
   }
   removeFromCart(id: any) {
     for (let i = 0; i < this.Cart.length; i++) {
@@ -80,9 +80,9 @@ export default class Carts extends Vue {
 </script>
 <style lang="sass" scoped>
 .v-card__text
-    div
-        padding: 10px
+  div
+    padding: 10px
     p
-        color: red
-        font-size:20px
+      color: red
+      font-size: 20px
 </style>
