@@ -49,7 +49,7 @@ export default class ProjectManager extends Vue {
   public onChange(data: any) {
     console.log(data);
 
-    // alert("Cha đã thấy con!")
+     alert("Cha đã thấy con!")
   }
 }
 </script>

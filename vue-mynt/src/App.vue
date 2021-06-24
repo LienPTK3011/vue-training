@@ -1,9 +1,11 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Project Managerment</router-link> |
-      <router-link to="/employeeList">Employee Managerment</router-link>|
-      <router-link to="/practice">Something else</router-link>
+      <router-link  to="/">Project Managerment</router-link> |
+      <router-link  to="/employeeList">Employee Managerment</router-link>|
+      <router-link to="/practice">Something else</router-link>|
+      <router-link to="/counter">Store</router-link>
+
     </div>
     <router-view/>
   </div>

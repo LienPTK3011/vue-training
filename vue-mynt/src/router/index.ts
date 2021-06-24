@@ -26,6 +26,12 @@ const routes: Array<RouteConfig> = [
     name: 'Practice',
     component: () => import('@/views/Practice.vue')
   },
+
+  {
+    path: '/counter',
+    name: 'AppCounter',
+    component: () => import('@/views/AppCounter.vue')
+  },
 ]
 
 const router = new VueRouter({

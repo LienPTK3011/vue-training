@@ -7,10 +7,10 @@
       <b-col></b-col>
       <b-col cols="8">
 
-
         <b-table hover :items="items"></b-table>
          <router-link to="/workList">Click here to view list work</router-link> 
-
+         <!-- <practice/>
+         <add-counter/> -->
          
       </b-col>
       <b-col></b-col>
@@ -23,10 +23,19 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
+import Practice from '@/views/Practice.vue'
+import AddCounter from '@/views/AppCounter.vue'
+
 @Component({
-  components: {},
+  components: {
+    // Practice,
+    // AddCounter
+  },
 })
 export default class ListEmployee extends Vue {
+
+   
+
   public items: Array<any> = [
     {
       id: 1,

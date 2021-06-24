@@ -4,10 +4,10 @@
     <button @click="$emit('toParent', 'Phát đi thông báo')">
       Emit
     </button>
-    <v-row>
-      <v-col xl="2" v-for="project in listProject" v-bind:key="project.id">
-        <v-card class="mx-auto">
-          <v-card-text>
+    <b-row>
+      <b-col xl="2" v-for="project in listProject" v-bind:key="project.id">
+        <b-card class="mx-auto">
+          <b-card>
             <h1 class="project-title">
               {{ project.projectName }}
               <span class="project-important" v-show="project.important"
@@ -19,10 +19,10 @@
               <p class="bold">Teamsize: {{ project.teamSize }}</p>
               <p class="bold">Client: {{ project.client }}</p>
             </div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
+          </b-card>
+        </b-card>
+      </b-col>
+    </b-row>
   </div>
 </template>
 

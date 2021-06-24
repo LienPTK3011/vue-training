@@ -17,12 +17,31 @@
       </p>
       <p>{{ answer }}</p>
     </div>
+    <hr />
+
+    <!-- Directives -->
+    <div>
+      <p v-rainbow><b>Reload to change color</b></p>
+      <p v-rainbow><b>The color will change went you reload page</b></p>
+    </div>
+
+    <hr />
+    <p><b>EventBus</b></p>
+
+    <!-- eventbus -->
+    <b-button
+      variant="success"
+      @click="emitGlobalClickEvent()"
+      style="margin-right: 50px"
+      >Click me</b-button
+    >
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import WorkServirce from "@/services/WorkServices";
+import EventBus from "@/eventBus/EventBus";
 
 @Component({
   components: {},
@@ -34,8 +53,9 @@ export default class Practice extends Vue {
   private question: string = "";
   private answer: string = "Không thể trả lời khi chưa có câu hỏi?";
 
+
+
   get messagesComputed() {
-    console.log("computed");
 
     return this.message.trim().toUpperCase();
   }
@@ -60,7 +80,6 @@ export default class Practice extends Vue {
 
   @Watch("question")
   private checkQuestion() {
-    console.log("watch");
 
     this.answer = "Đang chờ bạn đặt câu hỏi.....";
     this.getAnswer();
@@ -76,5 +95,11 @@ export default class Practice extends Vue {
       });
     }
   }
+
+    private emitGlobalClickEvent() {
+      debugger
+     EventBus.$emit("hello", "I hear you");
+  }
+
 }
 </script>
