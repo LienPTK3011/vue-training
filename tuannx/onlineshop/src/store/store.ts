@@ -1,33 +1,81 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Product from '@/product'
-
+import axios from 'axios'
 Vue.use(Vuex)
+
 export default new Vuex.Store({
   state: {
-   forProduct:Product,
-    inCart: []
-  },
-  getters: {
-    forProduct: state => state.forProduct,
-    inCart: state => state.inCart
+    products: [],
+    cart: []
   },
   mutations: {
-    ADD_TO_CART (state, id) {
-      //@ts-ignore
-      state.inCart.push(id)
+    SET_PRODUCT (state, products) {
+      state.products = products
     },
-    REMOVE_ITEM_CART (state, index) {
-      state.inCart.splice(index, 1)
+    SET_PRODUCT_ID (state, product) {
+      state.products = product
+    },
+    ADD_TO_CART (state, { product, qty }) {
+      const productInCart = state.cart.find(item => {
+        //@ts-ignore
+        return item.product.id === product.id
+      })
+      if (productInCart) {
+        //@ts-ignore
+        productInCart.qty += qty
+        return
+      }
+      state.cart.push({
+        //@ts-ignore
+        product,
+        //@ts-ignore
+        qty
+      })
+    },
+    DELETE_PRODUCT_IN_CART(state,productId){
+      for(let i=0;i<state.cart.length;i++){
+        //@ts-ignore
+        if(state.cart[i].product.id === productId){
+            state.cart.splice(state.cart[i],1)
+        }
+      }
     }
   },
   actions: {
-     addToCart (context, id) {
-       context.commit('ADD_TO_CART', id)
-     },
-    removeFromCart (context, id) {
-      context.commit('REMOVE_ITEM_CART', id)
+    addTodo ({ commit }, newTodo) {
+      commit('ADD_TODO', newTodo)
+    },
+    deleteTodo ({ commit }, todo) {
+      commit('DELETE_TODO', todo)
+    },
+    getAllProduct ({ commit }) {
+      axios.get('http://localhost:8993/api/client/getAllProduct').then(res => {
+        commit('SET_PRODUCT', res.data)
+      })
+    },
+    getById ({ commit }, productId) {
+      axios
+        .get(`http://localhost:8993/api/client/getById/${productId}`)
+        .then(res => {
+          commit('SET_PRODUCT_ID', res.data)
+        })
+    },
+    addToCart ({ commit }, { product, qty }) {
+      commit('ADD_TO_CART', { product, qty })
+    },
+    removeFromCart({commit},productId){
+      commit('DELETE_PRODUCT_IN_CART', productId)
     }
   },
-  modules: {}
+  modules: {},
+  getters: {
+    cartTotal (state) {
+      let total = 0
+      state.cart.forEach(item => {
+        //@ts-ignore
+        total += item.product.price * item.qty
+      })
+      return total
+    }
+  }
 })

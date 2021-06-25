@@ -14,32 +14,9 @@
       </v-col>
       <v-col md="4" style="padding: 12px 0 12px 12px">
         <v-row>
-          <v-col md="6">
+          <v-col md="6" v-for="product in product" :key="product.url">
             <v-card outlined>
               <v-img :src="product.url"></v-img>
-            </v-card>
-          </v-col>
-          <v-col md="6">
-            <v-card outlined>
-              <v-img
-                src="//cdn.tgdd.vn/2021/06/banner/bannerdt-340x340-2.jpg"
-              ></v-img>
-            </v-card>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col md="6">
-            <v-card outlined>
-              <v-img
-                src="//cdn.tgdd.vn/2021/06/banner/laptopdesk-340x340.jpg"
-              ></v-img>
-            </v-card>
-          </v-col>
-          <v-col md="6">
-            <v-card outlined>
-              <v-img
-                src="//cdn.tgdd.vn/2021/06/banner/─æie╠ú╠énthoaidesk-340x340.jpg"
-              ></v-img>
             </v-card>
           </v-col>
         </v-row>
@@ -82,9 +59,20 @@ export default class Header extends Vue {
       src: "//cdn.tgdd.vn/2021/06/banner/830-300-830x300-1.png",
     },
   ];
-  product = {
-    url: "//cdn.tgdd.vn/2021/06/banner/diệnthoaidesk-340x340-2.jpg",
-  };
+  product = [
+    {
+      url: "//cdn.tgdd.vn/2021/06/banner/diệnthoaidesk-340x340-2.jpg",
+    },
+    {
+      url: "//cdn.tgdd.vn/2021/06/banner/bannerdt-340x340-2.jpg",
+    },
+    {
+      url: "//cdn.tgdd.vn/2021/06/banner/laptopdesk-340x340.jpg",
+    },
+    {
+      url: "//cdn.tgdd.vn/2021/06/banner/─æie╠ú╠énthoaidesk-340x340.jpg",
+    },
+  ];
 }
 </script>
 <style lang="sass" scoped>

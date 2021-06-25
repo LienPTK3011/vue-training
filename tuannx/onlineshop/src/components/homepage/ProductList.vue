@@ -11,69 +11,22 @@
       <v-sheet class="mx-auto" elevation="8" max-width="1300">
         <p class="title">Sản phẩm bán chạy</p>
         <v-slide-group class="pa-4" multiple show-arrows>
-          <v-slide-item
-            v-for="product in product"
-            :key="product.id"
-            v-slot="{ toggle }"
-          >
-            <v-hover v-slot="{ hover }" open-delay="200">
-              <v-card
-                outlined
-                :elevation="hover ? 16 : 2"
-                :class="{ 'on-hover': hover }"
-                height="410"
-                width="260"
-                class="ma-4"
-                @click="toggle"
-              >
-                <v-img :src="product.image" height="256"></v-img>
-                <v-card-title>{{ product.name }}</v-card-title>
-                <v-card-subtitle>${{ product.price }}</v-card-subtitle>
-                <v-card-actions>
-                  <v-btn outlined @click="addToCart(product.id)">
-                    <v-icon left small>fa-plus</v-icon>
-                    Add to cart
-                  </v-btn>
-                  <ProductDetail :product="product" />
-                </v-card-actions>
-              </v-card>
-            </v-hover>
+          <v-slide-item v-for="product in products" :key="product.id">
+            <ProductCard :product="product" />
           </v-slide-item>
         </v-slide-group>
       </v-sheet>
     </v-row>
     <v-row class="mx-auto banner">
-      <v-col md="4">
+      <v-col md="4" v-for="item in item" :key="item.url">
         <v-card>
-          <v-img
-            src="//cdn.tgdd.vn/2021/06/banner/samsung-390-210-390x210-2.png"
-          ></v-img>
-        </v-card>
-      </v-col>
-      <v-col md="4">
-        <v-card>
-          <v-img src="//cdn.tgdd.vn/2021/06/banner/DT-390x210-2.png"></v-img>
-        </v-card>
-      </v-col>
-      <v-col md="4">
-        <v-card>
-          <v-img src="//cdn.tgdd.vn/2021/06/banner/Laptop-390x210.png"></v-img>
+          <v-img :src="item.url"></v-img>
         </v-card>
       </v-col>
     </v-row>
     <v-row class="mx-auto banner">
-      <v-col md="3" v-for="product in product" :key="product.id">
-        <v-card outlined>
-          <v-img :src="product.image" height="256"></v-img>
-          <v-card-title>{{ product.name }}</v-card-title>
-          <v-card-subtitle>${{ product.price }}</v-card-subtitle>
-          <v-card-actions>
-            <v-btn outlined @click="addToCart(product.id)">
-              <v-icon left small>fa-plus</v-icon>
-              Add to cart
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+      <v-col md="3" v-for="product in products" :key="product.id">
+        <ProductCard :product="product" />
       </v-col>
     </v-row>
   </div>
@@ -82,33 +35,40 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import ProductDetail from "../homepage/ProductDetail.vue";
-import ProductService from "@/service/ProductService";
-import Product from '@/product'
+import ProductCard from "./ProductCard.vue";
 @Component({
   components: {
     ProductDetail,
+    ProductCard,
   },
 })
 export default class Carts extends Vue {
-  private product=Product;
-   getAll() {
-    ProductService.getAll()
-      .then((response) => {
-        this.product = response.data;
-        console.log(response.data);
-      })
-      .catch((errors) => {
-        console.log(errors);
-      });
+  mounted() {
+    this.$store.dispatch("getAllProduct");
   }
-  created(){
-    this.getAll();
+  get products() {
+    // lấy ra products trong state
+    return this.$store.state.products;
   }
-
-  addToCart(id: any) {
-    this.$store.dispatch("addToCart", id);
-    alert("Đã thêm vào giỏ hàng");
+  get numberCart() {
+    // lấy ra cart trong state
+    return this.$store.state.cart.length;
   }
+  get totalCart() {
+    //lấy toatlCarts trong getters
+    return this.$store.getters.cartTotal;
+  }
+  item = [
+    {
+      url: "//cdn.tgdd.vn/2021/06/banner/samsung-390-210-390x210-2.png",
+    },
+    {
+      url: "//cdn.tgdd.vn/2021/06/banner/DT-390x210-2.png",
+    },
+    {
+      url: "//cdn.tgdd.vn/2021/06/banner/Laptop-390x210.png",
+    },
+  ];
 }
 </script>
 <style lang="sass" scoped>

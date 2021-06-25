@@ -16,7 +16,7 @@ import com.example.api.dto.SearchDto;
 import com.example.api.service.ProductService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/client")
 @CrossOrigin("http://localhost:8080")
 public class ProductRestController {
 	@Autowired

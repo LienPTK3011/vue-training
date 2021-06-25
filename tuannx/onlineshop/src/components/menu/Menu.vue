@@ -18,7 +18,7 @@
         </v-btn>
         <v-btn to="/cart"  text>
           <v-icon small left>fa-shopping-cart</v-icon>
-          Cart {{numberCart}}
+           Cart {{numberCart}} 
         </v-btn>
         <v-btn to="/login" text>
             Login
@@ -51,15 +51,16 @@ import Component from "vue-class-component";
 @Component
 export default class Menu extends Vue {
   private drawer = false;
+  private check = false;
   item = [
     { title: "Home", link: "/", icon: "home" },
     { title: "Store", link: "store", icon: "shopping-basket" },
     { title: "Cart", link: "cart", icon: "shopping-cart" },
   ];
 
-  get numberCart():number{
-    return this.$store.getters.inCart.length;
-  }
+   get numberCart(){
+     return this.$store.state.cart.length;
+   }
 }
 </script>
 

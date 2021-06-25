@@ -12,13 +12,19 @@
               >
                 <v-row>
                   <v-col md="4"
-                    ><v-img :src="product.url" height="100%"></v-img
+                    ><v-img :src="product.product.image" height="100%"></v-img
                   ></v-col>
                   <v-col md="8">
-                    <v-card-title>{{ product.name }}</v-card-title>
-                    <v-card-subtitle>${{ product.price }}</v-card-subtitle>
+                    <v-card-title>{{ product.product.name }}</v-card-title>
+                    <v-card-subtitle
+                      >${{ product.product.price }}</v-card-subtitle
+                    >
+                    <v-card-subtitle>{{ product.qty }}</v-card-subtitle>
                     <v-card-actions>
-                      <v-btn color="red" @click="removeFromCart(product.id)">
+                      <v-btn
+                        color="red"
+                        @click="removeFromCart(product.product.id)"
+                      >
                         <v-icon left>mdi-delete</v-icon>
                         Delete
                       </v-btn>
@@ -55,26 +61,15 @@ import Component from "vue-class-component";
 
 @Component
 export default class Carts extends Vue {
-  get inCart(): Object {
-    return this.$store.getters.inCart;
+  get Cart() {
+    return this.$store.state.cart;
   }
-  get Cart(): Array<any> {
-    return this.$store.getters.inCart.map((cartItem: any) => {
-      return this.$store.getters.forProduct.find((forProductItem: any) => {
-        return cartItem === forProductItem.id;
-      });
-    });
-  }
-
-  get total(): number {
-    return this.Cart.reduce((acc, cur) => acc + cur.price, 0);
+  get total() {
+    return this.$store.getters.cartTotal;
   }
   removeFromCart(id: any) {
-    for (let i = 0; i < this.Cart.length; i++) {
-      if (this.Cart[i].id === id) {
-        this.$store.dispatch("removeFromCart", i);
-      }
-    }
+    this.$store.dispatch("removeFromCart", id);
+    console.log("xóa",id);
   }
 }
 </script>
