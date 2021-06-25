@@ -2,6 +2,7 @@
   <div id="app">
     <componentsHeader />
     <div id="nav">
+      <img alt="" src="https://tocotocotea.com/wp-content/uploads/2021/04/Logo-ngang-01.png" width="50%">
       <router-link to="/">Home </router-link> |
       <router-link to="/about">About </router-link>|
       <router-link to="/QA">Q&A </router-link>
@@ -37,14 +38,24 @@ export default  {
 
 #nav {
   padding: 30px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 25%;
+  margin: 0 auto;
 
   a {
     font-weight: bold;
     color: #2c3e50;
+    padding: 0 10px;
+    text-align: center;
 
     &.router-link-exact-active {
       color: #42b983;
+      border-bottom: 2px solid #42b983;
     }
   }
+  
 }
+
 </style>

@@ -11,8 +11,7 @@ export default {
     name: 'comp-header',
     data() {
         return {
-            text: 'Header'
-            
+            text: ''
         }
     }
 }

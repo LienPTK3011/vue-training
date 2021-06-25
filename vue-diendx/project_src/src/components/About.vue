@@ -1,65 +1,66 @@
 <template>
-    <div class="wrap">
-        <div class="box">
-            <div class="box-top">
-            <img class="box-image" src="https://tocotocotea.com/wp-content/uploads/2021/05/sua-chua-dau-tam-hoang-kim.png" alt="Girl Eating Pizza">
-            <div class="title-flex">
-                <h3 class="box-title">Sữa Chua Dâu Tằm Hoàng Kim  </h3>
-                <p class="user-follow-info">17 Coin</p>
+    <div class="home-conten">
+        <div class="wrap">
+            <div class="box">
+                <div class="box-top">
+                <img class="box-image" src="https://tocotocotea.com/wp-content/uploads/2021/05/sua-chua-dau-tam-hoang-kim.png" alt="Girl Eating Pizza">
+                <div class="title-flex">
+                    <h3 class="box-title">Sữa Chua Dâu Tằm Hoàng Kim  </h3>
+                    <p class="user-follow-info">17 Coin</p>
+                </div>
+                <p class="description">Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+                </div>
+                <router-link :to="{name: 'order', params: { id:counter }}" class="button">Order</router-link>
             </div>
-            <p class="description">Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+            <div class="box">
+                <div class="box-top">
+                <img class="box-image" src="https://tocotocotea.com/wp-content/uploads/2021/05/sua-chua-dau-tam-hat-de-.png" alt="Girl Eating Pizza">
+                <div class="title-flex">
+                    <h3 class="box-title">Sữa Chua Dâu Tằm Hạt Dẻ *</h3>
+                    <p class="user-follow-info">33 Coin</p>
+                </div>
+                <p class="description">Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+                </div>
+                <router-link :to="{name: 'order101', params: { id:counter }}" class="button">Order</router-link>
             </div>
-            <router-link :to="{name: 'order', params: { id:counter }}" class="button">Order</router-link>
-        </div>
-        <div class="box">
-            <div class="box-top">
-            <img class="box-image" src="https://tocotocotea.com/wp-content/uploads/2021/05/sua-chua-dau-tam-hat-de-.png" alt="Girl Eating Pizza">
-            <div class="title-flex">
-                <h3 class="box-title">Sữa Chua Dâu Tằm Hạt Dẻ *</h3>
-                <p class="user-follow-info">33 Coin</p>
+            <div class="box">
+                <div class="box-top">
+                <img class="box-image" src="https://tocotocotea.com/wp-content/uploads/2021/01/ezgif.com-gif-maker-1.jpg" alt="Girl Eating Pizza">
+                <div class="title-flex">
+                    <h3 class="box-title">Sữa Chua Trắng *</h3>
+                    <br>
+                    <p class="user-follow-info">26 Coin</p>
+                </div>
+                <p class="description">Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+                </div>
+                <router-link :to="{name: 'order202', params: { id:counter }}" class="button">Order</router-link>
             </div>
-            <p class="description">Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+            <div class="box">
+                <div class="box-top">
+                <img class="box-image" src="https://tocotocotea.com/wp-content/uploads/2021/01/ezgif.com-gif-maker-1.jpg" alt="Girl Eating Pizza">
+                <div class="title-flex">
+                    <h3 class="box-title">Chanh Leo Trân Châu Sương Mai</h3>
+                    <p class="user-follow-info">12 Coin</p>
+                </div>
+                <p class="description">Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+                </div>
+                <router-link :to="{name: 'order202', params: { id:counter }}" class="button">Order</router-link>
             </div>
-            <router-link :to="{name: 'order101', params: { id:counter }}" class="button">Order</router-link>
-        </div>
-        <div class="box">
-            <div class="box-top">
-            <img class="box-image" src="https://tocotocotea.com/wp-content/uploads/2021/01/ezgif.com-gif-maker-1.jpg" alt="Girl Eating Pizza">
-            <div class="title-flex">
-                <h3 class="box-title">Sữa Chua Trắng *</h3>
-                <br>
-                <p class="user-follow-info">26 Coin</p>
-            </div>
-            <p class="description">Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
-            </div>
-            <router-link :to="{name: 'order202', params: { id:counter }}" class="button">Order</router-link>
-        </div>
-        <div class="box">
-            <div class="box-top">
-            <img class="box-image" src="https://tocotocotea.com/wp-content/uploads/2021/01/ezgif.com-gif-maker-1.jpg" alt="Girl Eating Pizza">
-            <div class="title-flex">
-                <h3 class="box-title">Chanh Leo Trân Châu Sương Mai</h3>
-                <p class="user-follow-info">12 Coin</p>
-            </div>
-            <p class="description">Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
-            </div>
-            <router-link :to="{name: 'order202', params: { id:counter }}" class="button">Order</router-link>
-        </div>
-        <!-- <button> <router-link to="/add">ADD</router-link> </button>  -->
-        
-        <div id="app">
-            <div v-for="(cat,index) in cats" :key="index" class="cat-infor">
-                <h2> {{cat}}</h2> <p> <button @click="removeCat(index)">Remo</button> </p>
-            </div>
+            <!-- <button> <router-link to="/add">ADD</router-link> </button>  -->
             
-            <div v-for="(cat,n) in cats" :key="n">
+            <div id="app">
+                <div v-for="(cat,index) in cats" :key="index" class="cat-infor">
+                    <h2> {{cat}}</h2> <p> <button @click="removeCat(index)">Remo</button> </p>
+                </div>
+                
+                <div v-for="(cat,n) in cats" :key="n">
+                </div>
+
+                <p>
+                    <input v-model="newCat"> 
+                    <button @click="addCat">Add nha</button>
+                </p>
             </div>
-
-            <p>
-                <input v-model="newCat"> 
-                <button @click="addCat">Add nha</button>
-
-            </p>
         </div>
     </div>
 </template>
@@ -73,8 +74,8 @@ export default {
     data () {
         return {
             cats: [],
-        newCat: null, 
-        counter:  '234'
+            newCat: null, 
+            counter:  '234'
         }
     },
     mounted() {
@@ -90,7 +91,7 @@ export default {
         methods: {
             addCat() {
                 console.log(this.newCat); 
-                this.cats.push(this.newCat)
+                this.cats.push(this.newCat);
             },
             removeCat(x) {
                 this.cats.splice(x,1);
@@ -205,6 +206,12 @@ box-shadow: 0px 0px 0px 1px black inset;
 .button:hover {
 background: var(--accent);
 }
+.home-bg {
+    background: url(../assets/ms_banner_img1.jpg);
+    width: 100%;
+    height: 90vh;
+    background-size: cover;
+}
 
 /* MEDIA QUERIES */
 
@@ -280,8 +287,8 @@ background: var(--accent);
 }
 }
 .cat {
-  width: 100px;
-  display: inline-block;
+    width: 100px;
+    display: inline-block;
 }
 
 
