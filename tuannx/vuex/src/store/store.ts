@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     products: [],
-    cart: []
+    cart: [],
   },
   mutations: {
     SET_PRODUCT (state, products) {
@@ -32,11 +32,11 @@ export default new Vuex.Store({
         qty
       })
     },
-    DELETE_PRODUCT_IN_CART(state,productId){
-      for(let i=0;i<state.cart.length;i++){
+    DELETE_PRODUCT_IN_CART (state, productId) {
+      for (let i = 0; i < state.cart.length; i++) {
         //@ts-ignore
-        if(state.cart[i].product.id === productId){
-            state.cart.splice(state.cart[i],1)
+        if (state.cart[i].product.id === productId) {
+          state.cart.splice(state.cart[i], 1)
         }
       }
     }
@@ -63,7 +63,7 @@ export default new Vuex.Store({
     addToCart ({ commit }, { product, qty }) {
       commit('ADD_TO_CART', { product, qty })
     },
-    removeFromCart({commit},productId){
+    removeFromCart ({ commit }, productId) {
       commit('DELETE_PRODUCT_IN_CART', productId)
     }
   },

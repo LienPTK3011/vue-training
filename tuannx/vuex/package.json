@@ -1,5 +1,5 @@
 {
-  "name": "onlineshop",
+  "name": "vuex",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -14,8 +14,8 @@
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^9.1.2",
-    "vue-router": "^3.5.1",
-    "vuetify": "^2.5.4",
+    "vue-router": "^3.2.0",
+    "vuetify": "^2.4.0",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
@@ -31,15 +31,12 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "font-awesome": "^4.7.0",
     "sass": "~1.32.0",
     "sass-loader": "^10.0.0",
     "typescript": "~4.1.5",
     "vue-cli-plugin-vuetify": "^2.4.1",
     "vue-template-compiler": "^2.6.11",
-    "vuetify-loader": "^1.7.0",
-    "vuex-class": "^0.3.2",
-    "vuex-module-decorators": "^1.0.1"
+    "vuetify-loader": "^1.7.0"
   },
   "eslintConfig": {
     "root": true,

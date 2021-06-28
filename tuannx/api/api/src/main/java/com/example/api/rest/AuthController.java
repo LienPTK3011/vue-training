@@ -31,7 +31,7 @@ import com.example.api.repository.RoleRepository;
 import com.example.api.security.jwt.JwtUtils;
 import com.example.api.security.service.UserDetailsImpl;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin("http://localhost:8082")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

@@ -1,4 +1,4 @@
-# onlineshop
+# vuex
 
 ## Project setup
 ```
