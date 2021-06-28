@@ -31,7 +31,7 @@ import com.example.api.repository.RoleRepository;
 import com.example.api.security.jwt.JwtUtils;
 import com.example.api.security.service.UserDetailsImpl;
 
-@CrossOrigin("http://localhost:8082")
+@CrossOrigin("http://localhost:8080")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

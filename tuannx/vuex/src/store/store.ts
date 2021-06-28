@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     products: [],
     cart: [],
+    user:{},
   },
   mutations: {
     SET_PRODUCT (state, products) {
@@ -39,6 +40,12 @@ export default new Vuex.Store({
           state.cart.splice(state.cart[i], 1)
         }
       }
+    },
+    Login(state,user){
+      state.user = user;
+    },
+    deletetest(state){
+      state.user={};
     }
   },
   actions: {
@@ -65,6 +72,14 @@ export default new Vuex.Store({
     },
     removeFromCart ({ commit }, productId) {
       commit('DELETE_PRODUCT_IN_CART', productId)
+    },
+    submit({commit},user){
+      axios.post('http://localhost:8993/api/auth/signin', user).then(res=>{
+        commit('Login',res.data);
+      })
+    },
+    clear({commit}){
+      commit('deletetest')
     }
   },
   modules: {},
@@ -76,6 +91,11 @@ export default new Vuex.Store({
         total += item.product.price * item.qty
       })
       return total
+    },
+
+    local(){
+     return localStorage.getItem('token')
     }
-  }
+  },
+  
 })

@@ -17,7 +17,7 @@ import com.example.api.service.ProductService;
 
 @RestController
 @RequestMapping("/api/client")
-@CrossOrigin("http://localhost:8082")
+@CrossOrigin("http://localhost:8080")
 public class ProductRestController {
 	@Autowired
 	private ProductService productService;

@@ -2,6 +2,7 @@
     <div>
         <Header/>
         <ProductList/>
+        <p>{{user}}</p>
     </div>
 </template>
 <script lang="ts">
@@ -16,6 +17,9 @@ import ProductList from '../homepage/ProductList.vue'
     }
 })
 export default class Home extends Vue{
+    get user(){
+        return this.$store.state.user;
+    }
 
 }
 </script>

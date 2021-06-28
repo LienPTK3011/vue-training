@@ -5,7 +5,7 @@
         <h1>Welcome to my Project Vuejs Tranning</h1>
       </v-col>
       <v-col md="4" class="right">
-        <h2>Login</h2>
+        <h2>Sign Up</h2>
         <ValidationObserver ref="observer">
           <v-form @submit.prevent="submit">
             <ValidationProvider
@@ -18,6 +18,22 @@
                 v-model="username"
                 :counter="15"
                 label="UserName"
+                outlined
+                dense
+                filled
+                required
+              ></v-text-field>
+            </ValidationProvider>
+            <ValidationProvider
+              name="Email"
+              rules="required"
+              v-slot="{ errors }"
+            >
+              <v-text-field
+                v-model="email"
+                :error-messages="errors"
+                :counter="25"
+                label="Email"
                 outlined
                 dense
                 filled
@@ -43,16 +59,10 @@
               ></v-text-field>
             </ValidationProvider>
             <div class="text-center">
-              <v-btn
-                class="signin-btn"
-                type="submit"
-                rounded
-                color="white"
-                style="margin-right: 20px"
-              >
-                Login
+              <v-btn class="signin-btn" type="submit" rounded color="white" style="margin-right:20px">
+                Sign Up
               </v-btn>
-              <v-btn class="signin-btn" rounded color="white" @click="clear">
+               <v-btn class="signin-btn" rounded color="white" @click="clear">
                 Clear
               </v-btn>
             </div>
@@ -84,71 +94,71 @@ extend("email", {
     ValidationProvider,
   },
 })
-export default class Login extends Vue {
+export default class SignUp extends Vue {
   private showPass = false;
   private username = "";
+  private email = "";
   private password = "";
+  private roles = 1;
   private data = {};
   private message = "";
-  private check = 0;
-  async submit() {
+  submit() {
     this.data = {
       username: this.username,
       password: this.password,
+      email: this.email,
+      roles: this.roles,
     };
-     await axios
-      .post("http://localhost:8993/api/auth/signin", this.data)
+    axios
+      .post("http://localhost:8993/api/auth/signup", this.data)
       .then((res) => {
-        this.message = "Đăng nhập thành công";
-        localStorage.setItem('username',res.data.username)
-        localStorage.setItem('token',JSON.stringify(res.data))
-        this.$router.push("/");
-        return res.data;
+        this.message = res.data.message;
       })
       .catch((err) => {
-        console.log(err);
-        this.message = "Tài khoản hoặc mật khẩu không đúng";
+        this.message = err.response.data.message;
       });
-    this.$store.dispatch("submit", this.data);
   }
   clear() {
     this.username = "";
     this.password = "";
+    this.email = "";
     this.message = "";
   }
 }
 </script>
 <style lang="sass">
 .section-container
-    padding: 20px
-    margin: 20px
-    background: #fff
-    width: 100%
-    box-sizing: border-box
+  padding: 20px
+  margin: 20px
+  background: #fff
+  width: 100%
+  box-sizing: border-box
 .signin
-    padding: 0
-    max-width: 1200px
-    margin: 0 auto
-    min-height: 600px
-    box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1)
+  padding: 0
+  max-width: 1200px
+  margin: 0 auto
+  min-height: 600px
+  box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1)
 .left
-    padding: 30px
-    justify-content: center
-    align-items: center
-    box-sizing: border-box
-    display: flex
-    color: #fed100
-    background-color: #f9f9f9
+  padding: 30px
+  justify-content: center
+  align-items: center
+  box-sizing: border-box
+  display: flex
+  color: #fed100
+  background-color: #f9f9f9
 .right
-    padding: 30px
-    box-sizing: border-box
-    background: #fed100
-    color: #fff
+  padding: 30px
+  box-sizing: border-box
+  background: #fed100
+  color: #fff
 h2
-    text-align: center
-    margin: 30px 0
+  text-align: center
+  margin: 30px 0
 
 .mess
-    color: red
-    margin-top: 10px
+  color: red
+  margin-top: 10px
+    
+    
 </style>
